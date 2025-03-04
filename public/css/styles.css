@@ -18,7 +18,7 @@
     align-items: center;
     padding: 8px 9%;
     background: white;
-    font-size: 15px;
+    font-size: 16px;
     font-family: Gabarito;
     border-bottom: 1px solid #E32C89 ;
     width: 100%;
@@ -26,7 +26,7 @@
     top: 0;
     left: 0;
     z-index: 1100;
-    height: 40px; 
+    height: 65px; 
 }
 
 .top-header .left {
@@ -44,7 +44,7 @@
     align-items: center;
     justify-content: center;
     text-decoration: none;
-    font-size: 14px;
+    font-size: 15px;
     font-family: Gabarito;
 }
 
@@ -58,7 +58,7 @@
     color: black;
     text-decoration: none;
     font-family: Gabarito;
-    font-size: 14px;
+    font-size: 15px;
 }
 
 .top-header .login {
@@ -85,7 +85,7 @@ section{
 
 header {
     position: fixed;
-    top: 40px; /* Pushed below .top-header */
+    top: 60px; 
     left: 0;
     right: 0;
     background: white;
@@ -94,7 +94,7 @@ header {
     align-items: center;
     justify-content: space-between;
     z-index: 1000;
-    height: 80px; /* Set a consistent height */
+    height: 80px; 
 }
 
 header .logo{
@@ -107,6 +107,8 @@ header .navbar a{
     font-size: 2rem;
     padding: 0 1.5rem;
     color: #000000;
+    
+    
 }
 
 header .navbar a:hover{
@@ -115,10 +117,51 @@ header .navbar a:hover{
 }
 
 header .icons a{
+    display: flex;
     font-size: 2rem;
     color: #E32C89;
     margin-left: 1.5rem;
+    align-items: center;
+    
 
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px; 
+}
+
+header .search-bar{
+    display: flex;
+    align-items: center;
+    border: 2px solid #E32C89;
+    border-radius: 20px;
+    padding: 1px 10px;
+    width: 250px;
+    background: white;
+    
+}
+
+header .search-bar input{
+    border: none;
+    outline: none;
+    font-size: 1.5rem;
+    padding: 5px;
+    flex: 1;
+    color: black;
+}
+
+header .search-bar input::placeholder {
+    color: gray;
+}
+
+header .search-bar button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.8rem;
+    color: #E32C89;
 }
 
 header .icons a:hover{
@@ -246,13 +289,15 @@ header .fa-bars{
     min-height: 100vh;
     left: 15%;
     overflow: hidden;
+    top: 50px;
     position: relative;
     justify-content: center;
+    
 }
 
 .home .img-wrapper > div{
-    width: 80%;
-    height: 75%;
+    width: 70%;
+    height: 65%;
     position: absolute;
     animation: animate 25s infinite;
     opacity: 0;
@@ -261,6 +306,7 @@ header .fa-bars{
     background-position: center;
     border-radius: 30px;
     overflow: hidden;
+    
 }
 
 .home .img-wrapper > div:first-child {

@@ -44,11 +44,16 @@
         <a href="#aboutus">About Us</a>
     </nav>
 
-    <div class="icons">
-        <a href="#" class="fas fa-magnifying-glass"></a>
-        <a href="#" class="fas fa-user"></a>
-        <a href="#" class="fas fa-shopping-cart"></a>
+    <div class="header-right"> 
+        <div class="search-bar">
+            <input type="text" placeholder="Search...">
+            <button><i class="fas fa-search"></i></button>
+        </div>
+        <div class="icons">
+            <a href="#" class="fas fa-shopping-cart"></a>
+        </div>
     </div>
+
 
 </header>
 
