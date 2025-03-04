@@ -1,0 +1,381 @@
+.root{
+    --pink: #E32C89 ;
+}
+
+*{
+    margin: 0; padding: 0;
+    box-sizing: border-box;
+    font-family: Gabarito;
+    outline: none; border: none;
+    text-decoration: none;
+    text-transform: capitalize;
+    transition: .2s linear;
+}
+
+.top-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 9%;
+    background: white;
+    font-size: 15px;
+    font-family: Gabarito;
+    border-bottom: 1px solid #E32C89 ;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1100;
+    height: 40px; 
+}
+
+.top-header .left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.top-header .left a {
+    color: #fff;
+    background: #E32C89;
+    padding: 5px 8px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 14px;
+    font-family: Gabarito;
+}
+
+.top-header .right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.top-header .signup {
+    color: black;
+    text-decoration: none;
+    font-family: Gabarito;
+    font-size: 14px;
+}
+
+.top-header .login {
+    background: #E32C89;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-family: Gabarito;
+}
+
+
+html {
+    font-size: 62.5%;
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+    overflow-x: hidden; /* Prevent horizontal scrolling but allow vertical */
+}
+
+
+section{
+    padding: 10rem 9% 2rem;
+}
+
+header {
+    position: fixed;
+    top: 40px; /* Pushed below .top-header */
+    left: 0;
+    right: 0;
+    background: white;
+    padding: 1.5rem 9%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1000;
+    height: 80px; /* Set a consistent height */
+}
+
+header .logo{
+    font-size: 3rem;
+    color:#E32C89;
+    font-family: Oleo Script Swash Caps;
+}
+
+header .navbar a{
+    font-size: 2rem;
+    padding: 0 1.5rem;
+    color: #000000;
+}
+
+header .navbar a:hover{
+    color: #E32C89;
+    text-decoration: underline;
+}
+
+header .icons a{
+    font-size: 2rem;
+    color: #E32C89;
+    margin-left: 1.5rem;
+
+}
+
+header .icons a:hover{
+    color: #FBD0D7;
+}
+
+header #toggler{
+    display: none;
+}
+
+header .fa-bars{
+    font-size: 3rem;
+    color: black;
+    border-radius: .5rem;
+    padding: .5rem 1.5rem;
+    cursor: pointer;
+    border: .1rem solid rgba(0,0,0,.3);
+    display: none;
+
+}
+
+.home {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    background: whitesmoke;
+    padding: 12rem 9% 2rem;
+    padding-top: 10rem;
+    margin-top: 50px;
+}
+
+.home .content{
+    max-width: 50rem;
+    width: 100%;
+    text-align: left;
+    top: -51px;
+    position: relative;
+}
+
+.home .content h3{
+    font-size: 6rem;
+    color: black;
+    font-family: Gotu;
+    line-height: 100%;
+    font-weight: 400;
+}
+
+.home .content p{
+    font-size: 1.5rem;
+    color: black;
+    padding: 1rem 0;
+    line-height: 1.5;
+    font-family: Gotu;
+    font-weight: 400;
+}
+
+
+
+.home .absolute{
+    position: absolute;
+    top: 100px !important;
+    inset: 0;
+    justify-content: flex-start;
+    display: inline-flex;
+    flex-direction: row;
+}
+
+.home .absolute .justify-center{
+    justify-content: center;
+}
+
+.home .absolute .bg-shape1{
+    width: 400px;
+    height: 400px;
+    border-radius: 9999px;
+    position: relative;
+    animation: one 10s infinite;
+}
+
+.home .absolute .bg-shape2{
+    width: 300px;
+    height: 300px;
+    border-radius: 9999px;
+    position: relative;
+    animation: two 10s infinite;
+}
+
+@keyframes one{
+    0%{left: 0px; top: 0px}
+    25%{left: -100px; top: 70px}
+    50%{left: 20px; top: 150px}
+    75%{left: 50px; top: 100px}
+    100%{left: 0px; top: 0px}
+}
+
+
+@keyframes two{
+    0%{left: 0px; top: 0px}
+    25%{left: 50px; top: 10px}
+    50%{left: 100px; top: 50px}
+    75%{left: 50px; top: 100px}
+    100%{left: 0px; top: 0px}
+}
+
+.home .absolute .opacity-50{
+    opacity: .5;
+}
+
+.home .absolute .bg-blur{
+    filter: blur(90px);
+}
+
+.home .absolute .bg-primary{
+    background-color: #b96c78 ;
+}
+
+.home .absolute .bg-pink{
+    background-color: #de5097;
+}
+
+
+.home .img-wrapper{
+    width: 100%;
+    min-height: 100vh;
+    left: 15%;
+    overflow: hidden;
+    position: relative;
+    justify-content: center;
+}
+
+.home .img-wrapper > div{
+    width: 80%;
+    height: 75%;
+    position: absolute;
+    animation: animate 25s infinite;
+    opacity: 0;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 30px;
+    overflow: hidden;
+}
+
+.home .img-wrapper > div:first-child {
+    opacity: 1;
+}
+
+.home .img-wrapper > div:nth-child(2) {
+    animation-delay: 5s;
+}
+.home .img-wrapper > div:nth-child(3) {
+    animation-delay: 10s;
+}
+.home .img-wrapper > div:nth-child(4) {
+    animation-delay: 15s;
+}
+.home .img-wrapper > div:nth-child(5) {
+    animation-delay: 20s;
+}
+.home .img-wrapper > div:nth-child(6) {
+    animation-delay: 25s;
+}
+
+@keyframes animate{
+    10%{
+        opacity: 1;
+    }
+    20%{
+        opacity: 1;
+    }
+    30%{
+        opacity: 0;
+    }
+    40%{
+        opacity:0;
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*mobile view*/
+
+@media (max-width: 768px) {
+    .home {
+        flex-direction: column;
+        text-align: center;
+        justify-content: center;
+        padding: 8rem 5% 2rem;
+    }
+
+    .home .content {
+        position: static;
+        text-align: center;
+        max-width: 100%;
+    }
+
+    .home .content h3 {
+        font-size: 4rem;
+    }
+
+    .home .content p {
+        font-size: 1.3rem;
+    }
+
+    .home .img-wrapper {
+        left: 0;
+        width: 100%;
+        min-height: 50vh;
+    }
+}
+
+
+@media (max-width: 768px) {
+    header {
+        padding: 1.5rem;
+    }
+
+    header .navbar {
+        display: none;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    header .fa-bars {
+        display: block;
+    }
+
+    header #toggler:checked ~ .navbar {
+        display: flex;
+    }
+
+    header .navbar a {
+        font-size: 1.8rem;
+        padding: 1rem;
+    }
+}
+}
