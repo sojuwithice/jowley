@@ -41,7 +41,7 @@
     <nav class="navbar">
         <a href="#home">Home</a>
         <a href="#products">Products</a>
-        <a href="#aboutus">About Us</a>
+        <a href="#contactus">Contact Us</a>
     </nav>
 
     <div class="header-right"> 
@@ -76,11 +76,11 @@
 
 
     <div class="img-wrapper">
-    <div style="background-image: url('{{ asset('storage/images/tulip-flower.jpg') }}');"></div>
-    <div style="background-image: url('{{ asset('storage/images/keychain.jpg') }}');"></div>
-    <div style="background-image: url('{{ asset('storage/images/fuzzy-flower.jpg') }}');"></div>
-    <div style="background-image: url('{{ asset('storage/images/butterfly-flower.jpg') }}');"></div>
-    <div style="background-image: url('{{ asset('storage/images/bracelet.jpg') }}');"></div>
+    <div style="background-image: url('{{ asset('image/tulip-flower.jpg') }}');"></div>
+    <div style="background-image: url('{{ asset('image/keychain.jpg') }}');"></div>
+    <div style="background-image: url('{{ asset('image/fuzzy-flower.jpg') }}');"></div>
+    <div style="background-image: url('{{ asset('image/butterfly-flower.jpg') }}');"></div>
+    <div style="background-image: url('{{ asset('image/bracelet.jpg') }}');"></div>
     </div>
 
 </section>

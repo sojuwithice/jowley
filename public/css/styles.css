@@ -370,7 +370,20 @@ header .fa-bars{
 
 /*mobile view*/
 
-@media (max-width: 768px) {
+@media (max-width: 991px) {
+
+    html {
+        font-size:55%
+    }
+
+    header{
+        padding:2rem;
+    }
+
+    section{
+        padding: 2rem;
+    }
+
     .home {
         flex-direction: column;
         text-align: center;
@@ -402,13 +415,16 @@ header .fa-bars{
 
 @media (max-width: 768px) {
     header {
-        padding: 1.5rem;
+        padding: 2rem;
     }
+    
 
     header .navbar {
-        display: none;
-        flex-direction: column;
-        text-align: center;
+        position: absolute;
+        top: 100%; left:0; right: 0;
+        background: white;
+        border-top: .1rem solid black;
+        clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
     }
 
     header .fa-bars {
@@ -416,12 +432,14 @@ header .fa-bars{
     }
 
     header #toggler:checked ~ .navbar {
-        display: flex;
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
     }
 
     header .navbar a {
-        font-size: 1.8rem;
-        padding: 1rem;
+        margin: 1.5rem;
+        padding: 1.5rem;
+        background: white;
+        border: .1rem solid black;
+        display: block;
     }
-}
 }
