@@ -8,6 +8,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=Gotu&family=Oleo+Script+Swash+Caps:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -79,13 +81,82 @@
     <div style="background-image: url('{{ asset('image/tulip-flower.jpg') }}');"></div>
     <div style="background-image: url('{{ asset('image/keychain.jpg') }}');"></div>
     <div style="background-image: url('{{ asset('image/fuzzy-flower.jpg') }}');"></div>
-    <div style="background-image: url('{{ asset('image/butterfly-flower.jpg') }}');"></div>
+    <div style="background-image: url('{{ asset('image/butterfly-bouquet.jpg') }}');"></div>
     <div style="background-image: url('{{ asset('image/bracelet.jpg') }}');"></div>
     </div>
 
 </section>
 
 <!-- home section ends -->
+
+<!-- new arrival -->
+
+<section class="new-arrival" id="new-arrival">
+    <h2>New Arrivals</h2>
+    <div class="new-product-container">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="card">
+                    <img src="{{ asset('image/coin-purse.png') }}" class="img" alt="Coin Purse">
+                    <div class="content">
+                        <h2>New Crafted Items!</h2>
+                        <p class="description">We have a new product for you.</p>
+                        <p class="see">See more details:</p>
+                        <a href="#" class="btn btn-primary">Coin Purse</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="card">
+                    <img src="{{ asset('image/hair-clips.png') }}" class="img" alt="Crocheted Hair Clips">
+                    <div class="content">
+                        <h2>New Crafted Items!</h2>
+                        <p class="description">We have a new product for you.</p>
+                        <p class="see">See more details:</p>
+                        <a href="#" class="btn btn-primary">Crocheted Hair Clips</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- catgories -->
+
+<section class="categories">
+    <h2>Find Things You’ll Love</h2>
+    <div class="category-container">
+        <div class="category">
+            <img src="path-to-image/bracelet.png" alt="Bracelet">
+            <span>Bracelet</span>
+        </div>
+        <div class="category">
+            <img src="path-to-image/keychain.png" alt="Keychain">
+            <span>Keychain</span>
+        </div>
+        <div class="category">
+            <img src="path-to-image/bouquet.png" alt="Bouquet">
+            <span>Bouquet</span>
+        </div>
+        <div class="category">
+            <img src="path-to-image/hair-accessories.png" alt="Hair Accessories">
+            <span>Hair Accessories</span>
+        </div>
+        <div class="category">
+            <img src="path-to-image/clothes.png" alt="Clothes">
+            <span>Clothes</span>
+        </div>
+        <div class="category">
+            <img src="path-to-image/wallet.png" alt="Wallet">
+            <span>Wallet</span>
+        </div>
+    </div>
+</section>
+
+
+
+</section>
 
 
 

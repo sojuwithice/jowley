@@ -75,7 +75,7 @@ html {
     font-size: 62.5%;
     scroll-behavior: smooth;
     scroll-padding-top: 6rem;
-    overflow-x: hidden; /* Prevent horizontal scrolling but allow vertical */
+    overflow-x: hidden; 
 }
 
 
@@ -101,12 +101,14 @@ header .logo{
     font-size: 3rem;
     color:#E32C89;
     font-family: Oleo Script Swash Caps;
+    text-decoration: none;
 }
 
 header .navbar a{
     font-size: 2rem;
     padding: 0 1.5rem;
     color: #000000;
+    text-decoration: none;
     
     
 }
@@ -182,6 +184,9 @@ header .fa-bars{
     display: none;
 
 }
+
+
+/*home page css*/
 
 .home {
     display: flex;
@@ -276,11 +281,11 @@ header .fa-bars{
 }
 
 .home .absolute .bg-primary{
-    background-color: #b96c78 ;
+    background-color: #b96c78 !important;
 }
 
 .home .absolute .bg-pink{
-    background-color: #de5097;
+    background-color: #de5097 !important;
 }
 
 
@@ -345,7 +350,97 @@ header .fa-bars{
 
 }
 
+.new-arrival {
+    width: 100%; 
+    max-width: 1200px; 
+    margin: auto; 
+}
 
+.new-arrival .card {
+    display: flex; 
+    flex-direction: row-reverse; 
+    align-items: center; 
+    border: 1.5px solid #E32C89;
+    border-radius: 10px;
+    overflow: hidden;
+    
+}
+
+.new-arrival .card img {
+    width: 50%; 
+    height: 50%;
+    
+}
+
+.new-arrival .content h2 {
+    font-size: 25px;
+    margin-bottom: -5px;
+    
+}
+
+.new-arrival .content .description{
+    font-size: 13px;
+    font-family: Gabarito;
+    color: #E32C89;
+    text-transform: none;
+    margin-top: 0;
+}
+
+.new-arrival .content .see {
+    font-size: 10px;
+    text-transform: none;
+    font-family: Gabarito;
+    margin-top: 30px;
+
+}
+
+  
+
+.new-arrival .card .btn {
+    display: block; /* Makes the button take up the full width */
+    width: 100%; /* Adjusts to match the parent container */
+    max-width: 190px; /* Set a reasonable max width */
+    text-align: center; /* Centers text inside the button */
+    padding: 10px; /* Adjust padding for a better look */
+    border-radius: 20px;
+    font-size: 13px;
+    mar
+    
+}
+
+
+
+.new-arrival .product-card button:hover {
+    background: black;
+}
+
+
+.category .category-container {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+}
+
+ .category {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+ .category img {
+    width: 80px;
+    height: auto;
+}
+
+ .category span {
+    background: black;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 15px;
+    margin-top: 5px;
+}
 
 
 
