@@ -78,6 +78,17 @@ html {
     overflow-x: hidden; 
 }
 
+.scroll-fade {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.scroll-fade.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 
 section{
     padding: 10rem 9% 2rem;
@@ -353,7 +364,15 @@ header .fa-bars{
 .new-arrival {
     width: 100%; 
     max-width: 1200px; 
-    margin: auto; 
+    margin: auto;
+    padding-top: 50px;
+    margin-top: 0; 
+}
+
+.new-arrival h2{
+    font-size: 30px;
+    font-family: Gabarito;
+    margin-bottom: 20px;
 }
 
 .new-arrival .card {
@@ -397,14 +416,15 @@ header .fa-bars{
   
 
 .new-arrival .card .btn {
-    display: block; /* Makes the button take up the full width */
-    width: 100%; /* Adjusts to match the parent container */
-    max-width: 190px; /* Set a reasonable max width */
-    text-align: center; /* Centers text inside the button */
-    padding: 10px; /* Adjust padding for a better look */
-    border-radius: 20px;
+    display: block; 
+    width: 100%; 
+    max-width: 190px; 
+    text-align: center; 
+    padding: 10px; 
+    border-radius: 15px;
     font-size: 13px;
-    mar
+    background-color: #E32C89;
+    border: none;
     
 }
 

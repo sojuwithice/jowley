@@ -15,7 +15,7 @@
 <body>
 
 <!-- top header bar starts-->
-<div class="top-header">
+<div class="top-header scroll-fade">
     <div class="left">
         <span>Follow us on</span>
         <a href="#"><i class="fab fa-facebook"></i></a>
@@ -32,12 +32,12 @@
 
 <!-- header section starts -->
 
-<header>
+<header class="scroll-fade">
 
     <input type="checkbox" name="" id="toggler">
     <label for="toggler" class="fas fa-bars"></label>
     
-    <a href="#" class="logo">Jowely's Crafts</a>
+    <a href="#" class="logo">Jowley's Crafts</a>
 
 
     <nav class="navbar">
@@ -63,7 +63,7 @@
 
 <!-- home section starts -->
 
-<section class="home" id="home">
+<section class="home scroll-fade" id="home">
 
     <div class="content">
         <h3>Handmade with love, crafted for you. </h3>
@@ -91,7 +91,7 @@
 
 <!-- new arrival -->
 
-<section class="new-arrival" id="new-arrival">
+<section class="new-arrival scroll-fade" id="new-arrival">
     <h2>New Arrivals</h2>
     <div class="new-product-container">
         <div class="row">
@@ -124,7 +124,7 @@
 
 <!-- catgories -->
 
-<section class="categories">
+<section class="categories scroll-fade">
     <h2>Find Things You’ll Love</h2>
     <div class="category-container">
         <div class="category">
@@ -166,3 +166,24 @@
 
     
 </section>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const scrollElements = document.querySelectorAll(".scroll-fade");
+
+        const scrollObserver = new IntersectionObserver(
+            (entries, observer) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("show");
+                    } else {
+                        entry.target.classList.remove("show"); // Magdi-disappear ulit kapag di na kita
+                    }
+                });
+            },
+            { threshold: 0.2 }
+        );
+
+        scrollElements.forEach((el) => scrollObserver.observe(el));
+    });
+</script>
