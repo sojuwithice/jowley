@@ -24,7 +24,7 @@
     </div>
     <div class="right">
         <a href="#" class="signup">Sign Up</a>
-        <a href="#" class="login">Log in</a>
+        <a href="{{ route('LoginSignUp') }}" class="login">Log in</a>
     </div>
 </div>
 
@@ -220,14 +220,15 @@
     </div>
 
     <div class="see-more-container text-right mt-3 scroll-fade">
-        <a href="products.html" class="see-more-btn">
-        See More <i class="fa-solid fa-arrow-right"></i>
+        <a href="products.html" class="see-more-btn"> <span>See all</span> <i class="fa fa-arrow-circle-right"></i>
     </a>
     </div>
 
 
     </div>
 </section>
+
+
 
 </section>
 

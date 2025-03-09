@@ -638,7 +638,12 @@ h2.text-center {
     text-decoration: none;
     transition: opacity 0.3s ease-in-out;
 }
-
+.see-more-btn span {
+    text-decoration: underline; 
+    text-decoration-color: #E32C89;
+    text-underline-offset: 5px;
+    text-transform: none;
+}
 .see-more-btn:hover {
     opacity: 0.7;
 }
@@ -646,6 +651,8 @@ h2.text-center {
 .see-more-btn i {
     margin-left: 3px;
     font-size: 13px;
+    color:#E32C89;
+    text-decoration: none;
 }
 
 

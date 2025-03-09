@@ -6,9 +6,9 @@ Route::get('/', function () {
     return view('homepage');
 });
 
-Route::get('LoginSignup', function () {
-    return view('LoginSignup'); 
-});
+Route::get('/LoginSignUp', function () {
+    return view('LoginSignUp'); 
+})->name('LoginSignUp');
 
 Route::get('LoginSignupPhoneNo', function () {
     return view('LoginSignupPhoneNo'); 
