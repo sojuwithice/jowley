@@ -126,7 +126,7 @@
 
 <section class="categories scroll-fade">
     <h2>Find Things You’ll Love</h2>
-    <div class="category-container">
+    <div class="category-container scroll-fade">
         <div class="category">
             <div class="circle">
              <img src="{{ asset('image/categ-bracelet.png') }}" alt="Bracelet">
@@ -166,9 +166,72 @@
     </div>
 </section>
 
+<!-- banner -->
+<section class="banner scroll-fade">
+        <img src="{{ asset('image/banner.jpg') }}" alt="Handmade Crafts">
+        <div class="overlay">
+            <h3>Cute Styles</h3>
+            <h2>The Perfect Craft for You</h2>
+        </div>
+    </section>
 
+
+<!-- featured products-->
+
+    <section class="featured scroll-fade">
+    <div class="container my-5 text-center scroll-fade">
+    <h2 class="text-center mb-4">Our Featured Products</h2>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-5">
+        <div class="col">
+            <div class="product-card">
+                <img src="{{ asset('image/mini-flower.jpg') }}" alt="Mini Fuzzy Flower" class="product-img">
+                <p class="top-rank">Top <span>1</span></p>
+                <p class="product-name fw-bold">Mini Fuzzy Flower</p>
+                <div class="sales-info">Monthly Sales 90</div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="product-card">
+                <img src="{{ asset('image/fuzzy-flower.jpg') }}" alt="Fuzzy Lily Flower Bouquet" class="product-img">
+                <p class="top-rank">Top <span>2</span></p>
+                <p class="product-name fw-bold">Fuzzy Lily Flower Bouquet</p>
+                <div class="sales-info">Monthly Sales 80</div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="product-card">
+                <img src="{{ asset('image/single-tulip.jpg') }}" alt="Single Tulip Crochet Bouquet" class="product-img">
+                <p class="top-rank">Top <span>3</span></p>
+                <p class="product-name fw-bold">Single Tulip Crochet Bouquet</p>
+                <div class="sales-info">Monthly Sales 80</div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="product-card">
+                <img src="{{ asset('image/butterfly-bouquet.jpg') }}" alt="Butterfly Bouquet" class="product-img">
+                <p class="top-rank">Top <span>4</span></p>
+                <p class="product-name fw-bold">Butterfly Bouquet</p>
+                <div class="sales-info">Monthly Sales 80</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="see-more-container text-right mt-3 scroll-fade">
+        <a href="products.html" class="see-more-btn">
+        See More <i class="fa-solid fa-arrow-right"></i>
+    </a>
+    </div>
+
+
+    </div>
+</section>
 
 </section>
+
+
 
 
 
