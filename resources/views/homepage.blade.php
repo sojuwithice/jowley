@@ -128,28 +128,40 @@
     <h2>Find Things You’ll Love</h2>
     <div class="category-container">
         <div class="category">
-            <img src="path-to-image/bracelet.png" alt="Bracelet">
+            <div class="circle">
+             <img src="{{ asset('image/categ-bracelet.png') }}" alt="Bracelet">
+            </div>
             <span>Bracelet</span>
         </div>
         <div class="category">
-            <img src="path-to-image/keychain.png" alt="Keychain">
+            <div class="circle">
+             <img src="{{ asset('image/categ-keychain.png') }}" alt="Keychain">
+            </div>    
             <span>Keychain</span>
         </div>
         <div class="category">
-            <img src="path-to-image/bouquet.png" alt="Bouquet">
+            <div class="circle">
+                <img src="{{ asset('image/categ-bouquet.png') }}" alt="Bouquet">
+            </div>
             <span>Bouquet</span>
         </div>
         <div class="category">
-            <img src="path-to-image/hair-accessories.png" alt="Hair Accessories">
-            <span>Hair Accessories</span>
+            <div class="circle">
+                <img src="{{ asset('image/hair-accessories.png') }}" alt="Hair Accessories">
+            </div>
+                <span>Hair Accessories</span>
         </div>
         <div class="category">
-            <img src="path-to-image/clothes.png" alt="Clothes">
-            <span>Clothes</span>
+            <div class="circle">
+                <img src="{{ asset('image/clothes.png') }}" alt="Clothes">
+            </div>
+                <span>Clothes</span>
         </div>
         <div class="category">
-            <img src="path-to-image/wallet.png" alt="Wallet">
-            <span>Wallet</span>
+            <div class="circle">
+                <img src="{{ asset('image/wallet.png') }}" alt="Wallet">
+            </div>
+                <span>Wallet</span>
         </div>
     </div>
 </section>
