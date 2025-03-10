@@ -52,7 +52,8 @@
             <button><i class="fas fa-search"></i></button>
         </div>
         <div class="icons">
-            <a href="#" class="fas fa-shopping-cart"></a>
+        <a href="{{ route('cart') }}" class="fas fa-shopping-cart"></a>
+</a>
         </div>
     </div>
 

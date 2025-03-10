@@ -29,3 +29,6 @@ Route::get('AccountRecovery', function () {
 Route::get('RegisterAccountVerification', function () {
     return view('RegisterAccountVerification'); 
 });
+Route::get('/cart', function () {
+    return view('cart');
+})->name('cart');
