@@ -229,6 +229,21 @@
     </div>
 </section>
 
+ <!-- Daily Discoveries Section -->
+ <section class="daily-container">
+        <div class="daily-wrapper">
+            <div class="line"></div>
+            <h2 class="title">Daily Discoveries</h2>
+            <div class="line"></div>
+        </div>
+
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-5">
+        <div class="col">
+            <div class="product-card">
+                <img src="{{ asset('image/mini-flower.jpg') }}" alt="Mini Fuzzy Flower" class="product-img">
+                <p class="product-name-daily fw-bold">Cute Baby Mushroom</p>
+            </div>
+        </div>
 
 
 </section>
