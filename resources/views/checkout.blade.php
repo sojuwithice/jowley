@@ -9,11 +9,41 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=Gotu&family=Oleo+Script+Swash+Caps:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/cart.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding-top: 60px;
+        }
+        .custom-container {
+            max-width: 900px;
+            margin: auto;
+        }
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #d63384;
+        }
+        .card {
+            border-radius: 10px;
+            border: 1px solid #ddd;
+        }
+        .btn-pink {
+            background-color: #ff4db8;
+            color: white;
+            border-radius: 5px;
+        }
+        .btn-pink:hover {
+            background-color: #e60073;
+        }
+        .table th, .table td {
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-
-<!-- Top header bar -->
+    <!-- Top header bar -->
 <div class="top-header scroll-fade">
     <div class="left">
         <span>Follow us on</span>
@@ -55,69 +85,83 @@
         </div>
     </div>
 </header>
+    <div class="container custom-container mt-4">
+        <!-- Header -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="text-dark fw-bold">Jewley’s Craft</h2>
+            <div class="d-flex align-items-center">
+                <span class="me-3"><i class="bi bi-bell"></i> Notification</span>
+                <span><i class="bi bi-person-circle"></i> AkosiiMJ#01</span>
+            </div>
+        </div>
 
-<!-- Shopping Cart Section -->
-<section class="shopping-cart">
-    <h2 class="cart-title">Your Shopping Cart <i class="fas fa-shopping-bag"></i></h2>
+        <!-- Products Ordered -->
+        <h4 class="fw-bold">Products Ordered</h4>
 
-    <div class="cart-container">
-        <table class="cart-table">
-            <thead>
-                <tr>
-                    <th>Product</th>
-                    <th>Unit Price</th>
-                    <th>Quantity</th>
-                    <th>Total Price</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Product Items -->
-                <tr class="cart-item">
-                    <td class="product-info">
-                        <input type="checkbox" class="item-checkbox">
-                        <img src="image/fuzzy-flower.jpg" alt="Mini Fuzzy Flower White" class="product-img">
-                        <div class="product-details">
-                            <p class="nameproduct">Mini Fuzzy Flower</p>
-                            <p class="product-description">Adorable mini fuzzy flowers, perfect for adding a soft, handmade touch to your space!</p>
-                            <div class="product-variation">
-                                <label>Variation:</label>
-                                <select class="variation-select">
-                                    <option value="White" selected>White</option>
-                                    <option value="Pink">Pink</option>
-                                    <option value="Blue">Blue</option>
-                                    <option value="Red">Red</option>
-                                    <option value="Purple">Purple</option>
-                                </select>
-                            </div>
-                        </div>
-                    </td>
-                    <td class="unit-price">40.00</td>
-                    <td class="quantity">
-                        <button class="minus-btn">-</button>
-                        <input type="text" class="quantity-input" value="1">
-                        <button class="plus-btn">+</button>
-                    </td>
-                    <td class="total-price">40.00</td>
-                    <td><button class="delete-btn">Delete</button></td>
-                </tr>
-            </tbody>
-        </table>
+        <!-- Delivery Address -->
+        <div class="card p-3 mb-3">
+            <h5 class="section-title">Delivery Address</h5>
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <strong>Marijoy Novora</strong> <br>
+                    <span>09123456789</span> <br>
+                    <small>EM’S Barrio Legazpi City, Albay, South Luzon, 4501<br>
+                    Purok 3, EM’S Barrio Legazpi City <br>
+                    Sa may malapit sa eskinita sa gilid</small>
+                </div>
+                <button class="btn btn-pink">Change</button>
+            </div>
+        </div>
 
-        <!-- Checkout Section -->
-        <div class="checkout-section">
-    <label><input type="checkbox" id="select-all"> Select all</label>
-    <span class="total-price-summary">Total (0 items): <strong>0.00</strong></span>
+        <!-- Products Table -->
+        <div class="card p-3 mb-3">
+            <table class="table">
+                <thead class="table-light">
+                    <tr>
+                        <th>Product Image</th>
+                        <th>Product Name</th>
+                        <th>Variation</th>
+                        <th>Unit Price</th>
+                        <th>Quantity</th>
+                        <th>Item Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><img src="image/fuzzy-flower.jpg" alt="Mini Fuzzy Flower" width="80"></td>
+                        <td>
+                            <strong>Mini Fuzzy Flower</strong><br>
+                            <small>Adorable mini fuzzy flowers, perfect for adding a soft, handmade touch to your space!</small>
+                        </td>
+                        <td>Variation: Pink</td>
+                        <td>₱40.00</td>
+                        <td>1</td>
+                        <td>₱40.00</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="text-end fw-bold">
+                Total Order (1 item): ₱40.00
+            </div>
+        </div>
 
-    <!-- Form to Redirect to Checkout -->
-    <form action="{{ route('checkout') }}" method="GET">
-        <button type="submit" class="checkout-btn">Checkout</button>
-    </form>
-</div>
+        <!-- Payment Methods -->
+        <div class="card p-3">
+            <h5 class="section-title">Payment Methods</h5>
+            <div class="d-flex justify-content-between">
+                <span>Cash on Delivery</span>
+                <button class="btn btn-pink">Change</button>
+            </div>
+            <hr>
+            <div>
+                <p>Merchandise Subtotal: <span class="float-end">₱40.00</span></p>
+                <p>Shipping Subtotal: <span class="float-end">₱0.00</span></p>
+                <p class="fw-bold">Total Payment: <span class="float-end">₱40.00</span></p>
+            </div>
+        </div>
     </div>
-</section>
-
-
+</body>
+</html>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
     const scrollElements = document.querySelectorAll(".scroll-fade");
@@ -198,6 +242,3 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 </script>
-
-</body>
-</html>

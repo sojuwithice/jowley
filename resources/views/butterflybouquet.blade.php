@@ -4,14 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jowley's Crafts</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=Gotu&family=Oleo+Script+Swash+Caps:wght@400;700&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/cart.css">
+    <link rel="stylesheet" href="css/featured.css">
 </head>
 <body>
+
 
 <!-- Top header bar -->
 <div class="top-header scroll-fade">
@@ -33,10 +35,12 @@
 
 <!-- Header Section -->
 <header class="scroll-fade">
-    <input type="checkbox" id="toggler">
+
+    <input type="checkbox" name="" id="toggler">
     <label for="toggler" class="fas fa-bars"></label>
     
     <a href="#" class="logo">Jowley's Crafts</a>
+
 
     <nav class="navbar">
         <a href="#home">Home</a>
@@ -54,69 +58,78 @@
 </a>
         </div>
     </div>
+
+
 </header>
 
-<!-- Shopping Cart Section -->
-<section class="shopping-cart">
-    <h2 class="cart-title">Your Shopping Cart <i class="fas fa-shopping-bag"></i></h2>
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-6">
+            <img src="image/butterfly-bouquet.jpg" class="img-fluid rounded" alt="Butterfly Bouquet">
+        </div>
 
-    <div class="cart-container">
-        <table class="cart-table">
-            <thead>
-                <tr>
-                    <th>Product</th>
-                    <th>Unit Price</th>
-                    <th>Quantity</th>
-                    <th>Total Price</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Product Items -->
-                <tr class="cart-item">
-                    <td class="product-info">
-                        <input type="checkbox" class="item-checkbox">
-                        <img src="image/fuzzy-flower.jpg" alt="Mini Fuzzy Flower White" class="product-img">
-                        <div class="product-details">
-                            <p class="nameproduct">Mini Fuzzy Flower</p>
-                            <p class="product-description">Adorable mini fuzzy flowers, perfect for adding a soft, handmade touch to your space!</p>
-                            <div class="product-variation">
-                                <label>Variation:</label>
-                                <select class="variation-select">
-                                    <option value="White" selected>White</option>
-                                    <option value="Pink">Pink</option>
-                                    <option value="Blue">Blue</option>
-                                    <option value="Red">Red</option>
-                                    <option value="Purple">Purple</option>
-                                </select>
-                            </div>
-                        </div>
-                    </td>
-                    <td class="unit-price">40.00</td>
-                    <td class="quantity">
-                        <button class="minus-btn">-</button>
-                        <input type="text" class="quantity-input" value="1">
-                        <button class="plus-btn">+</button>
-                    </td>
-                    <td class="total-price">40.00</td>
-                    <td><button class="delete-btn">Delete</button></td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="col-md-6">
+            <h1 class="fw-bold">Butterfly Bouquet</h1>
+            <p class="text-warning fw-bold">⭐ 4.9 <span class="text-dark">(290 ratings)</span> | <span class="text-success">300+ sold</span></p>
+            <h3 class="text-danger">₱150.00</h3>
+            <p>Adorable butterfly bouquet, perfect for adding a soft, handmade touch to your space!</p>
 
-        <!-- Checkout Section -->
-        <div class="checkout-section">
-    <label><input type="checkbox" id="select-all"> Select all</label>
-    <span class="total-price-summary">Total (0 items): <strong>0.00</strong></span>
+            <!-- Light Options -->
+            <p><strong>Lighting Option:</strong></p>
+            <div class="light-options">
+                <span class="light-choice with-lights">With Lights</span>
+                <span class="light-choice without-lights">Without Lights</span>
+            </div>
 
-    <!-- Form to Redirect to Checkout -->
-    <form action="{{ route('checkout') }}" method="GET">
-        <button type="submit" class="checkout-btn">Checkout</button>
-    </form>
-</div>
+            <!-- Quantity Selector -->
+            <div class="quantity-container">
+                <label class="quantity-label">Quantity</label>
+                <div class="quantity-box">
+                    <button onclick="decreaseQuantity()">−</button>
+                    <input type="number" id="quantity" min="1" max="100" value="1">
+                    <button onclick="increaseQuantity()">+</button>
+                </div>
+                <span class="stock-info">Available Stocks: <span id="stock-count">100</span> pieces</span>
+            </div>
+
+            <div class="mt-4">
+            <button class="btn btn-outline-dark me-2" onclick="showCartModal()">Add To Cart</button>
+                <button class="btn btn-danger">Buy Now</button>
+            </div>
+        </div>
     </div>
-</section>
+</div>
+<div id="cartModal" class="modal-overlay">
+    <div class="modal-content">
+    <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#8b50fc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="10" />
+    <path d="M9 12l2 2 4-4" />
+</svg>
+        <p>Item has been added to your Shopping Cart!</p>
+    </div>
+</div>
+<div class="container my-5">
+    <h2 class="fw-bold">Product Ratings</h2>
+    <p class="text-warning fw-bold">⭐ 4.9 out of 5</p>
 
+    <div class="list-group">
+        <div class="list-group-item bg-light p-3 rounded mb-2">
+            <p class="fw-bold mb-1">Jane Mengorio ⭐ 5.0</p>
+            <small class="text-muted">2021-09-25 21:21 | Variation: With Lights</small>
+            <p>Excellent quality 👍</p>
+        </div>
+
+        <div class="list-group-item bg-light p-3 rounded">
+            <p class="fw-bold mb-1">Aika ⭐ 5.0</p>
+            <small class="text-muted">2021-09-25 21:21 | Variation: Without Lights</small>
+            <p>Excellent quality 👍</p>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
@@ -197,6 +210,32 @@ document.addEventListener("DOMContentLoaded", function () {
         updateCartTotal();
     });
 });
+
+function decreaseQuantity() {
+        let quantityInput = document.getElementById("quantity");
+        let currentValue = parseInt(quantityInput.value);
+        if (currentValue > 1) {
+            quantityInput.value = currentValue - 1;
+        }
+    }
+
+    function increaseQuantity() {
+        let quantityInput = document.getElementById("quantity");
+        let maxStock = parseInt(document.getElementById("stock-count").textContent);
+        let currentValue = parseInt(quantityInput.value);
+        if (currentValue < maxStock) {
+            quantityInput.value = currentValue + 1;
+        }
+    }
+    function showCartModal() {
+    let modal = document.getElementById("cartModal");
+    modal.style.display = "flex";
+
+    // Auto-close after 2 seconds
+    setTimeout(() => {
+        modal.style.display = "none";
+    }, 2000);
+    }
 </script>
 
 </body>

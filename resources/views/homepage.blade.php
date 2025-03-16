@@ -183,43 +183,52 @@
 
 <!-- featured products-->
 
-    <section class="featured scroll-fade">
+<section class="featured scroll-fade">
     <div class="container my-5 text-center scroll-fade">
-    <h2 class="text-center mb-4">Our Featured Products</h2>
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-5">
-        <div class="col">
-            <div class="product-card">
-                <img src="{{ asset('image/mini-flower.jpg') }}" alt="Mini Fuzzy Flower" class="product-img">
-                <p class="top-rank">Top <span>1</span></p>
-                <p class="product-name fw-bold">Mini Fuzzy Flower</p>
-                <div class="sales-info">Monthly Sales 90</div>
+        <h2 class="text-center mb-4">Our Featured Products</h2>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-5">
+            <div class="col">
+                <a href="{{ route('minifuzzy') }}" class="product-link">
+                    <div class="product-card">
+                        <img src="{{ asset('image/mini-flower.jpg') }}" alt="Mini Fuzzy Flower" class="product-img">
+                        <p class="top-rank">Top <span>1</span></p>
+                        <p class="product-name fw-bold">Mini Fuzzy Flower</p>
+                        <div class="sales-info">Monthly Sales 90</div>
+                    </div>
+                </a>
             </div>
-        </div>
 
-        <div class="col">
-            <div class="product-card">
-                <img src="{{ asset('image/fuzzy-flower.jpg') }}" alt="Fuzzy Lily Flower Bouquet" class="product-img">
-                <p class="top-rank">Top <span>2</span></p>
-                <p class="product-name fw-bold">Fuzzy Lily Flower Bouquet</p>
-                <div class="sales-info">Monthly Sales 80</div>
+            <div class="col">
+                <a href="{{ route('fuzzylily') }}" class="product-link">
+                    <div class="product-card">
+                        <img src="{{ asset('image/fuzzy-flower.jpg') }}" alt="Fuzzy Lily Flower Bouquet" class="product-img">
+                        <p class="top-rank">Top <span>2</span></p>
+                        <p class="product-name fw-bold">Fuzzy Lily Flower Bouquet</p>
+                        <div class="sales-info">Monthly Sales 80</div>
+                    </div>
+                </a>
             </div>
-        </div>
 
-        <div class="col">
-            <div class="product-card">
-                <img src="{{ asset('image/single-tulip.jpg') }}" alt="Single Tulip Crochet Bouquet" class="product-img">
-                <p class="top-rank">Top <span>3</span></p>
-                <p class="product-name fw-bold">Single Tulip Crochet Bouquet</p>
-                <div class="sales-info">Monthly Sales 80</div>
+            <div class="col">
+                <a href="{{ route('singletulip') }}" class="product-link">
+                    <div class="product-card">
+                        <img src="{{ asset('image/single-tulip.jpg') }}" alt="Single Tulip Crochet Bouquet" class="product-img">
+                        <p class="top-rank">Top <span>3</span></p>
+                        <p class="product-name fw-bold">Single Tulip Crochet Bouquet</p>
+                        <div class="sales-info">Monthly Sales 80</div>
+                    </div>
+                </a>
             </div>
-        </div>
 
-        <div class="col">
-            <div class="product-card">
-                <img src="{{ asset('image/butterfly-bouquet.jpg') }}" alt="Butterfly Bouquet" class="product-img">
-                <p class="top-rank">Top <span>4</span></p>
-                <p class="product-name fw-bold">Butterfly Bouquet</p>
-                <div class="sales-info">Monthly Sales 80</div>
+            <div class="col">
+                <a href="{{ route('butterflybouquet') }}" class="product-link">
+                    <div class="product-card">
+                        <img src="{{ asset('image/butterfly-bouquet.jpg') }}" alt="Butterfly Bouquet" class="product-img">
+                        <p class="top-rank">Top <span>4</span></p>
+                        <p class="product-name fw-bold">Butterfly Bouquet</p>
+                        <div class="sales-info">Monthly Sales 80</div>
+                    </div>
+                </a>
             </div>
         </div>
     </div>

@@ -32,3 +32,22 @@ Route::get('RegisterAccountVerification', function () {
 Route::get('/cart', function () {
     return view('cart');
 })->name('cart');
+
+Route::get('/minifuzzy', function () {
+    return view('minifuzzy');
+})->name('minifuzzy');
+
+Route::get('/fuzzylily', function () {
+    return view('fuzzylily');
+})->name('fuzzylily');
+
+Route::get('/singletulip', function () {
+    return view('singletulip');
+})->name('singletulip');
+
+Route::get('/butterfly-bouquet', function () {
+    return view('butterflybouquet');
+})->name('butterflybouquet');
+Route::get('/checkout', function () {
+    return view('checkout');
+})->name('checkout');
