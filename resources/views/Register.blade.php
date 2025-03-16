@@ -26,17 +26,27 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            padding: 20px;
+            height: 110vh;
+            padding:90px;
             flex-direction: column;
         }
 
-        .header-bar, .footer-bar {
+        .header-bar{
+            margin-top: 65px;
             width: 100%;
-            height: 8px;
+            height: 1px;
             background-color: #E32C89;
             position: fixed;
             left: 0;
+        }
+
+        .footer-bar {
+            margin-top: 65px;
+            width: 100%;
+            height: 35px;
+            background-color: #E32C89;
+            position: fixed;
+
         }
 
         .header-bar { top: 0; }
@@ -44,7 +54,7 @@
 
         /* Header Styles */
         .header {
-            position: absolute;
+            position: fixed;
             top: 20px;
             left: 100px;
             display: flex;
@@ -54,14 +64,14 @@
 
         .brand-name {
             font-family: 'Oleo Script Swash Caps', cursive;
-            font-size: 37px;
+            font-size: 1.6rem;
             color: #E32C89;
-            margin-right: 70px
+            margin-right: 55px
         }
 
         .signin-text {
             font-family: 'Gabarito', sans-serif;
-            font-size: 32px;
+            font-size: 1.2rem;
             color: black;
             font-weight: 400;
         }
@@ -75,46 +85,43 @@
             border-radius: 30px;
             border: 1px solid black; 
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-            width: 1300px;
+            width: 90%;
             max-width: 90%;
-            height: 550px;
-        }
-
-        .left-content img {
-            width: 260px;
+            height: 430px;
         }
 
         .left-content {
             width: 50%;
             text-align: left;
             padding-right: 10px;
-            padding-left: 30px;
+            padding-left: 20px;
             font-family: 'Gabarito', sans-serif;
+            margin-bottom: 10%;
         }
 
         .signin-message {
              color: #E32C89;
              font-family: 'Gabarito', sans-serif;
-             font-size: 24px;
+             font-size: 17px;
         }
 
         .new-text {
-            font-size: 60px;
+            font-size: 45px;
             font-weight: 500;
         }
 
         .right-content {
-            width: 50%;
+            width: 60%;
             text-align: left;
-            padding-left: 90px;
+            padding-left: 110px;
             padding-right: 30px;
             font-family: 'Gabarito', sans-serif;
         }
 
         .right-content h2 {
-            font-size: 37px;
+            font-size: 23px;
             font-weight: 500;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             color: #E32C89;
             text-align: center;
             width: 100%;
@@ -123,7 +130,7 @@
         .right-content p {
             font-size: 32px;
             color: #666;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
 
         .input-group {
@@ -136,8 +143,8 @@
             padding: 12px 15px 12px 40px;
             border-radius: 8px;
             border: 1px solid black;
-            height: 60px;
-            font-size: 15px;
+            height: 40px;
+            font-size: 13px;
             font-weight: 400;
             font-family: 'Gabarito', sans-serif;
             outline: none;
@@ -161,14 +168,14 @@
             width: 100%;
             background: #E32C89;
             color: white;
-            padding: 12px;
+            padding: 10px;
             border: none;
             border-radius: 8px;
-            font-size: 20px;
+            font-size: 15px;
             cursor: pointer;
             font-weight: 300;
             transition: background 0.3s;
-            margin-top: 20px;
+            margin-top: 8px;
         }
 
         .btn:hover {
@@ -179,10 +186,10 @@
             display: flex;
             align-items: center;
             text-align: center;
-            font-size: 16px;
+            font-size: 13px;
             font-family: 'Gabarito', sans-serif;
-            color: black;
-            margin-top: 30px;
+            color: #666;
+            margin-top: 20px;
             margin-bottom: 10px;
         }
 
@@ -198,15 +205,15 @@
         .social-icons {
             display: flex;
             justify-content: center;
-            gap: 15px;
+            gap: 18px;
             margin-top: 10px;
         }
 
         .social-icons i {
-            font-size: 30px;
+            font-size: 22px;
             color: #E32C89;
             cursor: pointer;
-            transition: color 0.3s;
+            transition: color 0.3s;;
         }
 
         .social-icons i:hover {
@@ -216,7 +223,7 @@
         .register-link {
             text-align: center;
             font-family: 'Gabarito', sans-serif;
-            font-size: 15px;
+            font-size: 14px;
             margin-top: 20px;
         }
 
@@ -233,11 +240,12 @@
         .terms-container {
             text-align: center;
             font-size: 14px;
-            margin-top: 50px;
+            margin-top: 30px;
         }
 
         .terms-container input {
             margin-right: 5px;
+            accent-color: #E32C89;
         }
 
         .terms-container a {
@@ -284,9 +292,8 @@
 
     <div class="container">
         <div class="left-content">
-            <h1 class="new-text">Are you new here?</h1>
-            <p class="signin-message">Create an account to start.</p>
-            <img src="shopping-cart.png" alt="Shopping Illustration">
+             <h1 class="new-text">Are you new here?</h1>
+             <p class="signin-message">Create an account to start.</p>
         </div>
 
         <div class="right-content">

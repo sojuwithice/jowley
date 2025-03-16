@@ -11,6 +11,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="css/styles.css">
+    
 </head>
 <body>
 
@@ -500,9 +501,10 @@
             <h4>Delivery Services</h4>
             <img src="{{ asset('image/jnt.jpg') }}" alt="J&T Express">
         </div>
+        <div class="footer-bottom"></div>
     </div>
 
-    <div class="footer-bottom"></div>
+    
 </section>
 
 

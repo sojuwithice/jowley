@@ -26,25 +26,33 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            padding: 20px;
+            height: 110vh;
+            padding: 90px;
             flex-direction: column;
         }
 
-        .header-bar, .footer-bar {
+        .header-bar {
+            margin-top: 65px;
             width: 100%;
-            height: 8px;
+            height: 1px;
             background-color: #E32C89;
             position: fixed;
             left: 0;
         }
 
+        .footer-bar{
+            margin-top: 65px;
+            width: 100%;
+            height: 35px;
+            background-color: #E32C89;
+            position: fixed;
+        }
         .header-bar { top: 0; }
         .footer-bar { bottom: 0; }
 
-        /* Header Styles */
+        
         .header {
-            position: absolute;
+            position: fixed;
             top: 20px;
             left: 100px;
             display: flex;
@@ -54,14 +62,14 @@
 
         .brand-name {
             font-family: 'Oleo Script Swash Caps', cursive;
-            font-size: 37px;
+            font-size: 1.6rem;
             color: #E32C89;
-            margin-right: 70px
+            margin-right: 55px
         }
 
         .recovery-text {
             font-family: 'Gabarito', sans-serif;
-            font-size: 32px;
+            font-size: 1.3rem;
             color: black;
             font-weight: 400;
         }
@@ -69,21 +77,21 @@
         .container {
             display: flex;
             flex-direction: column; 
-            align-items: center;
-            justify-content: center;
+            align-items: center; 
+            justify-content: center; 
             background: white;
             padding: 40px;
             border-radius: 30px;
             border: 1px solid black; 
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-            width: 900px;
-            max-width: 90%;
-            height: 500px; 
-            text-align: center; 
-        }
+            width: 60%;
+            max-width: 600px;
+            height: auto;
+            text-align: center;
+}
 
         .forgot {
-            font-size: 48px;
+            font-size: 35px;
             margin-bottom: 10px;
             font-family: 'Gabarito', sans-serif;
             color: black;
@@ -91,25 +99,47 @@
         }
 
         .code-message {
-            font-size: 18px;
-            margin-bottom: 50px;
+            font-size: 13px;
+            margin-bottom: 30px;
             color: #E32C89;
         }
 
-        .input-group input {
-            width: 600px;
-            padding: 12px 15px 12px 40px;
-            border-radius: 20px;
-            border: 1px solid black;
-            height: 70px;
-            font-size: 20px;
-            font-weight: 400;
-            font-family: 'Gabarito', sans-serif;
-            outline: none;
-            transition: all 0.3s ease;
-            margin-top:50px;
-            margin-bottom:100px;
+        .input-group {
+            position: relative;
+            margin-bottom: 20px;
+            width: 100%; 
+            text-align: center;
+            padding-right: 235px;
+            padding-bottom: 70px;
         }
+
+ 
+        .input-group input {
+                width: 220%;
+                padding: 12px 15px 12px 40px;
+                border-radius: 8px;
+                border: 1px solid black;
+                height: 40px;
+                font-size: 13px;
+                font-weight: 400;
+                font-family: 'Gabarito', sans-serif;
+                outline: none;
+                transition: all 0.3s ease;
+        }
+
+        .input-group input:focus {
+            border-color: #E32C89;
+            box-shadow: 0 0 5px rgba(227, 44, 137, 0.3);
+        }
+
+        .input-group i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #888;
+        }
+
 
         .button-group {
             display: flex;
@@ -119,10 +149,10 @@
         }
 
         .btn {
-            padding: 12px 25px;
+            padding: 8px 25px;
             border-radius: 8px;
-            font-size: 18px;
-            font-weight: 600;
+            font-size: 14px;
+            font-weight: 500;
             cursor: pointer;
             transition: all 0.3s ease;
         }
@@ -134,13 +164,15 @@
         }
 
         .cancel-btn:hover {
-            background-color: #f0f0f0;
+            background-color:rgb(255, 255, 255);
+            color: #E32C89;
+            border: 1px solid #E32C89;
         }
 
         .confirm-btn {
-            background-color: #E32C89;
-            color: white;
-            border: 1px solid black;
+           background-color: #E32C89;
+           color: white;
+           border: 0;
         }
 
         .confirm-btn:hover {
@@ -168,7 +200,7 @@
         <div>
             <form action="#">
             <div class="input-group">
-                <p class="Mobile" style="text-align: left; font-size: 18px; font-weight: 500; color: black; font-family: 'Gabarito', sans-serif; margin-bottom: 5px;">Mobile Number or Email</p>
+                <p class="Mobile" style="text-align: left; font-size: 13.6px; font-weight: 500; color: black; font-family: 'Gabarito', sans-serif; margin-bottom: 5px;">Mobile Number or Email</p>
                 <input type="text" placeholder="Please enter your Phone Number or Email" required style="margin-top: 0;">
             </div>
 
