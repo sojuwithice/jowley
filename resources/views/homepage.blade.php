@@ -52,7 +52,11 @@
             <button><i class="fas fa-search"></i></button>
         </div>
         <div class="icons">
-        <a href="{{ route('cart') }}" class="fas fa-shopping-cart"></a>
+            <a href="{{ route('cart') }}" class="fas fa-shopping-cart cart-icon-link">
+                <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+            </a>
+         </div>
+
 </a>
         </div>
     </div>
@@ -221,30 +225,277 @@
     </div>
 
     <div class="see-more-container text-right mt-3 scroll-fade">
-        <a href="products.html" class="see-more-btn"> <span>See all</span> <i class="fa fa-arrow-circle-right"></i>
+    <a href="#" class="see-more-btn">
+        <span>See all</span>
+        <i class="fa fa-arrow-circle-right"></i>
     </a>
-    </div>
+</div>
+
 
 
     </div>
 </section>
 
  <!-- Daily Discoveries Section -->
- <section class="daily-container">
-        <div class="daily-wrapper">
-            <div class="line"></div>
-            <h2 class="title">Daily Discoveries</h2>
-            <div class="line"></div>
-        </div>
+<section class="daily-container scroll-fade">
+    <div class="daily-wrapper">
+        <div class="line"></div>
+        <h2 class="title">Daily Discoveries</h2>
+        <div class="line"></div>
+    </div>
 
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-5">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-5 scroll-fade">
+        
         <div class="col">
             <div class="product-card">
                 <img src="{{ asset('image/mini-flower.jpg') }}" alt="Mini Fuzzy Flower" class="product-img">
-                <p class="product-name-daily fw-bold">Cute Baby Mushroom</p>
+                <div class="product-name-daily">
+                    <p class="product-text">Cute Baby Mushroom</p>
+                    <div class="heart-rating">
+                        <i class="fa-solid fa-heart text-warning fs-5" data-value="1"></i>
+                        <i class="fa-solid fa-heart text-warning fs-5" data-value="2"></i>
+                        <i class="fa-solid fa-heart text-warning fs-5" data-value="3"></i>
+                        <i class="fa-regular fa-heart text-warning fs-5" data-value="4"></i>
+                        <i class="fa-regular fa-heart text-warning fs-5" data-value="5"></i>
+                    </div>
+                </div>
+
+                <div class="product-details">
+                    <span class="price">₱55</span>
+                    <span class="sold-count">20 sold</span>
+                </div>
+
+                <div class="view-details">
+                    <button class="btn-details">View Details</button>
+                </div>
             </div>
         </div>
 
+        <div class="col">
+            <div class="product-card">
+                <img src="{{ asset('image/baby-mushroom.jpg') }}" alt="Mini Fuzzy Flower" class="product-img">
+                <div class="product-name-daily">
+                    <p class="product-text">Cute Baby Mushroom</p>
+                    <div class="heart-rating">
+                        <i class="fa-solid fa-heart text-warning fs-5" data-value="1"></i>
+                        <i class="fa-solid fa-heart text-warning fs-5" data-value="2"></i>
+                        <i class="fa-solid fa-heart text-warning fs-5" data-value="3"></i>
+                        <i class="fa-regular fa-heart text-warning fs-5" data-value="4"></i>
+                        <i class="fa-regular fa-heart text-warning fs-5" data-value="5"></i>
+                    </div>
+                </div>
+
+                <div class="product-details">
+                    <span class="price">₱55</span>
+                    <span class="sold-count">20 sold</span>
+                </div>
+
+                <div class="view-details">
+                    <button class="btn-details">View Details</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="product-card">
+                <img src="{{ asset('image/crochet-top.jpg') }}" alt="Mini Fuzzy Flower" class="product-img">
+                <div class="product-name-daily">
+                    <p class="product-text">Handmade Crochet Top</p>
+                    <div class="heart-rating">
+                        <i class="fa-solid fa-heart text-warning fs-5" data-value="1"></i>
+                        <i class="fa-solid fa-heart text-warning fs-5" data-value="2"></i>
+                        <i class="fa-solid fa-heart text-warning fs-5" data-value="3"></i>
+                        <i class="fa-regular fa-heart text-warning fs-5" data-value="4"></i>
+                        <i class="fa-regular fa-heart text-warning fs-5" data-value="5"></i>
+                    </div>
+                </div>
+
+                <div class="product-details">
+                    <span class="price">₱300</span>
+                    <span class="sold-count">3 sold</span>
+                </div>
+
+                <div class="view-details">
+                    <button class="btn-details">View Details</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="product-card">
+                <img src="{{ asset('image/single-tulip.jpg') }}" alt="Mini Fuzzy Flower" class="product-img">
+                <div class="product-name-daily">
+                    <p class="product-text">Single Tulip Crochet Bouquet</p>
+                    <div class="heart-rating">
+                        <i class="fa-solid fa-heart text-warning fs-5" data-value="1"></i>
+                        <i class="fa-solid fa-heart text-warning fs-5" data-value="2"></i>
+                        <i class="fa-solid fa-heart text-warning fs-5" data-value="3"></i>
+                        <i class="fa-regular fa-heart text-warning fs-5" data-value="4"></i>
+                        <i class="fa-regular fa-heart text-warning fs-5" data-value="5"></i>
+                    </div>
+                </div>
+
+                <div class="product-details">
+                    <span class="price">₱130</span>
+                    <span class="sold-count">140 sold</span>
+                </div>
+
+                <div class="view-details">
+                    <button class="btn-details">View Details</button>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="product-card">
+                <img src="{{ asset('image/sunflower.jpg') }}" alt="Mini Fuzzy Flower" class="product-img">
+                <div class="product-name-daily">
+                    <p class="product-text">Crochet Sunflower Bouquet</p>
+                    <div class="heart-rating">
+                        <i class="fa-solid fa-heart text-warning fs-5" data-value="1"></i>
+                        <i class="fa-solid fa-heart text-warning fs-5" data-value="2"></i>
+                        <i class="fa-solid fa-heart text-warning fs-5" data-value="3"></i>
+                        <i class="fa-regular fa-heart text-warning fs-5" data-value="4"></i>
+                        <i class="fa-regular fa-heart text-warning fs-5" data-value="5"></i>
+                    </div>
+                </div>
+
+                <div class="product-details">
+                    <span class="price">₱160</span>
+                    <span class="sold-count">5 sold</span>
+                </div>
+
+                <div class="view-details">
+                    <button class="btn-details">View Details</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="product-card">
+                <img src="{{ asset('image/earrings.jpg') }}" alt="Mini Fuzzy Flower" class="product-img">
+                <div class="product-name-daily">
+                    <p class="product-text">Tulip Earrings</p>
+                    <div class="heart-rating">
+                        <i class="fa-solid fa-heart text-warning fs-5" data-value="1"></i>
+                        <i class="fa-solid fa-heart text-warning fs-5" data-value="2"></i>
+                        <i class="fa-solid fa-heart text-warning fs-5" data-value="3"></i>
+                        <i class="fa-regular fa-heart text-warning fs-5" data-value="4"></i>
+                        <i class="fa-regular fa-heart text-warning fs-5" data-value="5"></i>
+                    </div>
+                </div>
+
+                <div class="product-details">
+                    <span class="price">₱40</span>
+                    <span class="sold-count">50 sold</span>
+                </div>
+
+                <div class="view-details">
+                    <button class="btn-details">View Details</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="product-card">
+                <img src="{{ asset('image/headband.jpg') }}" alt="Mini Fuzzy Flower" class="product-img">
+                <div class="product-name-daily">
+                    <p class="product-text">Tulip Headband</p>
+                    <div class="heart-rating">
+                        <i class="fa-solid fa-heart text-warning fs-5" data-value="1"></i>
+                        <i class="fa-solid fa-heart text-warning fs-5" data-value="2"></i>
+                        <i class="fa-solid fa-heart text-warning fs-5" data-value="3"></i>
+                        <i class="fa-regular fa-heart text-warning fs-5" data-value="4"></i>
+                        <i class="fa-regular fa-heart text-warning fs-5" data-value="5"></i>
+                    </div>
+                </div>
+
+                <div class="product-details">
+                    <span class="price">₱90</span>
+                    <span class="sold-count">10 sold</span>
+                </div>
+
+                <div class="view-details">
+                    <button class="btn-details">View Details</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="product-card">
+                <img src="{{ asset('image/daisy-bracelet.jpg') }}" alt="Mini Fuzzy Flower" class="product-img">
+                <div class="product-name-daily">
+                    <p class="product-text">Daisy Bracelet</p>
+                    <div class="heart-rating">
+                        <i class="fa-solid fa-heart text-warning fs-5" data-value="1"></i>
+                        <i class="fa-solid fa-heart text-warning fs-5" data-value="2"></i>
+                        <i class="fa-solid fa-heart text-warning fs-5" data-value="3"></i>
+                        <i class="fa-regular fa-heart text-warning fs-5" data-value="4"></i>
+                        <i class="fa-regular fa-heart text-warning fs-5" data-value="5"></i>
+                    </div>
+                </div>
+
+                <div class="product-details">
+                    <span class="price">₱49</span>
+                    <span class="sold-count">87 sold</span>
+                </div>
+
+                <div class="view-details">
+                    <button class="btn-details">View Details</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="daily-see-more-container scroll-fade">
+            <button class="daily-see-more-btn" id="seeMoreBtn">See More</button>
+        </div>
+    </section>
+
+
+    <!-- footer section starts-->
+    <div class="footer-line"></div>
+    <section class="footer-section"> 
+    <div class="footer-content-container">
+        <div class="footer-column">
+            <h4>Customer Care</h4>
+            <ul>
+                <li>Help Center</li>
+                <li>How to Buy</li>
+                <li>Shipping and Delivery</li>
+                <li>How to Return</li>
+                <li>Question?</li>
+                <li>Contact Us</li>
+            </ul>
+        </div>
+
+        <div class="footer-column">
+            <h4>Jowley's Crafts</h4>
+            <ul>
+                <li>About Jowley's Crafts</li>
+                <li>Terms and Conditions</li>
+                <li>Privacy Policy</li>
+                <li>Intellectual Property Protection</li>
+            </ul>
+        </div>
+
+        <div class="footer-column">
+            <h4>Payment Methods</h4>
+            <div class="payment-methods">
+                <img src="{{ asset('image/gcash.jpg') }}" alt="GCash">
+                <img src="{{ asset('image/paymaya.jpg') }}" alt="Maya">
+                <img src="{{ asset('image/cod.jpg') }}" alt="Cash on Delivery">
+            </div>
+        </div>
+
+        <div class="footer-column">
+            <h4>Delivery Services</h4>
+            <img src="{{ asset('image/jnt.jpg') }}" alt="J&T Express">
+        </div>
+    </div>
+
+    <div class="footer-bottom"></div>
+</section>
+
 
 </section>
 
@@ -256,8 +507,9 @@
 
 
 
-    
-</section>
+
+
+
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -269,7 +521,7 @@
                     if (entry.isIntersecting) {
                         entry.target.classList.add("show");
                     } else {
-                        entry.target.classList.remove("show"); // Magdi-disappear ulit kapag di na kita
+                        entry.target.classList.remove("show"); 
                     }
                 });
             },
@@ -277,5 +529,19 @@
         );
 
         scrollElements.forEach((el) => scrollObserver.observe(el));
+    });
+
+    document.querySelector('.cart-icon-link').addEventListener('click', function (e) {
+        const spinner = this.querySelector('.spinner-border');
+
+        
+        spinner.classList.remove('d-none');
+        this.classList.add('disabled');
+
+        
+        setTimeout(() => {
+            this.classList.remove('disabled');
+            spinner.classList.add('d-none');
+        }, 3000); // Simulate 3 seconds for demo purposes
     });
 </script>
