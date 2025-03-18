@@ -1,0 +1,95 @@
+/*.root{
+    --pink: #E32C89 ;
+}
+
+*{
+    margin: 0; padding: 0;
+    box-sizing: border-box;
+    font-family: Gabarito;
+    outline: none; border: none;
+    text-decoration: none;
+    text-transform: capitalize;
+    transition: .2s linear;
+}
+
+.top-navbar {
+    position: fixed;
+    top: 0; 
+    left: 0;
+    right: 0;
+    background: white;
+    padding: 1.5rem 9%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1000;
+    height: 80px; 
+    border-bottom: 1px solid ;
+}
+
+.top-navbar .logo{
+    font-size: 3rem;
+    color:#E32C89;
+    font-family: Oleo Script Swash Caps;
+    text-decoration: none;
+}
+
+html {
+    font-size: 62.5%;
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+    overflow-x: hidden; 
+}
+
+.scroll-fade {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .scroll-fade.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+
+section{
+    padding: 10rem 9% 2rem;
+}
+
+header {
+    position: fixed;
+    top: 70px; 
+    left: 0;
+    right: 0;
+    background: white;
+    padding: 1.5rem 9%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1000;
+    height: 80px; 
+    
+}
+
+header .logo{
+    font-size: 3rem;
+    color:#E32C89;
+    font-family: Oleo Script Swash Caps;
+    text-decoration: none;
+}
+
+header #toggler{
+    display: none;
+}
+
+header .fa-bars{
+    font-size: 3rem;
+    color: black;
+    border-radius: .5rem;
+    padding: .5rem 1.5rem;
+    cursor: pointer;
+    border: .1rem solid rgba(0,0,0,.3);
+    display: none;
+
+}

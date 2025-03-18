@@ -10,30 +10,37 @@
     <link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=Gotu&family=Oleo+Script+Swash+Caps:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/startpage.css">
     
 </head>
 <body>
 
 <!-- top header bar starts-->
-<!-- Top Header -->
 <div class="top-header scroll-fade">
     <div class="left">
-        <a href="#" class="logo">Jowley's Craft</a>
+        <span>Follow us on</span>
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-tiktok"></i></a>
     </div>
-
     <div class="right">
-        <a href="#" class="notification">
-            <i class="fas fa-bell"></i> Notification
-        </a>
-        <a href="#" class="user-profile">
-            <i class="fas fa-user"></i> AkosiMJ#01
-        </a>
+        <a href="#" class="signup">Sign Up</a>
+        <a href="{{ route('LoginSignUp') }}" class="login">Log in</a>
     </div>
 </div>
 
-<!-- header section starts  -->
+<!-- top header bar ends -->
+
+<!-- header section starts -->
+
 <header class="scroll-fade">
+
+    <input type="checkbox" name="" id="toggler">
+    <label for="toggler" class="fas fa-bars"></label>
+    
+    <a href="#" class="logo">Jowley's Crafts</a>
+
+
     <nav class="navbar">
         <a href="#home">Home</a>
         <a href="#products">Products</a>
@@ -49,12 +56,14 @@
             <a href="{{ route('cart') }}" class="fas fa-shopping-cart cart-icon-link">
                 <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
             </a>
+         </div>
+
+</a>
         </div>
     </div>
+
+
 </header>
-
-
-<!-- header section ends -->
 
 <!-- home section starts -->
 
@@ -83,39 +92,6 @@
 </section>
 
 <!-- home section ends -->
-
-<!-- new arrival -->
-
-<section class="new-arrival scroll-fade" id="new-arrival">
-    <h2>New Arrivals</h2>
-    <div class="new-product-container">
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="card">
-                    <img src="{{ asset('image/coin-purse.png') }}" class="img" alt="Coin Purse">
-                    <div class="content">
-                        <h2>New Crafted Items!</h2>
-                        <p class="description">We have a new product for you.</p>
-                        <p class="see">See more details:</p>
-                        <a href="#" class="btn btn-primary">Coin Purse</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="card">
-                    <img src="{{ asset('image/hair-clips.png') }}" class="img" alt="Crocheted Hair Clips">
-                    <div class="content">
-                        <h2>New Crafted Items!</h2>
-                        <p class="description">We have a new product for you.</p>
-                        <p class="see">See more details:</p>
-                        <a href="#" class="btn btn-primary">Crocheted Hair Clips</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
 
 <!-- catgories -->
 
@@ -160,16 +136,6 @@
         </div>
     </div>
 </section>
-
-<!-- banner -->
-<section class="banner scroll-fade">
-        <img src="{{ asset('image/banner.jpg') }}" alt="Handmade Crafts">
-        <div class="overlay">
-            <h3>Cute Styles</h3>
-            <h2>The Perfect Craft for You</h2>
-        </div>
-    </section>
-
 
 <!-- featured products-->
 
@@ -232,10 +198,9 @@
 
 
 
-
 </section>
 
- <!-- Daily Discoveries Section -->
+<!-- Daily Discoveries Section -->
 <section class="daily-container scroll-fade">
     <div class="daily-wrapper">
         <div class="line"></div>
@@ -248,8 +213,8 @@
         <div class="col">
             <div class="product-card">
                 <img src="{{ asset('image/mini-flower.jpg') }}" alt="Mini Fuzzy Flower" class="product-img">
-                    <p class="product-text">Mini Fuzzy Flower</p>
                 <div class="product-name-daily">
+                    <p class="product-text">Cute Baby Mushroom</p>
                     <div class="heart-rating">
                         <i class="fa-solid fa-heart text-warning fs-5" data-value="1"></i>
                         <i class="fa-solid fa-heart text-warning fs-5" data-value="2"></i>
@@ -273,8 +238,8 @@
         <div class="col">
             <div class="product-card">
                 <img src="{{ asset('image/baby-mushroom.jpg') }}" alt="Mini Fuzzy Flower" class="product-img">
-                <p class="product-text">Cute Baby Mushroom</p>
                 <div class="product-name-daily">
+                    <p class="product-text">Cute Baby Mushroom</p>
                     <div class="heart-rating">
                         <i class="fa-solid fa-heart text-warning fs-5" data-value="1"></i>
                         <i class="fa-solid fa-heart text-warning fs-5" data-value="2"></i>
@@ -298,8 +263,8 @@
         <div class="col">
             <div class="product-card">
                 <img src="{{ asset('image/crochet-top.jpg') }}" alt="Mini Fuzzy Flower" class="product-img">
-                <p class="product-text">Handmade Crochet Top</p>
                 <div class="product-name-daily">
+                    <p class="product-text">Handmade Crochet Top</p>
                     <div class="heart-rating">
                         <i class="fa-solid fa-heart text-warning fs-5" data-value="1"></i>
                         <i class="fa-solid fa-heart text-warning fs-5" data-value="2"></i>
@@ -323,8 +288,8 @@
         <div class="col">
             <div class="product-card">
                 <img src="{{ asset('image/single-tulip.jpg') }}" alt="Mini Fuzzy Flower" class="product-img">
-                <p class="product-text">Single Tulip Crochet Bouquet</p>
                 <div class="product-name-daily">
+                    <p class="product-text">Single Tulip Crochet Bouquet</p>
                     <div class="heart-rating">
                         <i class="fa-solid fa-heart text-warning fs-5" data-value="1"></i>
                         <i class="fa-solid fa-heart text-warning fs-5" data-value="2"></i>
@@ -347,8 +312,8 @@
         <div class="col">
             <div class="product-card">
                 <img src="{{ asset('image/sunflower.jpg') }}" alt="Mini Fuzzy Flower" class="product-img">
-                <p class="product-text">Crochet Sunflower Bouquet</p>
                 <div class="product-name-daily">
+                    <p class="product-text">Crochet Sunflower Bouquet</p>
                     <div class="heart-rating">
                         <i class="fa-solid fa-heart text-warning fs-5" data-value="1"></i>
                         <i class="fa-solid fa-heart text-warning fs-5" data-value="2"></i>
@@ -372,8 +337,8 @@
         <div class="col">
             <div class="product-card">
                 <img src="{{ asset('image/earrings.jpg') }}" alt="Mini Fuzzy Flower" class="product-img">
-                <p class="product-text">Tulip Earrings</p>
                 <div class="product-name-daily">
+                    <p class="product-text">Tulip Earrings</p>
                     <div class="heart-rating">
                         <i class="fa-solid fa-heart text-warning fs-5" data-value="1"></i>
                         <i class="fa-solid fa-heart text-warning fs-5" data-value="2"></i>
@@ -397,8 +362,8 @@
         <div class="col">
             <div class="product-card">
                 <img src="{{ asset('image/headband.jpg') }}" alt="Mini Fuzzy Flower" class="product-img">
-                <p class="product-text">Tulip Headband</p>
                 <div class="product-name-daily">
+                    <p class="product-text">Tulip Headband</p>
                     <div class="heart-rating">
                         <i class="fa-solid fa-heart text-warning fs-5" data-value="1"></i>
                         <i class="fa-solid fa-heart text-warning fs-5" data-value="2"></i>
@@ -422,8 +387,8 @@
         <div class="col">
             <div class="product-card">
                 <img src="{{ asset('image/daisy-bracelet.jpg') }}" alt="Mini Fuzzy Flower" class="product-img">
-                <p class="product-text">Daisy Bracelet</p>
                 <div class="product-name-daily">
+                    <p class="product-text">Daisy Bracelet</p>
                     <div class="heart-rating">
                         <i class="fa-solid fa-heart text-warning fs-5" data-value="1"></i>
                         <i class="fa-solid fa-heart text-warning fs-5" data-value="2"></i>
@@ -446,13 +411,12 @@
     </div>
 
     <div class="daily-see-more-container scroll-fade">
-            <button class="daily-see-more-btn" id="seeMoreBtn">See More</button>
+            <button class="daily-see-more-btn" id="seeMoreBtn">Login to see more</button>
         </div>
     </section>
 
-
-    <!-- footer section starts-->
-    <div class="footer-line"></div>
+<!-- footer section starts-->
+<div class="footer-line"></div>
     <section class="footer-section"> 
     <div class="footer-content-container">
         <div class="footer-column">
@@ -496,21 +460,6 @@
     
 </section>
 
-
-</section>
-
-
-
-
-
-
-
-
-
-
-
-
-
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const scrollElements = document.querySelectorAll(".scroll-fade");
@@ -545,3 +494,4 @@
         }, 3000); // Simulate 3 seconds for demo purposes
     });
 </script>
+

@@ -1,0 +1,55 @@
+/*{
+    margin: 0; padding: 0;
+    box-sizing: border-box;
+    font-family: Gabarito;
+    outline: none; border: none;
+    text-decoration: none;
+    text-transform: capitalize;
+    transition: .2s linear;
+}
+
+.top-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 9%;
+    background: white;
+    font-size: 16px;
+    font-family: Gabarito;
+    border-bottom: 1px solid #E32C89 ;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1100;
+    height: 65px; 
+}
+
+.top-header .left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+html {
+    font-size: 62.5%;
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+    overflow-x: hidden; 
+}
+
+.scroll-fade {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .scroll-fade.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+
+section{
+    padding: 10rem 9% 2rem;
+}

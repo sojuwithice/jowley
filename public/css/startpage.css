@@ -18,7 +18,9 @@
     align-items: center;
     padding: 8px 9%;
     background: white;
-    border-bottom: 1px solid #E32C89;
+    font-size: 16px;
+    font-family: Gabarito;
+    border-bottom: 1px solid #E32C89 ;
     width: 100%;
     position: fixed;
     top: 0;
@@ -27,43 +29,47 @@
     height: 65px; 
 }
 
-.top-header .logo {
-    font-size: 3rem;
-    color: #E32C89;
-    font-family: Oleo Script Swash Caps;
-    text-decoration: none;
-}
-
-.top-header .right {
+.top-header .left {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 10px;
 }
+
+.top-header .left a {
+    color: #fff;
+    background: #E32C89;
+    padding: 5px 8px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 15px;
+    font-family: Gabarito;
+}
+
+.top-header .left a:hover {
+    transform: scale(1.1); 
+}
+
 
 .top-header .right a {
-    color: #000;
+    color: black;
     text-decoration: none;
-    font-size: 1.5rem;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    position: relative;
-    transition: color 0.3s ease, transform 0.3s ease;
+    font-family: Gabarito;
+    font-size: 15px;
+    padding: 5px 15px; 
+    border: 2px solid transparent; 
+    border-radius: 5px;
+    transition: all 0.3s ease; 
 }
 
-.top-header .right a:hover {
-    color: #E32C89;
-    transform: translateY(-3px);
-}
-
-.top-header .right a i {
-    color: #E32C89;
-    font-size: 1.8rem;
-    transition: transform 0.3s ease;
-}
-
-.top-header .right a:hover i {
-    transform: translateY(-3px);
+.top-header .signup:hover,
+.top-header .login:hover {
+    background: #E32C89;
+    color: white;
+    border-color: #E32C89; 
+   
 }
 
 
@@ -100,9 +106,16 @@ header {
     padding: 1.5rem 9%;
     display: flex;
     align-items: center;
-    justify-content: center; 
-    z-index: 1000;  
+    justify-content: space-between;
+    z-index: 1000;
     height: 80px; 
+}
+
+header .logo{
+    font-size: 3rem;
+    color:#E32C89;
+    font-family: Oleo Script Swash Caps;
+    text-decoration: none;
 }
 
 header .navbar a{
@@ -129,16 +142,13 @@ header .icons a{
 
 }
 
-
 .header-right {
     display: flex;
     align-items: center;
-    gap: 15px;
-    position: absolute;
-    right: 9%;
+    gap: 10px; 
 }
 
-header .search-bar {
+header .search-bar{
     display: flex;
     align-items: center;
     border: 2px solid #E32C89;
@@ -146,9 +156,10 @@ header .search-bar {
     padding: 1px 10px;
     width: 250px;
     background: white;
+    
 }
 
-header .search-bar input {
+header .search-bar input{
     border: none;
     outline: none;
     font-size: 1.5rem;
@@ -157,12 +168,35 @@ header .search-bar input {
     color: black;
 }
 
+header .search-bar input::placeholder {
+    color: gray;
+}
+
 header .search-bar button {
     background: none;
     border: none;
     cursor: pointer;
     font-size: 1.8rem;
     color: #E32C89;
+}
+
+header .icons a:hover{
+    color: #FBD0D7;
+}
+
+header #toggler{
+    display: none;
+}
+
+header .fa-bars{
+    font-size: 3rem;
+    color: black;
+    border-radius: .5rem;
+    padding: .5rem 1.5rem;
+    cursor: pointer;
+    border: .1rem solid rgba(0,0,0,.3);
+    display: none;
+
 }
 
 
@@ -330,81 +364,6 @@ header .search-bar button {
 
 }
 
-.new-arrival {
-    width: 100%; 
-    max-width: 1200px; 
-    margin: auto;
-    padding-top: 50px;
-    margin-top: 0; 
-}
-
-.new-arrival h2{
-    font-size: 30px;
-    font-family: Gabarito;
-    margin-bottom: 20px;
-}
-
-.new-arrival .card {
-    display: flex; 
-    flex-direction: row-reverse; 
-    align-items: center; 
-    border: 1.5px solid #E32C89;
-    border-radius: 10px;
-    overflow: hidden;
-    
-}
-
-.new-arrival .card img {
-    width: 50%; 
-    height: 50%;
-    
-}
-
-.new-arrival .content h2 {
-    font-size: 25px;
-    margin-bottom: -5px;
-    
-}
-
-.new-arrival .content .description{
-    font-size: 13px;
-    font-family: Gabarito;
-    color: #E32C89;
-    text-transform: none;
-    margin-top: 0;
-}
-
-.new-arrival .content .see {
-    font-size: 10px;
-    text-transform: none;
-    font-family: Gabarito;
-    margin-top: 30px;
-
-}
-
-  
-
-.new-arrival .card .btn {
-    display: block; 
-    width: 100%; 
-    max-width: 190px; 
-    text-align: center; 
-    padding: 10px; 
-    border-radius: 15px;
-    font-size: 13px;
-    background-color: #E32C89;
-    border: none;
-    
-}
-
-.new-arrival .card .btn.btn-primary:hover {
-    background-color: #fff !important;  
-    color: #E32C89 !important; 
-    border: 2px solid #E32C89 !important; 
-}
-
-
-
 .categories {
     margin-top: -60px; 
     text-align: center;
@@ -485,56 +444,6 @@ header .search-bar button {
     background-color: #E6007E; 
 }
 
-
-.banner{
-    position: relative;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-    padding: 20px 0;
-    margin-top: 20px;
-}
-
-.banner img{
-    width: 100%;
-    height: auto;
-    display: block;
-}
-
-.overlay {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: rgba(251, 208, 215, 0.6);
-    padding: 15px 20px;
-    text-align: center;
-    width: 100%;
-    height: 20%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.overlay h3 {
-    font-size: 20px;
-    margin: 0;
-    color: #333;
-    line-height: 24px;
-    
-}
-
-.overlay h2 {
-    font-size: 28px;
-    font-weight: bold;
-    color: #000;
-    margin: 5px 0;
-    text-transform: none;
-    line-height: 31px;
-}
-
-
 .featured {
     margin-top: 10px;
     padding-top: 0px;  
@@ -582,7 +491,7 @@ h2.text-center {
     padding: 5px 10px;
     border-radius: 20px;
     font-size: 14px;
-    background-color: #E32C89;
+    background-color:#E32C89 ;
 }
 
 .top-rank span {
@@ -609,7 +518,7 @@ h2.text-center {
     width: 91%;
     margin-left: 10px; 
     padding: 8px 10px; 
-    background-color: rgba(0, 0, 0, 0.6);    
+    background-color: rgba(0, 0, 0, 0.6);    ;
     text-align: left; 
     font-size: 10px;
     color: white;
@@ -676,7 +585,6 @@ h2.text-center {
     transform: translateX(4px); /* Arrow slides right */
 }
 
-/* daily discoveries css*/
 
 .daily-container{
     position: relative;
@@ -705,18 +613,6 @@ h2.text-center {
 }
 
 
-.product-text {
-    position: absolute;
-    bottom: 65px;
-    left: 13px;
-    font-size: 12px;
-    color: white;
-    padding: 5px 14px;
-    border-radius: 25px;
-    background-color: #E32C89;
-}
-
-
 .product-name-daily {
     position: absolute;
     bottom: 20px; 
@@ -724,24 +620,30 @@ h2.text-center {
     width: 91%;
     margin-left: 10px;
     padding: 25px 10px; 
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: rgba(230, 0, 126, 0.5);
     text-align: left;
     box-sizing: border-box;
     max-width: 100%;
     overflow: hidden;
 }
 
-
+.product-text {
+    position: relative; 
+    top: -20px; 
+    font-size: 14px;
+    color: white;
+    font-weight: 500;
+}
 
 .heart-rating {
     position: absolute;
-    bottom: 30px; 
+    bottom: 41px; 
     left: 10px; 
 }
 
 .heart-rating .fa-heart {
     font-size: 1rem;
-    color: #E6007E !important; 
+    color: #FFD700 !important; 
 }
 
 .product-details {
@@ -889,110 +791,4 @@ h2.text-center {
     margin-bottom:0;
     left: 0;
     text-align: center;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*mobile view*/
-
-@media (max-width: 991px) {
-
-    html {
-        font-size:55%
-    }
-
-    header{
-        padding:2rem;
-    }
-
-    section{
-        padding: 2rem;
-    }
-
-    .home {
-        flex-direction: column;
-        text-align: center;
-        justify-content: center;
-        padding: 8rem 5% 2rem;
-    }
-
-    .home .content {
-        position: static;
-        text-align: center;
-        max-width: 100%;
-    }
-
-    .home .content h3 {
-        font-size: 4rem;
-    }
-
-    .home .content p {
-        font-size: 1.3rem;
-    }
-
-    .home .img-wrapper {
-        left: 0;
-        width: 100%;
-        min-height: 50vh;
-    }
-}
-
-
-@media (max-width: 768px) {
-    header {
-        padding: 2rem;
-    }
-    
-
-    header .navbar {
-        position: absolute;
-        top: 100%; left:0; right: 0;
-        background: white;
-        border-top: .1rem solid black;
-        clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
-    }
-
-    header .fa-bars {
-        display: block;
-    }
-
-    header #toggler:checked ~ .navbar {
-        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-    }
-
-    header .navbar a {
-        margin: 1.5rem;
-        padding: 1.5rem;
-        background: white;
-        border: .1rem solid black;
-        display: block;
-    }
 }

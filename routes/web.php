@@ -2,9 +2,19 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
+Route::get('/startingpage', function () {
+    return view('startingpage');
+})->name('startingpage');
+
+Route::get('/homepage', function () {
     return view('homepage');
+})->name('homepage');
+
+// Redirect logic
+Route::get('/', function () {
+    return auth()->check() ? redirect()->route('homepage') : redirect()->route('startingpage');
 });
+
 
 Route::get('/LoginSignUp', function () {
     return view('LoginSignUp'); 
