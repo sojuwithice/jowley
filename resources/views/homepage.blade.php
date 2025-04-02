@@ -27,8 +27,9 @@
             <i class="fas fa-bell"></i> Notification
         </a>
         <a href="#" class="user-profile">
-            <i class="fas fa-user"></i> AkosiMJ#01
-        </a>
+    <i class="fas fa-user"></i> {{ Auth::user()->username ?? 'Guest' }}
+</a>
+
     </div>
 </div>
 
@@ -128,7 +129,7 @@
             </div>
             <span>Bracelet</span>
         </div>
-        <div class="category">
+        <div class="category"> 
             <div class="circle">
              <img src="{{ asset('image/categ-keychain.png') }}" alt="Keychain">
             </div>    

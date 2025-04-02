@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - Jowley’s Crafts</title>
-    
+
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
@@ -13,7 +13,7 @@
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
-
+        
         * {
             margin: 0;
             padding: 0;
@@ -27,32 +27,20 @@
             justify-content: center;
             align-items: center;
             height: 110vh;
-            padding:90px;
+            padding: 90px;
             flex-direction: column;
         }
 
-        .header-bar{
-            margin-top: 65px;
-            width: 100%;
-            height: 1px;
-            background-color: #E32C89;
-            position: fixed;
-            left: 0;
-        }
-
-        .footer-bar {
-            margin-top: 65px;
+        .header-bar, .footer-bar {
             width: 100%;
             height: 35px;
             background-color: #E32C89;
             position: fixed;
-
         }
 
-        .header-bar { top: 0; }
+        .header-bar { top: 0; height: 1px; }
         .footer-bar { bottom: 0; }
 
-        /* Header Styles */
         .header {
             position: fixed;
             top: 20px;
@@ -66,7 +54,7 @@
             font-family: 'Oleo Script Swash Caps', cursive;
             font-size: 1.6rem;
             color: #E32C89;
-            margin-right: 55px
+            margin-right: 55px;
         }
 
         .signin-text {
@@ -83,38 +71,27 @@
             background: white;
             padding: 40px;
             border-radius: 30px;
-            border: 1px solid black; 
+            border: 1px solid black;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
             width: 90%;
             max-width: 90%;
-            height: 430px;
+            height: 500px;
         }
 
         .left-content {
             width: 50%;
             text-align: left;
-            padding-right: 10px;
-            padding-left: 20px;
+            padding: 0 20px;
             font-family: 'Gabarito', sans-serif;
-            margin-bottom: 10%;
         }
 
-        .signin-message {
-             color: #E32C89;
-             font-family: 'Gabarito', sans-serif;
-             font-size: 17px;
-        }
-
-        .new-text {
-            font-size: 45px;
-            font-weight: 500;
-        }
+        .signin-message { color: #E32C89; font-size: 17px; }
+        .new-text { font-size: 45px; font-weight: 500; }
 
         .right-content {
             width: 60%;
             text-align: left;
-            padding-left: 110px;
-            padding-right: 30px;
+            padding: 0 30px;
             font-family: 'Gabarito', sans-serif;
         }
 
@@ -124,13 +101,6 @@
             margin-bottom: 20px;
             color: #E32C89;
             text-align: center;
-            width: 100%;
-        }
-
-        .right-content p {
-            font-size: 32px;
-            color: #666;
-            margin-bottom: 10px;
         }
 
         .input-group {
@@ -145,8 +115,6 @@
             border: 1px solid black;
             height: 40px;
             font-size: 13px;
-            font-weight: 400;
-            font-family: 'Gabarito', sans-serif;
             outline: none;
             transition: all 0.3s ease;
         }
@@ -178,9 +146,7 @@
             margin-top: 8px;
         }
 
-        .btn:hover {
-            background: #c92473;
-        }
+        .btn:hover { background: #c92473; }
 
         .social-signin {
             display: flex;
@@ -189,17 +155,7 @@
             font-size: 13px;
             font-family: 'Gabarito', sans-serif;
             color: #666;
-            margin-top: 20px;
-            margin-bottom: 10px;
-        }
-
-        .social-signin::before,
-        .social-signin::after {
-            content: "";
-            flex: 1;
-            height: 1px; 
-            background-color: #666; 
-            margin: 0 10px; 
+            margin: 20px 0;
         }
 
         .social-icons {
@@ -213,116 +169,100 @@
             font-size: 22px;
             color: #E32C89;
             cursor: pointer;
-            transition: color 0.3s;;
+            transition: color 0.3s;
         }
+        .error-message {
+            color: red;
+            font-size: 12px;
+            margin-top: 5px;
+            display: block;
+}
 
-        .social-icons i:hover {
-            color: #c92473;
-        }
-
-        .register-link {
+        .register-link, .terms-container {
             text-align: center;
-            font-family: 'Gabarito', sans-serif;
             font-size: 14px;
             margin-top: 20px;
         }
-
-        .register-link a {
-            color: #E32C89;
-            font-weight: 500;
-            text-decoration: none;
-        }
-
-        .register-link a:hover {
-            text-decoration: underline;
-        }
-
-        .terms-container {
-            text-align: center;
-            font-size: 14px;
-            margin-top: 30px;
-        }
-
-        .terms-container input {
-            margin-right: 5px;
-            accent-color: #E32C89;
-        }
-
-        .terms-container a {
-            color: #E32C89;
-            text-decoration: none;
-        }
-
-        .terms-container a:hover {
-            text-decoration: underline;
+        .error {
+            border-color: red;
+            box-shadow: 0 0 5px rgba(255, 0, 0, 0.5); /* Red shadow for better visibility */
+        
+      
 }
 
-        @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
-                text-align: center;
-                padding: 30px;
-            }
-
-            .left-content img {
-                width: 200px;
-                margin-bottom: 20px;
-            }
-
-            .right-content {
-                width: 100%;
-                padding: 0;
-            }
-
-            .input-group input {
-                padding: 12px 15px;
-            }
-        }
     </style>
 </head>
 <body>
-
     <div class="header-bar"></div>
-
-    <!-- Header with "Jowley's Craft" and "Log In" -->
     <div class="header">
         <span class="brand-name">Jowley's Craft</span>
-        <span class="signin-text">Sign In</span>
+        <span class="signin-text">Sign Up</span>
     </div>
 
     <div class="container">
         <div class="left-content">
-             <h1 class="new-text">Are you new here?</h1>
-             <p class="signin-message">Create an account to start.</p>
+            <h1 class="new-text">Are you new here?</h1>
+            <p class="signin-message">Create an account to start.</p>
         </div>
 
         <div class="right-content">
-        <h2>Sign In</h2>
-            <form action="#">
-                <div class="input-group">
-                    <i class="fa fa-mobile"></i>
-                    <input type="text" placeholder="Enter your Phone Number" required>
-                </div>
-                <button class="btn">Send code via SMS</button>
+        <form action="{{ url('/register') }}" method="POST">
+    @csrf
+    <h2>Sign Up</h2>
+    <div class="input-group">
+    <i class="fa fa-user"></i>
+    <input type="text" name="username" placeholder="Enter your Username" required 
+        value="{{ old('username') }}" class="{{ $errors->has('username') ? 'error' : '' }}">
+    @error('username')
+        <span class="error-message">{{ $message }}</span>
+    @enderror
+</div>
 
-                <div class="social-signin">Or sign in with</div>
-                <div class="social-icons">
-                    <i class="fa-brands fa-facebook"></i>
-                    <i class="fa-brands fa-instagram"></i>
-                    <i class="fa-brands fa-tiktok"></i>
-                </div>
+<div class="input-group">
+    <i class="fa fa-envelope"></i>
+    <input type="email" name="email" placeholder="Enter your Email" required 
+        value="{{ old('email') }}" class="{{ $errors->has('email') ? 'error' : '' }}">
+    @error('email')
+        <span class="error-message">{{ $message }}</span>
+    @enderror
+</div>
 
-                <div class="register-link">
-                    Already have an account? <a href="#">Log in</a>
-                </div>
-                <div class="terms-container">
-                    <input type="checkbox" id="terms" required>
-                    <label for="terms">By Signing In, you agree to Jowley’s Crafts <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</label>
-                </div>
-            </form>
+<div class="input-group">
+    <i class="fa fa-phone"></i>
+    <input type="tel" name="phone" placeholder="Enter your Phone Number" required 
+        value="{{ old('phone') }}" class="{{ $errors->has('phone') ? 'error' : '' }}">
+    @error('phone')
+        <span class="error-message">{{ $message }}</span>
+    @enderror
+</div>
+
+<div class="input-group">
+    <i class="fa fa-lock"></i>
+    <input type="password" name="password" placeholder="Enter your Password" required 
+        class="{{ $errors->has('password') ? 'error' : '' }}">
+    @error('password')
+        <span class="error-message">{{ $message }}</span>
+    @enderror
+</div>
+
+<div class="input-group">
+    <i class="fa fa-lock"></i>
+    <input type="password" name="password_confirmation" placeholder="Confirm your Password" required 
+        class="{{ $errors->has('password_confirmation') ? 'error' : '' }}">
+    @error('password_confirmation')
+        <span class="error-message">{{ $message }}</span>
+    @enderror
+</div>
+
+
+    <button type="submit" class="btn">Register</button>
+    <div class="register-link">
+        Already have an account? <a href="{{ url('/LoginSignUp') }}">Log in</a>
+    </div>
+</form>
+
         </div>
     </div>
-
     <div class="footer-bar"></div>
 </body>
 </html>

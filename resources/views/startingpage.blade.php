@@ -24,7 +24,7 @@
         <a href="#"><i class="fab fa-tiktok"></i></a>
     </div>
     <div class="right">
-        <a href="#" class="signup">Sign Up</a>
+    <a href="{{ url('/Register') }}" class="signup">Sign Up</a>
         <a href="{{ route('LoginSignUp') }}" class="login">Log in</a>
     </div>
 </div>

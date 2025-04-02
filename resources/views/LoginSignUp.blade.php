@@ -268,6 +268,17 @@
             font-size: 14px;
             margin-top: 20px;
         }
+        .input-group input.error {
+            border-color: red;
+            box-shadow: 0 0 5px rgba(255, 0, 0, 0.3);
+        }
+
+        .error-message {
+            color: red;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
 
         .register-link a {
             color: #E32C89;
@@ -328,35 +339,37 @@
 
         <div class="right-content">
         <h2>Log In</h2>
-            <form action="#">
-                <div class="input-group">
-                    <i class="fa fa-user"></i>
-                    <input type="text" placeholder="Phone Number/Username/Email" required>
-                </div>
+        <form action="{{ route('LoginSignUp') }}" method="POST">
+    @csrf
 
-                <div class="input-group password-container">
-                    <i class="fa fa-lock"></i>
-                    <input type="password" id="password" placeholder="Password" required>
-                </div>
-                <div class="forgot-login-container">
-                    <a href="#" class="forgot-password">Forgot Password?</a>
-                    <a href="#" class="login-with-phone">Log In with Phone Number</a>
-                </div>
+    <div class="input-group">
+        <i class="fa fa-user"></i>
+        <input type="text" name="login" placeholder="Phone Number/Username/Email" required class="@error('login') error @enderror">
+        @error('login')
+            <div class="error-message">{{ $message }}</div>
+        @enderror
+    </div>
+
+    <div class="input-group password-container">
+        <i class="fa fa-lock"></i>
+        <input type="password" name="password" id="password" placeholder="Password" required class="@error('password') error @enderror">
+        @error('password')
+            <div class="error-message">{{ $message }}</div>
+        @enderror
+    </div>
+
+    <div class="forgot-login-container">
+        <a href="#" class="forgot-password">Forgot Password?</a>
+    </div>
+
+    <button class="btn">LOG IN</button>
+
+    <div class="register-link">
+        Don't have an account? <a href="{{ url('/Register') }}">Sign up</a>
+    </div>
+</form>
 
 
-                <button class="btn">LOG IN</button>
-
-                <div class="social-login">Or log in with</div>
-                <div class="social-icons">
-                    <i class="fa-brands fa-facebook"></i>
-                    <i class="fa-brands fa-instagram"></i>
-                    <i class="fa-brands fa-tiktok"></i>
-                </div>
-
-                <div class="register-link">
-                    Don't have an account? <a href="#">Sign up</a>
-                </div>
-            </form>
         </div>
     </div>
 

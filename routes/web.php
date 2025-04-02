@@ -1,6 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Auth\LoginController;
+
+
 
 Route::get('/startingpage', function () {
     return view('startingpage');
@@ -36,9 +42,6 @@ Route::get('AccountRecovery', function () {
     return view('AccountRecovery'); 
 });
 
-Route::get('RegisterAccountVerification', function () {
-    return view('RegisterAccountVerification'); 
-});
 Route::get('/cart', function () {
     return view('cart');
 })->name('cart');
@@ -61,3 +64,11 @@ Route::get('/butterfly-bouquet', function () {
 Route::get('/checkout', function () {
     return view('checkout');
 })->name('checkout');
+
+
+
+Route::post('/register', [RegisterController::class, 'register']);
+
+Route::get('/home', [HomeController::class, 'index'])->name('homepage');
+ 
+Route::post('/LoginSignUp', [LoginController::class, 'login'])->name('LoginSignUp');
