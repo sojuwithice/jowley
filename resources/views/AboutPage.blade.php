@@ -8,23 +8,98 @@
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Oleo+Script+Swash+Caps&display=swap');
-        body { font-family: 'Gabarito', sans-serif; }
-        .hero { font-family: 'Gotu', sans-serif; background: linear-gradient(to bottom, #fdecef, white); padding: 60px 20px; text-align: center; }
-        .product-img { width: 100%; height: auto; border-radius: 10px; }
-        .section-title { text-align: center; margin-top: 40px; }
-        .about-text { max-width: 800px; margin: 0 auto; text-align: center; }
-        .top-header { display: flex; justify-content: space-between; padding: 10px 20px; background-color: #f8f9fa; }
-        .top-header .logo { font-family: 'Oleo Script Swash Caps', cursive; font-size: 32px; color: #E32C89; }
-        .top-header .right a { margin-left: 15px; font-weight: 500; }
-        .navbar { padding: 15px 30px; background: white; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); }
-        .navbar a { margin: 0 15px; font-weight: 500; }
-        .header-right { display: flex; align-items: center; justify-content: flex-end; }
-        .search-bar { display: flex; }
-        .search-bar input { border-radius: 20px; border: 1px solid #ddd; padding: 8px 15px; }
-        .icons { margin-left: 15px; }
-        .icon { font-size: 1.3rem; cursor: pointer; }
-        .highlight-section {font-family: 'Gabarito'; background: #fdecef; padding: 40px 0; }
-        .bottom { font-family: 'Gabarito'; background: white ; padding: 60px 20px; text-align: center; }
+        
+    body { 
+        font-family: 'Gabarito', sans-serif; 
+    }
+
+    .hero { 
+        font-family: 'Gotu', sans-serif; 
+        background: linear-gradient(to bottom, #fdecef, white); 
+        padding: 60px 20px; 
+        text-align: center; 
+    }
+
+    .product-img { 
+        width: 100%; 
+        height: auto; 
+        border-radius: 10px; 
+    }
+    
+    .section-title { 
+        text-align: center; 
+        margin-top: 40px; 
+    }
+    
+    .about-text { 
+        max-width: 800px; 
+        margin: 0 auto; 
+        text-align: center; 
+    }
+    
+    .top-header { 
+        display: flex; 
+        justify-content: space-between; 
+        padding: 10px 20px; 
+        background-color: #f8f9fa;
+    }
+    .top-header .logo { 
+        font-family: 'Oleo Script Swash Caps', cursive; 
+        font-size: 32px; 
+        color: #E32C89; 
+    }
+    .top-header .right a { 
+        margin-left: 15px; 
+        font-weight: 500; 
+    }
+    
+    .navbar { 
+        padding: 15px 30px; 
+        background: white; 
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); 
+    }
+    .navbar a { 
+        margin: 0 15px; 
+        font-weight: 500; 
+    }
+    
+    .header-right { 
+        display: flex; 
+        align-items: center; 
+        justify-content: flex-end; 
+    }
+    
+    .search-bar { 
+        display: flex; 
+    }
+    
+    .search-bar input { 
+        border-radius: 20px; 
+        border: 1px solid #ddd; 
+        padding: 8px 15px; 
+    }
+    .icons { 
+        margin-left: 15px;
+    }
+    
+    .icon { 
+        font-size: 1.3rem; 
+        cursor: pointer; 
+    }
+     
+    .highlight-section {
+        font-family: 'Gabarito'; 
+        background: #fdecef; 
+        padding: 40px 0; 
+    }
+    
+    .bottom { 
+        font-family: 'Gabarito'; 
+        background: white ; 
+        padding: 60px 20px; 
+        text-align: center; 
+    }
+    
     </style>
 </head>
 <body>
