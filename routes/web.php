@@ -42,8 +42,8 @@ Route::get('AccountRecovery', function () {
     return view('AccountRecovery'); 
 });
 
-Route::get('About', function () {
-    return view('About'); 
+Route::get('AboutPage', function () {
+    return view('AboutPage'); 
 });
 
 Route::get('/cart', function () {
