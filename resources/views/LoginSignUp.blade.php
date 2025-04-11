@@ -327,7 +327,7 @@
 
     <!-- Header with "Jowley's Craft" and "Log In" -->
     <div class="header">
-        <span class="brand-name">Jowley's Craft</span>
+        <a href="/" class="brand-name" style="text-decoration: none;">Jowley's Craft</a>
         <span class="login-text">Log In</span>
     </div>
 
@@ -359,7 +359,7 @@
     </div>
 
     <div class="forgot-login-container">
-        <a href="#" class="forgot-password">Forgot Password?</a>
+        <a href="{{ url('/AccountRecovery') }}" class="forgot-password">Forgot Password?</a>
     </div>
 
     <button class="btn">LOG IN</button>

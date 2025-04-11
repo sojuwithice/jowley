@@ -177,6 +177,10 @@
             margin-top: 5px;
             display: block;
 }
+.register-link a {
+    color: #E32C89; 
+    text-decoration: none;
+}
 
         .register-link, .terms-container {
             text-align: center;
@@ -195,7 +199,7 @@
 <body>
     <div class="header-bar"></div>
     <div class="header">
-        <span class="brand-name">Jowley's Craft</span>
+    <a href="/" class="brand-name" style="text-decoration: none;">Jowley's Craft</a>
         <span class="signin-text">Sign Up</span>
     </div>
 

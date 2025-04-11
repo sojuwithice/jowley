@@ -5,7 +5,11 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\LoginController;
-
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\AdminController; 
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CartController;
+use App\Models\Product;
 
 
 Route::get('/startingpage', function () {
@@ -42,21 +46,6 @@ Route::get('AccountRecovery', function () {
     return view('AccountRecovery'); 
 });
 
-Route::get('/cart', function () {
-    return view('cart');
-})->name('cart');
-
-Route::get('/minifuzzy', function () {
-    return view('minifuzzy');
-})->name('minifuzzy');
-
-Route::get('/fuzzylily', function () {
-    return view('fuzzylily');
-})->name('fuzzylily');
-
-Route::get('/singletulip', function () {
-    return view('singletulip');
-})->name('singletulip');
 
 Route::get('/butterfly-bouquet', function () {
     return view('butterflybouquet');
@@ -66,9 +55,41 @@ Route::get('/checkout', function () {
 })->name('checkout');
 
 
-
 Route::post('/register', [RegisterController::class, 'register']);
 
 Route::get('/home', [HomeController::class, 'index'])->name('homepage');
  
 Route::post('/LoginSignUp', [LoginController::class, 'login'])->name('LoginSignUp');
+
+
+Route::get('/logout', function () {
+    Auth::logout(); // Logs out the user
+    session()->invalidate(); // Invalidates the session
+    session()->regenerateToken(); // Regenerates the CSRF token
+
+    return redirect('/home'); // Redirect to the homepage
+})->name('logout');
+// Checkout Route
+Route::get('/checkout', function() {
+    if (!Auth::check()) {
+        return redirect()->route('LoginSignUp')->with('message', 'Please log in to proceed to checkout.');
+    }
+    return view('checkout');
+})->name('checkout');
+
+
+Route::get('/SellerDash', [AdminController::class, 'index'])->name('SellerDash');
+
+Route::get('/product/{slug}', [ProductController::class, 'show'])->name('product.show');
+
+
+
+Route::middleware('auth')->group(function () {
+    Route::get('/cart', [CartController::class, 'viewCart'])->name('cart');
+    Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
+    Route::post('/cart/update/{productId}', [CartController::class, 'updateCart'])->name('cart.update');  // For updating quantity
+    Route::delete('/cart/delete/{productId}', [CartController::class, 'destroy'])->name('cart.delete');
+    
+
+
+});

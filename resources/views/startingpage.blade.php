@@ -42,7 +42,7 @@
 
 
     <nav class="navbar">
-        <a href="#home">Home</a>
+        <a href="{{ route('startingpage') }}">Home</a>
         <a href="#products">Products</a>
         <a href="#contactus">FAQs</a>
     </nav>
@@ -144,7 +144,7 @@
         <h2 class="text-center mb-4">Our Featured Products</h2>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-5">
             <div class="col">
-                <a href="{{ route('minifuzzy') }}" class="product-link">
+            <a href="{{ route('product.show', ['slug' => 'minifuzzy']) }}">
                     <div class="product-card">
                         <img src="{{ asset('image/mini-flower.jpg') }}" alt="Mini Fuzzy Flower" class="product-img">
                         <p class="top-rank">Top <span>1</span></p>
@@ -155,7 +155,7 @@
             </div>
 
             <div class="col">
-                <a href="{{ route('fuzzylily') }}" class="product-link">
+            <a href="{{ route('product.show', ['slug' => 'fuzzy-lily']) }}">
                     <div class="product-card">
                         <img src="{{ asset('image/fuzzy-flower.jpg') }}" alt="Fuzzy Lily Flower Bouquet" class="product-img">
                         <p class="top-rank">Top <span>2</span></p>
@@ -166,7 +166,7 @@
             </div>
 
             <div class="col">
-                <a href="{{ route('singletulip') }}" class="product-link">
+            <a href="{{ route('product.show', ['slug' => 'single-tulip']) }}">
                     <div class="product-card">
                         <img src="{{ asset('image/single-tulip.jpg') }}" alt="Single Tulip Crochet Bouquet" class="product-img">
                         <p class="top-rank">Top <span>3</span></p>
@@ -177,7 +177,7 @@
             </div>
 
             <div class="col">
-                <a href="{{ route('butterflybouquet') }}" class="product-link">
+            <a href="{{ route('product.show', ['slug' => 'butterflybouquet']) }}">
                     <div class="product-card">
                         <img src="{{ asset('image/butterfly-bouquet.jpg') }}" alt="Butterfly Bouquet" class="product-img">
                         <p class="top-rank">Top <span>4</span></p>
@@ -214,7 +214,7 @@
             <div class="product-card">
                 <img src="{{ asset('image/mini-flower.jpg') }}" alt="Mini Fuzzy Flower" class="product-img">
                 <div class="product-name-daily">
-                    <p class="product-text">Cute Baby Mushroom</p>
+                    <p class="product-text">Mini Fuzzy Flower</p>
                     <div class="heart-rating">
                         <i class="fa-solid fa-heart text-warning fs-5" data-value="1"></i>
                         <i class="fa-solid fa-heart text-warning fs-5" data-value="2"></i>
@@ -228,9 +228,7 @@
                     <span class="price">₱55</span>
                     <span class="sold-count">20 sold</span>
                 </div>
-
-                <div class="view-details">
-                    <button class="btn-details">View Details</button>
+                <button class="btn-details">View Details</button>
                 </div>
             </div>
         </div>
@@ -255,7 +253,7 @@
                 </div>
 
                 <div class="view-details">
-                    <button class="btn-details">View Details</button>
+                <button class="btn-details">View Details</button>
                 </div>
             </div>
         </div>
@@ -280,7 +278,8 @@
                 </div>
 
                 <div class="view-details">
-                    <button class="btn-details">View Details</button>
+                <div class="view-details">
+                <button class="btn-details">View Details</button>
                 </div>
             </div>
         </div>
@@ -305,7 +304,8 @@
                 </div>
 
                 <div class="view-details">
-                    <button class="btn-details">View Details</button>
+                <div class="view-details">
+                <button class="btn-details">View Details</button>
                 </div>
             </div>
         </div>
@@ -329,7 +329,8 @@
                 </div>
 
                 <div class="view-details">
-                    <button class="btn-details">View Details</button>
+                <div class="view-details">
+                <button class="btn-details">View Details</button>
                 </div>
             </div>
         </div>
@@ -354,7 +355,8 @@
                 </div>
 
                 <div class="view-details">
-                    <button class="btn-details">View Details</button>
+                <div class="view-details">
+                <button class="btn-details">View Details</button>
                 </div>
             </div>
         </div>
