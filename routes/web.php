@@ -46,6 +46,10 @@ Route::get('AccountRecovery', function () {
     return view('AccountRecovery'); 
 });
 
+Route::get('AboutPage', function () {
+    return view('AboutPage'); 
+});
+
 
 Route::get('/butterfly-bouquet', function () {
     return view('butterflybouquet');
