@@ -23,19 +23,36 @@
     </div>
 
     <div class="right">
+    @guest
+        <a href="{{ url('/Register') }}" class="signup">Sign Up</a>
+        <a href="{{ route('LoginSignUp') }}" class="login">Log in</a>
+    @else
+        <!-- Notifications and Profile Menu for logged-in users -->
         <a href="#" class="notification">
             <i class="fas fa-bell"></i> Notification
         </a>
-        <a href="#" class="user-profile">
-            <i class="fas fa-user"></i> AkosiMJ#01
+        <a href="#" class="user-profile" id="profileMenuTrigger">
+            <i class="fas fa-user"></i> {{ Auth::user()->username }}
         </a>
+
+        <div id="profileMenu" class="profile-menu">
+            <ul>
+                <li><a href="#">My Profile</a></li>
+                <li><a href="#">My Purchases</a></li>
+                <li><a href="{{ route('logout') }}">Logout</a></li>
+
+            </ul>
+        </div>
+    @endguest
+</div>
+
     </div>
 </div>
 
 <!-- header section starts  -->
 <header class="scroll-fade">
     <nav class="navbar">
-        <a href="#home">Home</a>
+        <a href="{{ route('homepage') }}">Home</a>
         <a href="#products">Products</a>
     </nav>
 
@@ -127,7 +144,7 @@
             </div>
             <span>Bracelet</span>
         </div>
-        <div class="category">
+        <div class="category"> 
             <div class="circle">
              <img src="{{ asset('image/categ-keychain.png') }}" alt="Keychain">
             </div>    
@@ -176,8 +193,9 @@
     <div class="container my-5 text-center scroll-fade">
         <h2 class="text-center mb-4">Our Featured Products</h2>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-5">
-            <div class="col">
-                <a href="{{ route('minifuzzy') }}" class="product-link">
+        <div class="col">
+                <!-- Clickable image to redirect to the product page -->
+                <a href="{{ route('product.show', ['slug' => 'minifuzzy']) }}">
                     <div class="product-card">
                         <img src="{{ asset('image/mini-flower.jpg') }}" alt="Mini Fuzzy Flower" class="product-img">
                         <p class="top-rank">Top <span>1</span></p>
@@ -188,7 +206,7 @@
             </div>
 
             <div class="col">
-                <a href="{{ route('fuzzylily') }}" class="product-link">
+            <a href="{{ route('product.show', ['slug' => 'fuzzy-lily']) }}" class="product-link">
                     <div class="product-card">
                         <img src="{{ asset('image/fuzzy-flower.jpg') }}" alt="Fuzzy Lily Flower Bouquet" class="product-img">
                         <p class="top-rank">Top <span>2</span></p>
@@ -199,7 +217,7 @@
             </div>
 
             <div class="col">
-                <a href="{{ route('singletulip') }}" class="product-link">
+            <a href="{{ route('product.show', ['slug' => 'single-tulip']) }}" class="product-link">
                     <div class="product-card">
                         <img src="{{ asset('image/single-tulip.jpg') }}" alt="Single Tulip Crochet Bouquet" class="product-img">
                         <p class="top-rank">Top <span>3</span></p>
@@ -264,14 +282,16 @@
                 </div>
 
                 <div class="view-details">
-                    <button class="btn-details">View Details</button>
+                <a href="{{ route('product.show', ['slug' => 'minifuzzy']) }}" class="btn-details">
+        View Details
+    </a>
                 </div>
             </div>
         </div>
 
         <div class="col">
             <div class="product-card">
-                <img src="{{ asset('image/baby-mushroom.jpg') }}" alt="Mini Fuzzy Flower" class="product-img">
+                <img src="{{ asset('image/baby-mushroom.jpg') }}" alt="Baby Mushroom" class="product-img">
                 <p class="product-text">Cute Baby Mushroom</p>
                 <div class="product-name-daily">
                     <div class="heart-rating">
@@ -289,7 +309,9 @@
                 </div>
 
                 <div class="view-details">
-                    <button class="btn-details">View Details</button>
+                <a href="{{ route('product.show', ['slug' => 'baby-mushroom']) }}" class="btn-details">
+        View Details
+    </a>
                 </div>
             </div>
         </div>
@@ -314,7 +336,9 @@
                 </div>
 
                 <div class="view-details">
-                    <button class="btn-details">View Details</button>
+                <a href="{{ route('product.show', ['slug' => 'crochet-top']) }}" class="btn-details">
+        View Details
+    </a>
                 </div>
             </div>
         </div>
@@ -339,7 +363,9 @@
                 </div>
 
                 <div class="view-details">
-                    <button class="btn-details">View Details</button>
+                <a href="{{ route('product.show', ['slug' => 'single-tulip']) }}" class="btn-details">
+        View Details
+    </a>
                 </div>
             </div>
         </div>
@@ -363,7 +389,9 @@
                 </div>
 
                 <div class="view-details">
-                    <button class="btn-details">View Details</button>
+                <a href="{{ route('product.show', ['slug' => 'sunflower']) }}" class="btn-details">
+        View Details
+    </a>
                 </div>
             </div>
         </div>
@@ -388,7 +416,9 @@
                 </div>
 
                 <div class="view-details">
-                    <button class="btn-details">View Details</button>
+                <a href="{{ route('product.show', ['slug' => 'earrings']) }}" class="btn-details">
+        View Details
+    </a>
                 </div>
             </div>
         </div>
@@ -413,7 +443,9 @@
                 </div>
 
                 <div class="view-details">
-                    <button class="btn-details">View Details</button>
+                <a href="{{ route('product.show', ['slug' => 'headband']) }}" class="btn-details">
+        View Details
+    </a>
                 </div>
             </div>
         </div>
@@ -438,7 +470,9 @@
                 </div>
 
                 <div class="view-details">
-                    <button class="btn-details">View Details</button>
+                <a href="{{ route('product.show', ['slug' => 'daisybracelet']) }}" class="btn-details">
+        View Details
+    </a>
                 </div>
             </div>
         </div>
@@ -542,4 +576,19 @@
             spinner.classList.add('d-none');
         }, 3000); // Simulate 3 seconds for demo purposes
     });
+
+    document.getElementById('profileMenuTrigger').addEventListener('click', function(event) {
+        event.preventDefault();
+        const profileMenu = document.getElementById('profileMenu');
+        profileMenu.style.display = (profileMenu.style.display === 'block') ? 'none' : 'block';
+    });
+
+    // Close the profile menu if clicked outside
+    window.addEventListener('click', function(event) {
+        const profileMenu = document.getElementById('profileMenu');
+        if (!event.target.closest('#profileMenuTrigger') && !event.target.closest('#profileMenu')) {
+            profileMenu.style.display = 'none';
+        }
+    });
+
 </script>

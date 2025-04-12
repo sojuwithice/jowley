@@ -792,3 +792,6 @@ h2.text-center {
     left: 0;
     text-align: center;
 }
+a.btn-details {
+    text-decoration: none; 
+}

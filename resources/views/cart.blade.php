@@ -10,6 +10,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=Gotu&family=Oleo+Script+Swash+Caps:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/cart.css">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
 </head>
 <body>
 
@@ -22,21 +24,46 @@
         <a href="#"><i class="fab fa-tiktok"></i></a>
     </div>
     <div class="right">
-        <a href="#" class="notification">
-            <i class="fas fa-bell"></i> Notification
-        </a>
-        <a href="#" class="user">
-            <i class="fas fa-user"></i> AkosiMJ#01
-        </a>
+    @if(Auth::check())
+    <a href="#" class="notification">
+        <i class="fas fa-bell"></i> Notification
+    </a>
+    <a href="#" class="user-profile" id="profileMenuTrigger">
+        <i class="fas fa-user"></i> {{ Auth::user()->username }}
+    </a>
+
+    <div id="profileMenu" class="profile-menu">
+        <ul>
+            <li><a href="#">My Profile</a></li>
+            <li><a href="#">My Purchases</a></li>
+            <li><a href="{{ route('logout') }}">Logout</a></li>
+        </ul>
+    </div>
+@else
+    <a href="{{ url('/Register') }}" class="signup">Sign Up</a>
+    <a href="{{ route('LoginSignUp') }}" class="login">Log in</a>
+@endif
+
+
+<div id="profileMenu" class="profile-menu">
+    <ul>
+        <li><a href="#">My Profile</a></li>
+        <li><a href="#">My Purchases</a></li>
+        <li><a href="{{ route('startingpage') }}">Logout</a></li>
+    </ul>
+</div>
+
     </div>
 </div>
 
 <!-- Header Section -->
 <header class="scroll-fade">
-    <input type="checkbox" id="toggler">
+
+    <input type="checkbox" name="" id="toggler">
     <label for="toggler" class="fas fa-bars"></label>
     
     <a href="#" class="logo">Jowley's Crafts</a>
+
 
     <nav class="navbar">
         <a href="#home">Home</a>
@@ -54,6 +81,8 @@
 </a>
         </div>
     </div>
+
+
 </header>
 
 <!-- Shopping Cart Section -->
@@ -72,48 +101,54 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Product Items -->
-                <tr class="cart-item">
+                <!-- Dynamically Display Cart Items -->
+                @foreach($cartItems as $item) 
+                <tr class="cart-item" data-id="{{ $item->id }}"> 
                     <td class="product-info">
                         <input type="checkbox" class="item-checkbox">
-                        <img src="image/fuzzy-flower.jpg" alt="Mini Fuzzy Flower White" class="product-img">
-                        <div class="product-details">
-                            <p class="nameproduct">Mini Fuzzy Flower</p>
-                            <p class="product-description">Adorable mini fuzzy flowers, perfect for adding a soft, handmade touch to your space!</p>
-                            <div class="product-variation">
-                                <label>Variation:</label>
-                                <select class="variation-select">
-                                    <option value="White" selected>White</option>
-                                    <option value="Pink">Pink</option>
-                                    <option value="Blue">Blue</option>
-                                    <option value="Red">Red</option>
-                                    <option value="Purple">Purple</option>
+                        <img src="{{ asset('storage/'  . $item->product->images[0]) }}" alt="{{ $item->product->name }}">
+                    <div class="product-details">
+                            <p class="nameproduct">{{ $item->product->name }}</p>
+                            <p class="product-description">{{ $item->product->description }}</p>
+                            <div class="product-colors">
+                            @if($item->product->available_colors && count($item->product->available_colors) > 0)
+                                <label>Colors:</label>
+                                <select class="colors-select">
+                                @php
+                $availableColors = is_string($item->product->available_colors) ? json_decode($item->product->available_colors, true) : $item->product->available_colors;
+            @endphp
+            @foreach($availableColors as $color)
+                <option value="{{ $color }}" {{ $color == $item->color ? 'selected' : '' }}>{{ ucfirst($color) }}</option>
+            @endforeach
+        </select>
+    @endif
                                 </select>
                             </div>
                         </div>
                     </td>
-                    <td class="unit-price">40.00</td>
+                    <td class="unit-price">{{ number_format($item->product->price, 2) }}</td>
                     <td class="quantity">
                         <button class="minus-btn">-</button>
-                        <input type="text" class="quantity-input" value="1">
+                        <input type="text" class="quantity-input" value="{{ $item->quantity }}">
                         <button class="plus-btn">+</button>
                     </td>
-                    <td class="total-price">40.00</td>
+                    <td class="total-price">{{ number_format($item->quantity * $item->product->price, 2) }}</td>
                     <td><button class="delete-btn">Delete</button></td>
                 </tr>
+                @endforeach
             </tbody>
         </table>
 
         <!-- Checkout Section -->
         <div class="checkout-section">
-    <label><input type="checkbox" id="select-all"> Select all</label>
-    <span class="total-price-summary">Total (0 items): <strong>0.00</strong></span>
+            <label><input type="checkbox" id="select-all"> Select all</label>
+            <span class="total-price-summary">Total ({{ count($cartItems) }} items): <strong>{{ number_format($cartTotal, 2) }}</strong></span>
 
-    <!-- Form to Redirect to Checkout -->
-    <form action="{{ route('checkout') }}" method="GET">
-        <button type="submit" class="checkout-btn">Checkout</button>
-    </form>
-</div>
+            <!-- Form to Redirect to Checkout -->
+            <form action="{{ route('checkout') }}" method="GET">
+                <button type="submit" class="checkout-btn">Checkout</button>
+            </form>
+        </div>
     </div>
 </section>
 
@@ -132,7 +167,23 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }, { threshold: 0.2 });
 
-    scrollElements.forEach((el) => observer.observe(el));
+    scrollElements.forEach((el) => observer.observe(el));   
+   
+});
+document.getElementById('profileMenuTrigger').addEventListener('click', function(event) {
+        event.preventDefault();
+        const profileMenu = document.getElementById('profileMenu');
+        profileMenu.style.display = (profileMenu.style.display === 'block') ? 'none' : 'block';
+    });
+
+    // Close the profile menu if clicked outside
+    window.addEventListener('click', function(event) {
+        const profileMenu = document.getElementById('profileMenu');
+        if (!event.target.closest('#profileMenuTrigger') && !event.target.closest('#profileMenu')) {
+            profileMenu.style.display = 'none';
+        }
+    });
+
 
     document.querySelectorAll(".cart-item").forEach((item) => {
         const minusBtn = item.querySelector(".minus-btn");
@@ -169,8 +220,36 @@ document.addEventListener("DOMContentLoaded", function () {
         itemCheckbox.addEventListener("change", updateCartTotal);
 
         deleteBtn.addEventListener("click", () => {
-            item.remove();
-            updateCartTotal();
+            const cartItemRow = item.closest(".cart-item");
+            const productId = cartItemRow.dataset.id; // Get the productId from data-id
+
+            // Send an AJAX request to delete the item from the database
+            fetch(`/cart/delete/${productId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                }
+            })
+            .then(response => {
+                // Check if the response is OK
+                if (!response.ok) {
+                    throw new Error('Failed to delete item from the cart.');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    cartItemRow.remove(); // Remove the item from the cart table
+                    updateCartTotal(); // Update the total price after deletion
+                } else {
+                    alert('Failed to delete item from the cart.');
+                }
+            })
+            .catch(error => {
+                console.error('Error deleting cart item:', error);
+                alert(error.message);
+            });
         });
     });
 
@@ -196,7 +275,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
         updateCartTotal();
     });
-});
 </script>
 
 </body>

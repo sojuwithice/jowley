@@ -1,6 +1,16 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Auth\LoginController;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\AdminController; 
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CartController;
+use App\Models\Product;
+
 
 Route::get('/startingpage', function () {
     return view('startingpage');
@@ -36,24 +46,10 @@ Route::get('AccountRecovery', function () {
     return view('AccountRecovery'); 
 });
 
-Route::get('RegisterAccountVerification', function () {
-    return view('RegisterAccountVerification'); 
+Route::get('AboutPage', function () {
+    return view('AboutPage'); 
 });
-Route::get('/cart', function () {
-    return view('cart');
-})->name('cart');
 
-Route::get('/minifuzzy', function () {
-    return view('minifuzzy');
-})->name('minifuzzy');
-
-Route::get('/fuzzylily', function () {
-    return view('fuzzylily');
-})->name('fuzzylily');
-
-Route::get('/singletulip', function () {
-    return view('singletulip');
-})->name('singletulip');
 
 Route::get('/butterfly-bouquet', function () {
     return view('butterflybouquet');
@@ -61,23 +57,3 @@ Route::get('/butterfly-bouquet', function () {
 Route::get('/checkout', function () {
     return view('checkout');
 })->name('checkout');
-
-
-Route::get('/shop', function () {
-    return view('shop');
-})->name('shop');
-
-
-Route::get('/searchpage', function () {
-    return view('searchpage');
-})->name('searchpage');
-
-Route::get('/purchasepage', function () {
-    return view('purchasepage');
-})->name('purchasepage');
-
-
-// routes (button)
-Route::get('/shop', [\App\Http\Controllers\ShopController::class, 'index'])->name('shop');
-
-
