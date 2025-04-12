@@ -61,3 +61,23 @@ Route::get('/butterfly-bouquet', function () {
 Route::get('/checkout', function () {
     return view('checkout');
 })->name('checkout');
+
+
+Route::get('/shop', function () {
+    return view('shop');
+})->name('shop');
+
+
+Route::get('/searchpage', function () {
+    return view('searchpage');
+})->name('searchpage');
+
+Route::get('/purchasepage', function () {
+    return view('purchasepage');
+})->name('purchasepage');
+
+
+// routes (button)
+Route::get('/shop', [\App\Http\Controllers\ShopController::class, 'index'])->name('shop');
+
+

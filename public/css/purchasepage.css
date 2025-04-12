@@ -1,0 +1,474 @@
+.root{
+    --pink: #E32C89 ;
+}
+
+*{
+    margin: 0; padding: 0;
+    box-sizing: border-box;
+    font-family: Gabarito;
+    outline: none; border: none;
+    text-decoration: none;
+    text-transform: capitalize;
+    transition: .2s linear;
+}
+
+.top-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 9%;
+    background: white;
+    border-bottom: 1px solid #E32C89;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1100;
+    height: 65px; 
+}
+
+.top-header .logo {
+    font-size: 3rem;
+    color: #E32C89;
+    font-family: Oleo Script Swash Caps;
+    text-decoration: none;
+}
+
+.top-header .right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.top-header .right a {
+    color: #000;
+    text-decoration: none;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    position: relative;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.top-header .right a:hover {
+    color: #E32C89;
+    transform: translateY(-3px);
+}
+
+.top-header .right a i {
+    color: #E32C89;
+    font-size: 1.8rem;
+    transition: transform 0.3s ease;
+}
+
+.top-header .right a:hover i {
+    transform: translateY(-3px);
+}
+
+
+
+html {
+    font-size: 62.5%;
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+    overflow-x: hidden; 
+}
+
+.scroll-fade {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .scroll-fade.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+
+section{
+    padding: 10rem 9% 2rem;
+}
+
+header {
+    position: fixed;
+    top: 65px;
+    left: 0;
+    right: 0;
+    background: white;
+    z-index: 1000;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    padding: 0;
+  }
+  
+  .header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 9%;
+    width: 100%;
+  }
+  
+  
+  .purchase-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .back-arrow {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 25px;
+    height: 25px;
+    border: 2px solid #000;
+    border-radius: 50%;
+  }
+  
+  .back-arrow i {
+    font-size: 1.6rem;
+    color: #000;
+  }
+
+  .back-arrow:hover {
+    border-color: #E32C89;
+    background-color: #E32C89;
+  }
+  
+  .back-arrow:hover i {
+    color: white;
+  }
+  
+  .purchase-section h2 {
+    font-size: 2rem;
+    color: #000;
+    margin: 0;
+  }
+  
+  /* RIGHT SIDE */
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .search-bar {
+    display: flex;
+    align-items: center;
+    border: 2px solid #E32C89;
+    border-radius: 20px;
+    padding: 1px 10px;
+    width: 250px;
+    background: white;
+  }
+  
+  .search-bar input {
+    border: none;
+    outline: none;
+    font-size: 1.5rem;
+    padding: 5px;
+    flex: 1;
+    color: black;
+  }
+  
+  .search-bar button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.8rem;
+    color: #E32C89;
+  }
+  
+  .icons a {
+    font-size: 2rem;
+    color: #E32C89;
+    display: flex;
+    align-items: center;
+  }
+  
+
+.order-status-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 10rem; 
+    padding: 2rem 0 1rem;
+    border-bottom: 1px solid #ddd;
+    background: white;
+    position: relative;
+    z-index: 500;
+    margin-top: 145px;
+}
+
+.order-status-tabs .circle-tab {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    color: #E32C89;
+    font-size: 1.3rem;
+    transition: 0.3s;
+}
+
+.order-status-tabs .tab:hover .circle-tab,
+.order-status-tabs .tab.active .circle-tab {
+    background-color: #E32C89;
+    color: white;
+}
+
+.order-status-tabs .tab:hover .icon,
+.order-status-tabs .tab.active .icon {
+    color: white;
+}
+
+
+.order-wrapper {
+    padding: 2rem 9%;
+    margin-top: 10px;
+  }
+  
+  .order-box {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    background: #fff;
+    font-size: 1.4rem;
+  }
+  
+  .order-status {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 1.4rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+  
+  .order-status .completed,
+  .order-status .cancelled,
+  .order-status .to-pay,
+  .order-status .to-ship,
+  .order-status .to-receive {
+    color: #FF69B4;
+  }
+  
+  
+ 
+ .order-box .order-status .status-info {
+    color: black !important;
+  }
+  
+  .order-box.active-tab .order-status .status-info {
+    color: #FF69B4 !important;
+  }
+  
+  
+  
+  
+  .order-main {
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 1.5rem;
+  }
+  
+  .product-image img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 5px;
+  }
+  
+  .product-info {
+    flex: 1;
+  }
+  
+  .product-info h3 {
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+  }
+  
+  .product-info .desc {
+    color: #444;
+    margin-bottom: 0.5rem;
+  }
+  
+  .product-info .variation {
+    color: #888;
+    font-size: 1.3rem;
+  }
+  
+  .product-price {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #000;
+    white-space: nowrap;
+  }
+  
+  .order-subinfo {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 0;
+    font-size: 1.3rem;
+    color: #555;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .order-footer {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 1rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  
+  .footer-left {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem; /* Adjusted gap between items */
+  }
+  
+  .footer-left span {
+    display: inline-block;
+    font-size: 1.3rem;
+  }
+  
+  .price {
+    color: #E32C89;
+  }
+  
+  .footer-right {
+    display: flex; /* Align buttons in a row */
+    gap: 1rem; /* Add space between buttons */
+  }
+  
+  .footer-right button {
+    border: 1px solid #E32C89;
+    background: white;
+    color: #E32C89;
+    border-radius: 6px;
+    padding: 0.5rem 1.2rem;
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .footer-right button:hover {
+    background: #E32C89;
+    color: white;
+  }
+  
+  
+  .purchase-see-more-container {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    width: 100%; 
+    padding-top: 60px; 
+    padding-bottom: 250px;
+}
+
+
+
+.purchase-see-more-btn {
+    background-color: #E6007E; 
+    color: #fff;
+    border: none;
+    border-radius: 10px; 
+    padding: 12px 0; 
+    font-size: 18px;
+    cursor: pointer;
+    width: 150%; 
+    max-width: 400px; 
+    transition: background-color 0.3s ease;
+    text-align: center; 
+}
+
+.purchase-see-more-btn:hover {
+    background-color: #D60071;
+}
+
+
+
+
+
+.footer-section {
+    background-color: #fff;
+    width: 100%;
+    margin-left:-85px;
+}
+
+.footer-content-container {
+    display: flex;
+    justify-content: space-around;
+    padding: 40px 20px;
+    color: #123470;
+    
+}
+
+.footer-column {
+    max-width: 250px;
+    margin-top:-100px;
+}
+
+.footer-column h4 {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.footer-column ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-column ul li {
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+
+.footer-column img{
+    height: 25px;
+    margin-right: 10px;
+}
+
+.payment-methods img {
+    height: 25px;
+    margin-right: 10px;
+}
+
+
+.footer-line {
+    width: 100%;              
+    height: 1px;              
+    background-color: black;   
+    margin-top: -200px;        
+}
+
+
+.footer-bottom {
+    width: 100%;
+    height: 35px;
+    background-color: #E32C89;
+    position: absolute;
+    padding-bottom: 3%;
+    margin-top:0;
+    margin-bottom:0;
+    left: 0;
+    text-align: center;
+}
+  
+
+
+
+

@@ -1,22 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Jowley's Crafts</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=Gotu&family=Oleo+Script+Swash+Caps:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <link rel="stylesheet" href="css/styles.css">
-    
+
+    <link rel="stylesheet" href="{{ asset('css/search.css') }}">
+
+
 </head>
 <body>
-
-<!-- top header bar starts-->
-<!-- Top Header -->
 <div class="top-header scroll-fade">
     <div class="left">
         <a href="#" class="logo">Jowley's Craft</a>
@@ -31,6 +28,8 @@
         </a>
     </div>
 </div>
+</body>
+</html>
 
 <!-- header section starts  -->
 <header class="scroll-fade">
@@ -52,198 +51,56 @@
     </div>
 </header>
 
+<!-- product list -->
 
-<!-- header section ends -->
-
-<!-- home section starts -->
-
-<section class="home scroll-fade" id="home">
-
-    <div class="content">
-        <h3>Handmade with love, crafted for you. </h3>
-        <p>Discover handmade products crafted to match your unique taste.<br>
-        Find the perfect DIY creations you've been searching for, made with love and attention to detail!</p>
+<div class="container">
+        <aside class="search-filter">
+            <div class="filter-header">SEARCH FILTER</div>
+            
+            <div class="category-container">
+        <button class="category-dropdown" onclick="toggleCategory()">
+            By Category <span class="dropdown-icon">▼</span>
+        </button>
+        <ul class="category-list">
+            <li class="category">Bracelet</li>
+            <li class="category">Necklace</li>
+            <li class="category">Earring</li>
+            <li class="category">Ring</li>
+        </ul>
     </div>
+        </aside>
 
-    <div class="absolute inset-0 justify-center">
-        <div class="bg-shape1 bg-pink opacity-50 bg-blur"></div>
-        <div class="bg-shape2 bg-primary opacity-50 bg-blur"></div>
-    </div>
-
-
-    <div class="img-wrapper">
-    <div style="background-image: url('{{ asset('image/tulip-flower.jpg') }}');"></div>
-    <div style="background-image: url('{{ asset('image/keychain.jpg') }}');"></div>
-    <div style="background-image: url('{{ asset('image/fuzzy-flower.jpg') }}');"></div>
-    <div style="background-image: url('{{ asset('image/butterfly-bouquet.jpg') }}');"></div>
-    <div style="background-image: url('{{ asset('image/bracelet.jpg') }}');"></div>
-    </div>
-
-</section>
-
-<!-- home section ends -->
-
-<!-- new arrival -->
-
-<section class="new-arrival scroll-fade" id="new-arrival">
-    <h2>New Arrivals</h2>
-    <div class="new-product-container">
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="card">
-                    <img src="{{ asset('image/coin-purse.png') }}" class="img" alt="Coin Purse">
-                    <div class="content">
-                        <h2>New Crafted Items!</h2>
-                        <p class="description">We have a new product for you.</p>
-                        <p class="see">See more details:</p>
-                        <a href="#" class="btn btn-primary">Coin Purse</a>
-                    </div>
+        <main class="content">
+            
+            <!-- Search and Sorting -->
+            <div class="search-sort">
+                <div class="search-results">
+                    Search results for <b>‘Accessories’</b>
+                </div>
+                <div class="sort-options">
+                    <span>Sort by</span>
+                    <button class="sort-btn">Relevance</button>
+                    <button class="sort-btn">Latest</button>
+                    <button class="sort-btn">Top Products</button>
                 </div>
             </div>
-            <div class="col-sm-6">
-                <div class="card">
-                    <img src="{{ asset('image/hair-clips.png') }}" class="img" alt="Crocheted Hair Clips">
-                    <div class="content">
-                        <h2>New Crafted Items!</h2>
-                        <p class="description">We have a new product for you.</p>
-                        <p class="see">See more details:</p>
-                        <a href="#" class="btn btn-primary">Crocheted Hair Clips</a>
-                    </div>
-                </div>
-            </div>
+
+            <!-- Price Sorting -->
+            <div class="sort-pagination">
+    <div class="dropdown">
+        <button class="price-btn" type="button">Price <i class="fas fa-chevron-down"></i></button>
+        <div class="dropdown-content">
+            <a href="#" data-sort="low-to-high">Low to High</a>
+            <a href="#" data-sort="high-to-low">High to Low</a>
         </div>
     </div>
-</section>
-
-
-<!-- catgories -->
-
-<section class="categories scroll-fade">
-    <h2>Find Things You’ll Love</h2>
-    <div class="category-container scroll-fade">
-        <div class="category">
-            <div class="circle">
-             <img src="{{ asset('image/categ-bracelet.png') }}" alt="Bracelet">
-            </div>
-            <span>Bracelet</span>
-        </div>
-        <div class="category">
-            <div class="circle">
-             <img src="{{ asset('image/categ-keychain.png') }}" alt="Keychain">
-            </div>    
-            <span>Keychain</span>
-        </div>
-        <div class="category">
-            <div class="circle">
-                <img src="{{ asset('image/categ-bouquet.png') }}" alt="Bouquet">
-            </div>
-            <span>Bouquet</span>
-        </div>
-        <div class="category">
-            <div class="circle">
-                <img src="{{ asset('image/hair-accessories.png') }}" alt="Hair Accessories">
-            </div>
-                <span>Hair Accessories</span>
-        </div>
-        <div class="category">
-            <div class="circle">
-                <img src="{{ asset('image/clothes.png') }}" alt="Clothes">
-            </div>
-                <span>Clothes</span>
-        </div>
-        <div class="category">
-            <div class="circle">
-                <img src="{{ asset('image/wallet.png') }}" alt="Wallet">
-            </div>
-                <span>Wallet</span>
-        </div>
-    </div>
-</section>
-
-<!-- banner -->
-<section class="banner scroll-fade">
-        <img src="{{ asset('image/banner.jpg') }}" alt="Handmade Crafts">
-        <div class="overlay">
-            <h3>Cute Styles</h3>
-            <h2>The Perfect Craft for You</h2>
-        </div>
-    </section>
-
-
-<!-- featured products-->
-
-<section class="featured scroll-fade">
-    <div class="container my-5 text-center scroll-fade">
-        <h2 class="text-center mb-4">Our Featured Products</h2>
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-5">
-            <div class="col">
-                <a href="{{ route('minifuzzy') }}" class="product-link">
-                    <div class="product-card">
-                        <img src="{{ asset('image/mini-flower.jpg') }}" alt="Mini Fuzzy Flower" class="product-img">
-                        <p class="top-rank">Top <span>1</span></p>
-                        <p class="product-name fw-bold">Mini Fuzzy Flower</p>
-                        <div class="sales-info">Monthly Sales 90</div>
-                    </div>
-                </a>
-            </div>
-
-            <div class="col">
-                <a href="{{ route('fuzzylily') }}" class="product-link">
-                    <div class="product-card">
-                        <img src="{{ asset('image/fuzzy-flower.jpg') }}" alt="Fuzzy Lily Flower Bouquet" class="product-img">
-                        <p class="top-rank">Top <span>2</span></p>
-                        <p class="product-name fw-bold">Fuzzy Lily Flower Bouquet</p>
-                        <div class="sales-info">Monthly Sales 80</div>
-                    </div>
-                </a>
-            </div>
-
-            <div class="col">
-                <a href="{{ route('singletulip') }}" class="product-link">
-                    <div class="product-card">
-                        <img src="{{ asset('image/single-tulip.jpg') }}" alt="Single Tulip Crochet Bouquet" class="product-img">
-                        <p class="top-rank">Top <span>3</span></p>
-                        <p class="product-name fw-bold">Single Tulip Crochet Bouquet</p>
-                        <div class="sales-info">Monthly Sales 80</div>
-                    </div>
-                </a>
-            </div>
-
-            <div class="col">
-                <a href="{{ route('butterflybouquet') }}" class="product-link">
-                    <div class="product-card">
-                        <img src="{{ asset('image/butterfly-bouquet.jpg') }}" alt="Butterfly Bouquet" class="product-img">
-                        <p class="top-rank">Top <span>4</span></p>
-                        <p class="product-name fw-bold">Butterfly Bouquet</p>
-                        <div class="sales-info">Monthly Sales 80</div>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <div class="see-more-container text-right mt-3 scroll-fade">
-        <a href="#" class="see-more-btn">
-            <span>See all</span>
-            <i class="fa fa-arrow-circle-right"></i>
-        </a>
-    </div>
+</div>
 
 
 
-
-</section>
-
- <!-- Daily Discoveries Section -->
-<section class="daily-container scroll-fade">
-    <div class="daily-wrapper">
-        <div class="line"></div>
-        <h2 class="title">Daily Discoveries</h2>
-        <div class="line"></div>
-    </div>
-
+            <section class="daily-container scroll-fade">
+    
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-5 scroll-fade">
-        
         <div class="col">
             <div class="product-card">
                 <img src="{{ asset('image/mini-flower.jpg') }}" alt="Mini Fuzzy Flower" class="product-img">
@@ -444,102 +301,184 @@
         </div>
     </div>
 
-    <div class="daily-see-more-container scroll-fade">
-            <button class="daily-see-more-btn" id="seeMoreBtn">See More</button>
-        </div>
-    </section>
-
-
-    <!-- footer section starts-->
-    <div class="footer-line"></div>
-    <section class="footer-section"> 
-    <div class="footer-content-container">
-        <div class="footer-column">
-            <h4>Customer Care</h4>
-            <ul>
-                <li>Help Center</li>
-                <li>How to Buy</li>
-                <li>Shipping and Delivery</li>
-                <li>How to Return</li>
-                <li>Question?</li>
-                <li>Contact Us</li>
-            </ul>
-        </div>
-
-        <div class="footer-column">
-            <h4>Jowley's Crafts</h4>
-            <ul>
-                <li>About Jowley's Crafts</li>
-                <li>Terms and Conditions</li>
-                <li>Privacy Policy</li>
-                <li>Intellectual Property Protection</li>
-            </ul>
-        </div>
-
-        <div class="footer-column">
-            <h4>Payment Methods</h4>
-            <div class="payment-methods">
-                <img src="{{ asset('image/gcash.jpg') }}" alt="GCash">
-                <img src="{{ asset('image/cod.jpg') }}" alt="Cash on Delivery">
+            <div class="pagination" id="pagination">
+                <button class="page-nav" id="prevPage">&lt;</button>
+                <button class="page">1</button>
+                <button class="page">2</button>
+                <button class="page">3</button>
+                <button class="page">4</button>
+                <button class="page">5</button>
+                <button class="page-nav" id="nextPage">&gt;</button>
             </div>
-        </div>
-
-        <div class="footer-column">
-            <h4>Delivery Services</h4>
-            <img src="{{ asset('image/jnt.jpg') }}" alt="J&T Express">
-        </div>
-        <div class="footer-bottom"></div>
+        </main>
     </div>
 
     
-</section>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const scrollElements = document.querySelectorAll(".scroll-fade");
+            const scrollObserver = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add("show");
+                        } else {
+                            entry.target.classList.remove("show"); 
+                        }
+                    });
+                },
+                { threshold: 0.2 }
+            );
+            scrollElements.forEach((el) => scrollObserver.observe(el));
+        });
 
-
-</section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const scrollElements = document.querySelectorAll(".scroll-fade");
-
-        const scrollObserver = new IntersectionObserver(
-            (entries, observer) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add("show");
-                    } else {
-                        entry.target.classList.remove("show"); 
-                    }
+        document.addEventListener("DOMContentLoaded", function () {
+            const cartLink = document.querySelector('.cart-icon-link');
+            if (cartLink) {
+                cartLink.addEventListener('click', function (e) {
+                    const spinner = this.querySelector('.spinner-border');
+                    spinner.classList.remove('d-none');
+                    this.classList.add('disabled');
+                    setTimeout(() => {
+                        this.classList.remove('disabled');
+                        spinner.classList.add('d-none');
+                    }, 3000);
                 });
-            },
-            { threshold: 0.2 }
-        );
+            }
+        });
 
-        scrollElements.forEach((el) => scrollObserver.observe(el));
+        // Category Filter
+        document.querySelectorAll(".category").forEach(button => {
+            button.addEventListener("click", function () {
+                const category = this.getAttribute("data-category");
+                filterProducts(category);
+            });
+        });
+
+        function filterProducts(category) {
+            console.log("Filtering by category: ", category);
+            // Add logic to filter products dynamically based on category
+        }
+
+        // Search Functionality
+        document.getElementById("searchBtn").addEventListener("click", function () {
+            const query = document.getElementById("searchInput").value;
+            searchProducts(query);
+        });
+
+        function searchProducts(query) {
+            console.log("Searching for: ", query);
+            // Add logic to filter products dynamically based on search query
+        }
+
+        // Sort Functionality
+        document.querySelectorAll(".sort").forEach(button => {
+            button.addEventListener("click", function () {
+                const sortType = this.getAttribute("data-sort");
+                sortProducts(sortType);
+            });
+        });
+
+        function sortProducts(sortType) {
+            console.log("Sorting by: ", sortType);
+            // Add logic to sort products dynamically based on sortType
+        }
+        
+
+        function toggleCategory() {
+    const categoryList = document.querySelector('.category-list');
+    const dropdownIcon = document.querySelector('.dropdown-icon');
+
+    categoryList.classList.toggle('show');
+    dropdownIcon.classList.toggle('rotate');
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    const dropdown = document.querySelector(".dropdown");
+    const priceBtn = document.querySelector(".price-btn");
+    const sortOptions = dropdown?.querySelectorAll(".dropdown-content a");
+    const prevPageBtn = document.getElementById("prevPage");
+    const nextPageBtn = document.getElementById("nextPage");
+    const pageNumber = document.getElementById("pageNumber");
+    let currentPage = 1;
+    const totalPages = 7;
+    
+
+// Open/Close the dropdown when the price button is clicked
+if (priceBtn) {
+    priceBtn.addEventListener("click", function(event) {
+        event.stopPropagation(); // Prevent event from bubbling up to window
+        console.log("Dropdown button clicked!"); // Debugging log
+        dropdownContent.classList.toggle("show"); // Toggle visibility
+    });
+}
+
+// Close the dropdown if clicked outside
+window.addEventListener('click', function(event) {
+    if (!event.target.closest('.dropdown')) {
+        dropdownContent.classList.remove('show'); // Close the dropdown
+    }
+});
+
+
+    // ✅ Add event listeners to sorting options
+    sortOptions.forEach(option => {
+        option.addEventListener("click", function (event) {
+            const selectedOption = event.target.textContent;
+            priceBtn.innerHTML = `Price: ${selectedOption} <i class="fas fa-chevron-down"></i>`;
+            dropdown.classList.remove("active");
+
+            // Implement sorting logic here
+            console.log(`Sorting by: ${selectedOption}`);
+        });
     });
 
-    document.querySelector('.cart-icon-link').addEventListener('click', function (e) {
-        const spinner = this.querySelector('.spinner-border');
+    // ✅ Sort option functionality
+    if (sortOptions) {
+        sortOptions.forEach(option => {
+            option.addEventListener("click", function (event) {
+                event.preventDefault();
+                const sortType = this.getAttribute("data-sort");
+                console.log("Sorting by:", sortType);
+                dropdown.classList.remove("active");
+            });
+        });
+    }
+
+    // ✅ Pagination functionality
+    if (prevPageBtn && nextPageBtn && pageNumber) {
+        prevPageBtn.addEventListener("click", function () {
+            if (currentPage > 1) {
+                currentPage--;
+                updatePageNumber();
+            }
+        });
+
+        nextPageBtn.addEventListener("click", function () {
+            if (currentPage < totalPages) {
+                currentPage++;
+                updatePageNumber();
+            }
+        });
+
+        function updatePageNumber() {
+            pageNumber.textContent = `${currentPage}/${totalPages}`;
+        }
+    }
+});
+
 
         
-        spinner.classList.remove('d-none');
-        this.classList.add('disabled');
+    </script>
+</body>
+</html>
 
-        
-        setTimeout(() => {
-            this.classList.remove('disabled');
-            spinner.classList.add('d-none');
-        }, 3000); // Simulate 3 seconds for demo purposes
-    });
-</script>
+
+
+
+
+
+
+
+
+
