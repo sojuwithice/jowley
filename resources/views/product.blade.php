@@ -11,6 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=Gotu&family=Oleo+Script+Swash+Caps:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/featured.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 
     
 </head>
@@ -117,38 +118,74 @@
             <p>{{ $product->description }}</p>
 
             <p><strong>Available Colors:</strong></p>
-            <div class="color-options">
-            @if(is_array($product->available_colors) || is_object($product->available_colors))
-                @foreach ($product->available_colors as $color)
-                    <span class="color-circle color-{{ strtolower($color) }}"></span>
-                @endforeach
-                @endif
-            </div>
-
-            <div class="quantity-container">
-                <label class="quantity-label">Quantity</label>
-                <div class="quantity-box">
-    <button type="button" onclick="changeQuantity(-1)">−</button>
-    <input type="number" id="quantity" min="1" max="{{ $product->stock }}" value="1">
-    <button type="button" onclick="changeQuantity(1)">+</button>
+<div class="color-options">
+    @if(is_array($product->available_colors) || is_object($product->available_colors))
+        @foreach ($product->available_colors as $color)
+            <span class="color-circle color-{{ strtolower($color) }} 
+                  @if($loop->first) selected @endif" 
+                  data-color="{{ $color }}"
+                  onclick="selectColor(this)"></span>
+        @endforeach
+    @endif
+    <input type="hidden" name="selected_color" id="selectedColor" value="{{ $product->available_colors[0] ?? '' }}">
 </div>
 
-                <span class="stock-info">Available Stocks: <span id="stock-count">{{ $product->stock }}</span> pieces</span>
-            </div>
+<div class="quantity-container">
+                    <label class="quantity-label">Quantity</label>
+                    <div class="quantity-box">
+                        <button type="button" onclick="changeQuantity(-1)">−</button>
+                        <input type="number" id="quantity" min="1" max="{{ $product->stock }}" value="1" readonly>
+                        <button type="button" onclick="changeQuantity(1)">+</button>
+                    </div>
+                    <span class="stock-info">Available Stocks: <span id="stock-count">{{ $product->stock }}</span> pieces</span>
+                </div>
 
-            <div class="mt-4">
-            <form method="POST" action="{{ route('cart.add') }}">
+
+    <form method="POST" action="{{ route('cart.add') }}" class="add-to-cart-form" id="productForm">
     @csrf
     <input type="hidden" name="product_id" value="{{ $product->id }}">
     <input type="hidden" name="price" value="{{ $product->price }}">
     <input type="hidden" name="product_name" value="{{ $product->name }}">
     <input type="hidden" name="image" value="{{ $product->images[0] }}">
-    <input type="number" name="quantity" id="quantityInput" min="1" max="{{ $product->stock }}" value="1" class="d-none">
-    <button type="submit" class="btn btn-outline-dark me-2">Add To Cart</button>
+    <input type="hidden" id="quantity_input" name="quantity" value="1">
+    <input type="hidden" id="selectedColor" name="color" value="{{ $product->available_colors[0] ?? '' }}">
+    <div class="button-container">
+    <button type="submit" class="btn btn-outline-pink me-2" id="addToCartBtn" 
+            {{ $product->stock <= 0 ? 'disabled' : '' }}>
+        Add To Cart
+    </button>
+    <button type="button" class="btn btn-outline-pink" id="buyNowBtn" 
+        {{ $product->stock <= 0 ? 'disabled' : '' }}>
+    Buy Now
+    </button>
+</div>
 </form>
 
-                <button class="btn btn-danger" onclick="buyNow()">Buy Now</button>
+        <!-- Success Modal -->
+        <div class="modal fade" id="cartSuccessModal" tabindex="-1" aria-labelledby="cartSuccessModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content custom-modal text-center p-4">
+            <div class="checkmark-wrapper mx-auto mb-3">
+            <i class="bi bi-check-lg check-icon"></i>
             </div>
+            <p class="modal-text">Item has been added to your Shopping Cart</p>
+            </div>
+        </div>
+        </div>
+
+       <!-- Failed to Add Modal -->
+       <div class="modal fade" id="cartFailedModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content custom-modal text-center p-4">
+      <div class="error-wrapper mx-auto mb-3">
+        <i class="bi bi-exclamation-triangle-fill error-icon"></i>
+      </div>
+      <p class="modal-text" id="errorMessage">Failed to add to cart</p>
+    </div>
+  </div>
+</div>
+
+        </div>
         </div>
     </div>
 </div>
@@ -174,15 +211,19 @@
 </div>
 
 
+
+
 </body>
 
 
 </html>
 
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
+    // Scroll fade animation
     const scrollElements = document.querySelectorAll(".scroll-fade");
-
     const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
             if (entry.isIntersecting) {
@@ -195,44 +236,219 @@ document.addEventListener("DOMContentLoaded", function () {
 
     scrollElements.forEach((el) => observer.observe(el));
 
-    
-    
-   
-});
+    // Profile menu toggle
+    const profileMenuTrigger = document.getElementById('profileMenuTrigger');
+    if (profileMenuTrigger) {
+        profileMenuTrigger.addEventListener('click', function(event) {
+            event.preventDefault();
+            const profileMenu = document.getElementById('profileMenu');
+            profileMenu.style.display = (profileMenu.style.display === 'block') ? 'none' : 'block';
+        });
 
-function changeImage(thumbnail) {
-    let mainImage = document.getElementById("mainImage");
-    let imageInput = document.querySelector('input[name="image"]'); // Get the hidden input
-    mainImage.src = thumbnail.src;
-    imageInput.value = thumbnail.src; // Update the hidden input with the new image
-}
+        // Close the profile menu if clicked outside
+        window.addEventListener('click', function(event) {
+            const profileMenu = document.getElementById('profileMenu');
+            if (!event.target.closest('#profileMenuTrigger') && !event.target.closest('#profileMenu')) {
+                profileMenu.style.display = 'none';
+            }
+        });
+    }
 
-document.getElementById('profileMenuTrigger').addEventListener('click', function(event) {
-        event.preventDefault();
-        const profileMenu = document.getElementById('profileMenu');
-        profileMenu.style.display = (profileMenu.style.display === 'block') ? 'none' : 'block';
-    });
+    // Color selection active state
+const colorCircles = document.querySelectorAll(".color-circle");
 
-    // Close the profile menu if clicked outside
-    window.addEventListener('click', function(event) {
-        const profileMenu = document.getElementById('profileMenu');
-        if (!event.target.closest('#profileMenuTrigger') && !event.target.closest('#profileMenu')) {
-            profileMenu.style.display = 'none';
+colorCircles.forEach(circle => {
+    circle.addEventListener("click", function () {
+        // Remove 'selected' class from all circles
+        colorCircles.forEach(c => c.classList.remove("selected"));
+
+        // Add 'selected' to clicked circle
+        this.classList.add("selected");
+
+        // Update hidden input
+        const selectedColorInput = document.getElementById("selectedColorInput");
+        if (selectedColorInput) {
+            selectedColorInput.value = this.dataset.color;
         }
     });
+});
 
-    function changeQuantity(amount) {
-    const input = document.getElementById('quantity');
-    let current = parseInt(input.value);
-    let max = parseInt(input.max);
-    let newVal = current + amount;
-    if (newVal >= 1 && newVal <= max) {
-        input.value = newVal;
-        document.getElementById('quantityInput').value = newVal;
+
+    // Add to cart form submission
+    $('.add-to-cart-form').on('submit', function(e) {
+        e.preventDefault();
+        const form = $(this);
+        const formData = form.serialize();
+
+        $.ajax({
+            url: form.attr('action'),
+            method: 'POST',
+            data: formData,
+            success: function(response) {
+                const modalElement = document.getElementById('cartSuccessModal');
+                const modal = new bootstrap.Modal(modalElement);
+                modal.show();
+
+                setTimeout(() => {
+                    modal.hide();
+                }, 2000);
+            },
+            error: function(xhr) {
+                const response = xhr.responseJSON;
+                const errorMessage = response.message || '❌ Failed to add to cart.';
+                
+                // Set the error message
+                document.getElementById('errorMessage').textContent = errorMessage;
+                
+                // Show the error modal
+                const failedModal = new bootstrap.Modal(document.getElementById('cartFailedModal'));
+                failedModal.show();
+                
+                // Hide after 3 seconds
+                setTimeout(() => {
+                    failedModal.hide();
+                }, 3000);
+            }
+        });
+    });
+
+    // Buy Now button event listener
+    const buyNowBtn = document.getElementById('buyNowBtn');
+    if (buyNowBtn) {
+        buyNowBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Update the hidden quantity input
+            document.getElementById('quantity_input').value = document.getElementById('quantity').value;
+            
+            // Create a new form element
+            const tempForm = document.createElement('form');
+            tempForm.action = "{{ route('checkout.direct') }}";
+            tempForm.method = 'POST';
+            tempForm.style.display = 'none';
+            
+            // Add CSRF token
+            const csrfToken = document.createElement('input');
+            csrfToken.type = 'hidden';
+            csrfToken.name = '_token';
+            csrfToken.value = document.querySelector('input[name="_token"]').value;
+            tempForm.appendChild(csrfToken);
+            
+            // Add product ID
+            const productId = document.createElement('input');
+            productId.type = 'hidden';
+            productId.name = 'product_id';
+            productId.value = "{{ $product->id }}";
+            tempForm.appendChild(productId);
+            
+            // Add quantity
+            const quantity = document.createElement('input');
+            quantity.type = 'hidden';
+            quantity.name = 'quantity';
+            quantity.value = document.getElementById('quantity').value;
+            tempForm.appendChild(quantity);
+            
+            // Add price
+            const price = document.createElement('input');
+            price.type = 'hidden';
+            price.name = 'price';
+            price.value = "{{ $product->price }}";
+            tempForm.appendChild(price);
+            
+            // Add product name
+            const productName = document.createElement('input');
+            productName.type = 'hidden';
+            productName.name = 'product_name';
+            productName.value = "{{ $product->name }}";
+            tempForm.appendChild(productName);
+            
+            // Add image
+            const image = document.createElement('input');
+            image.type = 'hidden';
+            image.name = 'image';
+            image.value = document.querySelector('input[name="image"]').value;
+            tempForm.appendChild(image);
+            
+            // Append form to body and submit
+            document.body.appendChild(tempForm);
+            tempForm.submit();
+        });
+    }
+});
+
+// Global functions
+function changeImage(thumbnail) {
+    let mainImage = document.getElementById("mainImage");
+    let imageInput = document.querySelector('input[name="image"]');
+    mainImage.src = thumbnail.src;
+    if (imageInput) {
+        imageInput.value = thumbnail.src;
     }
 }
 
+function changeQuantity(amount) {
+    const input = document.getElementById('quantity');
+    const hiddenInput = document.getElementById('quantity_input');
+    let current = parseInt(input.value);
+    let max = parseInt(input.max);
+    let newVal = current + amount;
+    
+    if (newVal >= 1 && newVal <= max) {
+        input.value = newVal;
+        hiddenInput.value = newVal;
+        
+        // Disable buttons if trying to exceed stock
+        if (newVal > max) {
+            disableButtons();
+        } else {
+            addToCartBtn.disabled = false;
+            buyNowBtn.disabled = false;
+            addToCartBtn.classList.remove('disabled');
+            buyNowBtn.classList.remove('disabled');
+        }
+    }
+}
 
+document.addEventListener("DOMContentLoaded", function() {
+    const stockCount = {{ $product->stock }};
+    const addToCartBtn = document.getElementById('addToCartBtn');
+    const buyNowBtn = document.getElementById('buyNowBtn');
+    const quantityInput = document.getElementById('quantity');
+
+    // Initial check
+    if (stockCount <= 0) {
+        disableButtons();
+        showOutOfStockMessage();
+    }
+
+    function disableButtons() {
+        addToCartBtn.disabled = true;
+        buyNowBtn.disabled = true;
+        addToCartBtn.classList.add('disabled');
+        buyNowBtn.classList.add('disabled');
+    }
+
+    function showOutOfStockMessage() {
+        const buttonContainer = document.querySelector('.button-container');
+        buttonContainer.insertAdjacentHTML('afterend', `
+            <div class="alert alert-danger mt-3" id="outOfStockAlert">
+                This product is currently out of stock
+            </div>
+        `);
+    }
+
+    // Handle quantity changes
+    quantityInput.addEventListener('change', function() {
+        if (this.value > stockCount) {
+            disableButtons();
+        } else if (stockCount > 0) {
+            addToCartBtn.disabled = false;
+            buyNowBtn.disabled = false;
+            addToCartBtn.classList.remove('disabled');
+            buyNowBtn.classList.remove('disabled');
+        }
+    });
+});
 </script>
 
 </body>

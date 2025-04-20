@@ -103,18 +103,37 @@
             <tbody>
                 <!-- Dynamically Display Cart Items -->
                 @foreach($cartItems as $item) 
-                <tr class="cart-item" data-id="{{ $item->id }}"> 
+                <tr class="cart-item" data-id="{{ $item->product->id }}">
+
+
                     <td class="product-info">
                         <input type="checkbox" class="item-checkbox">
-                        <img src="{{ asset('storage/'  . $item->product->images[0]) }}" alt="{{ $item->product->name }}">
-                    <div class="product-details">
+
+                        @php
+                            $defaultImage = 'default.jpg';
+                            $rawImages = $item->product->images;
+
+                            $images = is_string($rawImages) ? json_decode($rawImages, true) : $rawImages;
+
+                            $imageFilename = $images[0] ?? $defaultImage;
+
+                            $imageFilename = str_replace('\\', '/', $imageFilename);
+
+                            $finalPath = \Illuminate\Support\Str::startsWith($imageFilename, 'image/') ? $imageFilename : 'image/' . $imageFilename;
+
+                        @endphp
+
+                        <img src="{{ asset($finalPath) }}" alt="{{ $item->product->name }}" width="100">
+
+
+                    <di class="product-details">
                             <p class="nameproduct">{{ $item->product->name }}</p>
                             <p class="product-description">{{ $item->product->description }}</p>
                             <div class="product-colors">
-                            @if($item->product->available_colors && count($item->product->available_colors) > 0)
-                                <label>Colors:</label>
-                                <select class="colors-select">
-                                @php
+    @if($item->product->available_colors && count($item->product->available_colors) > 0)
+        <label>Colors:</label>
+        <select class="colors-select">
+            @php
                 $availableColors = is_string($item->product->available_colors) ? json_decode($item->product->available_colors, true) : $item->product->available_colors;
             @endphp
             @foreach($availableColors as $color)
@@ -122,9 +141,7 @@
             @endforeach
         </select>
     @endif
-                                </select>
-                            </div>
-                        </div>
+</div>
                     </td>
                     <td class="unit-price">{{ number_format($item->product->price, 2) }}</td>
                     <td class="quantity">
@@ -155,8 +172,8 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
+    // === Scroll Fade Animation ===
     const scrollElements = document.querySelectorAll(".scroll-fade");
-
     const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
             if (entry.isIntersecting) {
@@ -167,24 +184,23 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }, { threshold: 0.2 });
 
-    scrollElements.forEach((el) => observer.observe(el));   
-   
-});
-document.getElementById('profileMenuTrigger').addEventListener('click', function(event) {
+    scrollElements.forEach((el) => observer.observe(el));
+
+    // === Profile Menu Toggle ===
+    document.getElementById('profileMenuTrigger').addEventListener('click', function (event) {
         event.preventDefault();
         const profileMenu = document.getElementById('profileMenu');
         profileMenu.style.display = (profileMenu.style.display === 'block') ? 'none' : 'block';
     });
 
-    // Close the profile menu if clicked outside
-    window.addEventListener('click', function(event) {
+    window.addEventListener('click', function (event) {
         const profileMenu = document.getElementById('profileMenu');
         if (!event.target.closest('#profileMenuTrigger') && !event.target.closest('#profileMenu')) {
             profileMenu.style.display = 'none';
         }
     });
 
-
+    // === Cart Item Quantity Update ===
     document.querySelectorAll(".cart-item").forEach((item) => {
         const minusBtn = item.querySelector(".minus-btn");
         const plusBtn = item.querySelector(".plus-btn");
@@ -192,16 +208,32 @@ document.getElementById('profileMenuTrigger').addEventListener('click', function
         const unitPrice = parseFloat(item.querySelector(".unit-price").textContent);
         const totalPriceElement = item.querySelector(".total-price");
         const itemCheckbox = item.querySelector(".item-checkbox");
-        const deleteBtn = item.querySelector(".delete-btn");
+        const productId = item.getAttribute("data-id");
 
         function updateTotal() {
             let quantity = parseInt(quantityInput.value);
-            if (isNaN(quantity) || quantity < 1) {
-                quantity = 1;
-            }
+            if (isNaN(quantity) || quantity < 1) quantity = 1;
             quantityInput.value = quantity;
+
+            // Update UI total price
             totalPriceElement.textContent = (quantity * unitPrice).toFixed(2);
             updateCartTotal();
+
+            // Send updated quantity to backend
+            fetch(`/cart/update/${productId}`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+                },
+                body: JSON.stringify({ quantity })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (!data.success) {
+                    alert("Failed to update cart quantity");
+                }
+            });
         }
 
         plusBtn.addEventListener("click", () => {
@@ -217,13 +249,17 @@ document.getElementById('profileMenuTrigger').addEventListener('click', function
         });
 
         quantityInput.addEventListener("change", updateTotal);
-        itemCheckbox.addEventListener("change", updateCartTotal);
+        if (itemCheckbox) itemCheckbox.addEventListener("change", updateCartTotal);
+    });
 
+    // === Delete Cart Item ===
+    document.querySelectorAll(".delete-btn").forEach(deleteBtn => {
         deleteBtn.addEventListener("click", () => {
-            const cartItemRow = item.closest(".cart-item");
-            const productId = cartItemRow.dataset.id; // Get the productId from data-id
+            const cartItemRow = deleteBtn.closest(".cart-item");
+            if (!cartItemRow) return;
 
-            // Send an AJAX request to delete the item from the database
+            const productId = cartItemRow.dataset.id;
+
             fetch(`/cart/delete/${productId}`, {
                 method: 'DELETE',
                 headers: {
@@ -232,49 +268,55 @@ document.getElementById('profileMenuTrigger').addEventListener('click', function
                 }
             })
             .then(response => {
-                // Check if the response is OK
                 if (!response.ok) {
-                    throw new Error('Failed to delete item from the cart.');
+                    throw new Error('Failed to delete item.');
                 }
                 return response.json();
             })
             .then(data => {
                 if (data.success) {
-                    cartItemRow.remove(); // Remove the item from the cart table
-                    updateCartTotal(); // Update the total price after deletion
+                    cartItemRow.remove();
+                    updateCartTotal();
                 } else {
-                    alert('Failed to delete item from the cart.');
+                    alert(data.message || 'Failed to delete item from the cart.');
                 }
             })
             .catch(error => {
-                console.error('Error deleting cart item:', error);
+                console.error('Error:', error);
                 alert(error.message);
             });
         });
     });
 
+    // === Update Cart Total Summary ===
     function updateCartTotal() {
         let total = 0;
         let itemsCount = 0;
         document.querySelectorAll(".cart-item").forEach((item) => {
             const checkbox = item.querySelector(".item-checkbox");
-            if (checkbox.checked) {
+            if (checkbox && checkbox.checked) {
                 total += parseFloat(item.querySelector(".total-price").textContent);
                 itemsCount++;
             }
         });
 
         const totalPriceSummary = document.querySelector(".total-price-summary");
-        totalPriceSummary.innerHTML = `Total (${itemsCount} item${itemsCount !== 1 ? "s" : ""}): <strong>${total.toFixed(2)}</strong>`;
+        if (totalPriceSummary) {
+            totalPriceSummary.innerHTML = `Total (${itemsCount} item${itemsCount !== 1 ? "s" : ""}): <strong>${total.toFixed(2)}</strong>`;
+        }
     }
 
+    // === Select All Checkbox ===
     const selectAllCheckbox = document.querySelector("#select-all");
-    selectAllCheckbox.addEventListener("change", function () {
-        document.querySelectorAll(".item-checkbox").forEach(checkbox => {
-            checkbox.checked = selectAllCheckbox.checked;
+    if (selectAllCheckbox) {
+        selectAllCheckbox.addEventListener("change", function () {
+            document.querySelectorAll(".item-checkbox").forEach(checkbox => {
+                checkbox.checked = selectAllCheckbox.checked;
+            });
+            updateCartTotal();
         });
-        updateCartTotal();
-    });
+    }
+});
 </script>
 
 </body>

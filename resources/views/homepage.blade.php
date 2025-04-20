@@ -479,8 +479,8 @@
     </div>
 
     <div class="daily-see-more-container scroll-fade">
-            <button class="daily-see-more-btn" id="seeMoreBtn">See More</button>
-        </div>
+    <a href="{{ route('shop.index') }}" class="daily-see-more-btn" id="seeMoreBtn">See More</a>
+</div>
     </section>
 
 

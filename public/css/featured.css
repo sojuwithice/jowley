@@ -303,6 +303,11 @@ h3 {
     border: 2px solid black;
     cursor: pointer;
     display: inline-block;
+    transition: all 0.3s ease;
+}
+
+.color-circle:hover {
+    transform: scale(1.1);
 }
 
 /* Define color options */
@@ -312,6 +317,12 @@ h3 {
 .color-purple { background-color: purple; }
 .color-blue { background-color: royalblue; }
 .color-red { background-color: red; }
+
+.color-circle.selected {
+    border: 2px solid #333;
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
+    transform: scale(1.1);
+}
 
 /* Quantity Input Layout */
 .quantity-container {
@@ -534,18 +545,45 @@ h3 {
     margin-bottom: 15px;
 }
 
-.custom-btn {
-    background: #000;
-    color: #fff;
-    padding: 10px 15px;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-}
 
-.custom-btn:hover {
-    background: #333;
-}
+.button-container {
+    display: flex;
+    gap: 10px; 
+    align-items: center;
+    margin-top: 25px;
+  }
+  
+  
+  .btn-pink, .btn-outline-pink {
+    border: 1.5px solid #ec168c; 
+    color: black; 
+    background-color: transparent; 
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+ 
+  .btn-pink:hover, .btn-outline-pink:hover {
+    background-color: #ec168c;
+    color: white;
+  }
+  
+  
+  .btn-pink:hover {
+    background-color: #c21476;
+    color: white;
+  }
+  
+  
+  .btn-outline-pink:hover {
+    background-color: #ec168c;
+    color: white;
+  }
+  
+  
+
+  
+  
+  
 
 .top-header .right a {
     color: black;
@@ -563,4 +601,96 @@ h3 {
     color: white;
     border-color: #E32C89; 
    
+}
+
+
+
+.custom-modal {
+    border-radius: 20px;
+    background-color: white;
+    border: none;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .checkmark-wrapper {
+    width: 70px;
+    height: 70px;
+    border: 3px solid #c084fc; 
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    margin-top: 10px;
+  }
+  
+  .check-icon {
+    color: #3b82f6;
+    font-size: 35px;
+    margin: 0;
+    padding: 0;
+    display: block;
+    line-height: 1;
+  }
+  .modal-text {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-top: 10px;
+  }
+
+  .modal-backdrop {
+    z-index: 1200 !important;
+  }
+  
+  .modal {
+    z-index: 1201 !important;
+  }
+  
+  .error-wrapper {
+    width: 70px;
+    height: 70px;
+    border: 3px solid #c084fc; 
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    margin-top: 10px;
+    background-color: transparent; 
+  }
+  
+  .error-icon {
+    color: #3b82f6; 
+    font-size: 35px;
+    margin: 0;
+    padding: 0;
+    display: block;
+    line-height: 1;
+  }
+  
+
+  
+.btn-outline-pink.disabled, 
+.btn-outline-pink:disabled,
+.btn-outline-pink:disabled:hover {
+    background-color: transparent;
+    border-color: #ffcce0;
+    color: #ffcce0;
+    opacity: 0.65;
+    cursor: pointer !important; 
+}
+
+
+.btn.disabled, .btn:disabled {
+    cursor: pointer !important; 
+    pointer-events: auto;
+}
+
+#outOfStockAlert {
+    border-radius: 8px;
+    font-weight: 500;
+    max-width: 245px;
+    margin: 0 auto;
+    margin-left: 0;
+    text-align: center;
 }

@@ -10,48 +10,73 @@ use Illuminate\Support\Facades\Auth;
 class CartController extends Controller
 {
     // Method to add a product to the cart
+
+
     public function addToCart(Request $request)
-    {
-        // Check if the user is authenticated
-        if (!Auth::check()) {
-            return redirect()->route('login')->with('error', 'You need to be logged in to add items to the cart.');
-        }
-
-        // Validate the incoming request
-        $request->validate([
-            'product_id' => 'required|exists:products,id',
-            'quantity' => 'required|integer|min:1',
-        ]);
-
-        // Get the product details to get the price
-        $product = Product::find($request->product_id);
-
-        // Check if the product exists
-        if (!$product) {
-            return redirect()->route('cart')->with('error', 'Product not found.');
-        }
-
-        // Check if the product is already in the cart
-        $existing = Cart::where('user_id', Auth::id())
-            ->where('product_id', $request->product_id)
-            ->first();
-
-        if ($existing) {
-            // If the product exists in the cart, just update the quantity
-            $existing->quantity += $request->quantity;
-            $existing->save();
-        } else {
-            // If it's a new product, create a new cart item
-            Cart::create([
-                'user_id' => Auth::id(),
-                'product_id' => $request->product_id,
-                'quantity' => $request->quantity,
-                'price' => $product->price, // Fetch price from product
-            ]);
-        }
-
-        return redirect()->route('cart')->with('success', 'Added to cart!');
+{
+    if (!Auth::check()) {
+        return response()->json([
+            'success' => false,
+            'message' => 'You need to be logged in to add items to the cart.'
+        ], 401);
     }
+
+    $request->validate([
+        'product_id' => 'required|exists:products,id',
+        'quantity' => 'required|integer|min:1',
+        'color' => 'required|string'
+    ]);
+
+    $product = Product::find($request->product_id);
+    if (!$product) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Product not found.'
+        ], 404);
+    }
+
+    $existingCartItem = Cart::where('user_id', Auth::id())
+                          ->where('product_id', $request->product_id)
+                          ->first();
+
+    $requestedQuantity = $request->quantity;
+    $totalQuantity = $existingCartItem ? ($existingCartItem->quantity + $requestedQuantity) : $requestedQuantity;
+
+    // Check stock availability
+    if ($totalQuantity > $product->stock) {
+        $available = $product->stock - ($existingCartItem ? $existingCartItem->quantity : 0);
+        $available = max($available, 0);
+        
+        return response()->json([
+            'success' => false,
+            'message' => 'Only ' . $available . ' more items available in stock. You cannot add ' . $requestedQuantity . ' items.'
+        ], 422);
+    }
+
+    if ($existingCartItem) {
+        $existingCartItem->quantity = $totalQuantity;
+        $existingCartItem->save();
+    } else {
+        Cart::create([
+            'user_id' => Auth::id(),
+            'product_id' => $request->product_id,
+            'quantity' => $requestedQuantity,
+            'price' => $product->price,
+            'product_name' => $request->product_name,
+            'image' => $request->image,
+            'color' => $request->color,
+        ]);
+    }
+
+    return response()->json([
+        'success' => true,
+        'message' => 'Product added to cart successfully!'
+    ]);
+}
+
+
+
+
 
     // Method to view the cart
     public function viewCart()
@@ -70,36 +95,70 @@ class CartController extends Controller
 
     // Method to update the quantity of an item in the cart
     public function updateCart(Request $request, $productId)
-    {
-        // Validate the quantity input
-        $request->validate([
-            'quantity' => 'required|integer|min:1',
-        ]);
+{
+    $request->validate([
+        'quantity' => 'required|integer|min:1',
+    ]);
 
-        // Find the cart item
-        $cartItem = Cart::where('user_id', Auth::id())->where('product_id', $productId)->first();
+    $cartItem = Cart::where('user_id', Auth::id())
+                    ->where('product_id', $productId)
+                    ->first();
 
-        if ($cartItem) {
-            // Update the quantity of the cart item
-            $cartItem->quantity = $request->quantity;
-            $cartItem->save();
-        }
+    if ($cartItem) {
+        $cartItem->quantity = $request->quantity;
+        $cartItem->save();
 
         return response()->json(['success' => true]);
     }
+
+    return response()->json(['success' => false, 'message' => 'Cart item not found.']);
+}
+
+
 
     // Method to remove an item from the cart
  
-public function destroy($productId)
+    public function destroy($productId)
+    {
+        $cartItem = Cart::where('product_id', $productId)
+                        ->where('user_id', auth()->id())
+                        ->first();
+    
+        if ($cartItem) {
+            $cartItem->delete();
+            return response()->json(['success' => true]);
+        }
+    
+        return response()->json(['success' => false, 'message' => 'Item not found'], 404);
+    }
+    
+    public function directCheckout(Request $request)
 {
-    $cartItem = Cart::where('product_id', $productId)->where('user_id', auth::id())->first();
-
-    if ($cartItem) {
-        $cartItem->delete();
-        return response()->json(['success' => true]);
+    if (!Auth::check()) {
+        return redirect()->route('login')->with('error', 'You need to be logged in to proceed to checkout.');
     }
 
-    return response()->json(['success' => false], 404);
+    $request->validate([
+        'product_id' => 'required|exists:products,id',
+        'quantity' => 'required|integer|min:1',
+    ]);
+
+    // Clear current cart
+    Cart::where('user_id', Auth::id())->delete();
+
+    // Add the single product to cart
+    $product = Product::find($request->product_id);
+    
+    Cart::create([
+        'user_id' => Auth::id(),
+        'product_id' => $request->product_id,
+        'quantity' => $request->quantity,
+        'price' => $product->price,
+        'product_name' => $product->name,
+        'image' => $product->images[0],
+    ]);
+
+    return redirect()->route('checkout'); // Make sure this route exists
 }
     
 }
