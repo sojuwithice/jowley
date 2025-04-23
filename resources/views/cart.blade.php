@@ -101,7 +101,7 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Dynamically Display Cart Items -->
+              <!-- Dynamically Display Cart Items -->
                 @foreach($cartItems as $item) 
                 <tr class="cart-item" data-id="{{ $item->product->id }}">
 
@@ -153,20 +153,32 @@
                     <td><button class="delete-btn">Delete</button></td>
                 </tr>
                 @endforeach
-            </tbody>
-        </table>
 
+                
+            </tbody>
+            
+        </table>
+        @if($cartItems->isEmpty())
+    <p>Your cart is empty. Start shopping now!</p>
+@endif
+        
         <!-- Checkout Section -->
         <div class="checkout-section">
             <label><input type="checkbox" id="select-all"> Select all</label>
             <span class="total-price-summary">Total ({{ count($cartItems) }} items): <strong>{{ number_format($cartTotal, 2) }}</strong></span>
 
             <!-- Form to Redirect to Checkout -->
-            <form action="{{ route('checkout') }}" method="GET">
-                <button type="submit" class="checkout-btn">Checkout</button>
-            </form>
+            <form id="checkout-form" action="{{ route('checkout') }}" method="POST">
+    @csrf
+    <input type="hidden" name="selected_items" id="selected-items">
+    <button type="submit" class="checkout-btn">Checkout</button>
+</form>
+
         </div>
     </div>
+
+ 
+
 </section>
 
 
@@ -316,6 +328,36 @@ document.addEventListener("DOMContentLoaded", function () {
             updateCartTotal();
         });
     }
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    const checkoutForm = document.getElementById('checkout-form');
+    const selectedItemsInput = document.getElementById('selected-items');
+
+    checkoutForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const selected = [];
+        document.querySelectorAll('.cart-item').forEach(row => {
+            const checkbox = row.querySelector('.item-checkbox');
+            if (checkbox && checkbox.checked) {
+                const productId = row.dataset.id;
+                const quantity = row.querySelector('.quantity-input').value;
+                const colorSelect = row.querySelector('.colors-select');
+                const color = colorSelect ? colorSelect.value : null;
+
+                selected.push({ product_id: productId, quantity, color });
+            }
+        });
+
+        if (selected.length === 0) {
+            alert("Please select at least one item to checkout.");
+            return;
+        }
+
+        selectedItemsInput.value = JSON.stringify(selected);
+        checkoutForm.submit();
+    });
 });
 </script>
 

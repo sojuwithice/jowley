@@ -11,6 +11,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 use App\Models\Product;
 use App\Http\Controllers\ShopController;
+use App\Http\Controllers\CheckoutController;
 
 
 Route::get('/startingpage', function () {
@@ -59,9 +60,7 @@ Route::get('AboutPage', function () {
 Route::get('/butterfly-bouquet', function () {
     return view('butterflybouquet');
 })->name('butterflybouquet');
-Route::get('/checkout', function () {
-    return view('checkout');
-})->name('checkout');
+
 
 
 Route::post('/register', [RegisterController::class, 'register']);
@@ -79,12 +78,7 @@ Route::get('/logout', function () {
     return redirect('/home'); // Redirect to the homepage
 })->name('logout');
 // Checkout Route
-Route::get('/checkout', function() {
-    if (!Auth::check()) {
-        return redirect()->route('LoginSignUp')->with('message', 'Please log in to proceed to checkout.');
-    }
-    return view('checkout');
-})->name('checkout');
+
 
 
 Route::get('/SellerDash', [AdminController::class, 'index'])->name('SellerDash');
@@ -129,3 +123,6 @@ Route::get('/', function () {
 Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
 
 Route::post('/direct-checkout', [CartController::class, 'directCheckout'])->name('checkout.direct');
+
+
+Route::post('/checkout', [CheckoutController::class, 'checkout'])->name('checkout')->middleware('auth');

@@ -48,13 +48,7 @@
 @endif
 
 
-<div id="profileMenu" class="profile-menu">
-    <ul>
-        <li><a href="#">My Profile</a></li>
-        <li><a href="#">My Purchases</a></li>
-        <li><a href="{{ route('startingpage') }}">Logout</a></li>
-    </ul>
-</div>
+
 
     </div>
 </div>
@@ -449,6 +443,8 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 });
+
+
 </script>
 
 </body>
