@@ -51,3 +51,11 @@ Route::get('/butterfly-bouquet', function () {
 Route::get('/checkout', function () {
     return view('checkout');
 })->name('checkout');
+
+Route::get('usersprofile', function () {
+    return view('usersprofile'); 
+});
+
+Route::get('AdminDashboard', function () {
+    return view('AdminDashboard'); 
+});
