@@ -60,6 +60,80 @@ Route::get('AboutPage', function () {
 Route::get('/butterfly-bouquet', function () {
     return view('butterflybouquet');
 })->name('butterflybouquet');
+
+
+
+Route::post('/register', [RegisterController::class, 'register']);
+
+Route::get('/home', [HomeController::class, 'index'])->name('homepage');
+ 
+Route::post('/LoginSignUp', [LoginController::class, 'login'])->name('LoginSignUp');
+
+
+Route::get('/logout', function () {
+    Auth::logout(); // Logs out the user
+    session()->invalidate(); // Invalidates the session
+    session()->regenerateToken(); // Regenerates the CSRF token
+
+    return redirect('/home'); // Redirect to the homepage
+})->name('logout');
+// Checkout Route
+
+
+
+Route::get('/SellerDash', [AdminController::class, 'index'])->name('SellerDash');
+
+Route::get('/product/{slug}', [ProductController::class, 'show'])->name('product.show');
+
+
+
+Route::middleware('auth')->group(function () {
+    Route::get('/cart', [CartController::class, 'viewCart'])->name('cart');
+    Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
+    Route::post('/cart/update/{productId}', [CartController::class, 'updateCart'])->name('cart.update');  // For updating quantity
+    Route::delete('/cart/delete/{productId}', [CartController::class, 'destroy'])->name('cart.delete');
+
+
+
+
+
+});
+
+
+Route::get('/shop', function () {
+    return view('shop');
+})->name('shop');
+
+Route::get('/purchasepage', function () {
+    return view('purchasepage');
+})->name('purchasepage');
+
+Route::get('/searchpage', function () {
+    return view('searchpage');
+})->name('searchpage');
+
+
+
+Route::get('/shop', [ShopController::class, 'index'])->name('shop');
+
+Route::get('/', function () {
+    return view('homepage');
+});
+
+Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
+
+Route::post('/direct-checkout', [CartController::class, 'directCheckout'])->name('checkout.direct');
+
+
+Route::post('/checkout', [CheckoutController::class, 'checkout'])->name('checkout')->middleware('auth');
 Route::get('/checkout', function () {
     return view('checkout');
 })->name('checkout');
+
+Route::get('usersprofile', function () {
+    return view('usersprofile'); 
+});
+
+Route::get('AdminDashboard', function () {
+    return view('AdminDashboard'); 
+});
