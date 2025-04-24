@@ -34,20 +34,11 @@
 
                 <li>
                     <a href="#">
-                        <span class="icon">
-                            <ion-icon name="people-outline"></ion-icon>
-                        </span>
-                        <span class="title">Customers</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="#">
-                        <span class="icon">
-                            <ion-icon name="chatbubble-outline"></ion-icon>
-                        </span>
-                        <span class="title">Reports</span>
-                    </a>
+                    <span class="icon">
+                    <ion-icon name="cube-outline"></ion-icon>
+                </span>
+                    <span class="title">Products</span>
+                </a>
                 </li>
 
                 <li>
@@ -65,15 +56,6 @@
                             <ion-icon name="settings-outline"></ion-icon>
                         </span>
                         <span class="title">Settings</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="#">
-                        <span class="icon">
-                            <ion-icon name="lock-closed-outline"></ion-icon>
-                        </span>
-                        <span class="title"></span>
                     </a>
                 </li>
 
@@ -109,17 +91,16 @@
 
             <!-- ======================= Cards ================== -->
             <div class="cardBox">
-                <div class="card">
-                    <div>
-                        <div class="numbers">1,504</div>
-                        <div class="cardName">Daily Views</div>
-                    </div>
-
-                    <div class="iconBx">
-                        <ion-icon name="eye-outline"></ion-icon>
-                    </div>
-                </div>
-
+    <!-- Replaced Daily Views with Users -->
+    <div class="card">
+        <div>
+        <div class="numbers">{{ $nonAdminUserCount }}</div>
+            <div class="cardName">Users</div>
+        </div>
+        <div class="iconBx">
+            <ion-icon name="person-outline"></ion-icon>
+        </div>
+    </div>
                 <div class="card">
                     <div>
                         <div class="numbers">80</div>
@@ -131,17 +112,16 @@
                     </div>
                 </div>
 
-                <div class="card">
-                    <div>
-                        <div class="numbers">284</div>
-                        <div class="cardName">Comments</div>
-                    </div>
-
-                    <div class="iconBx">
-                        <ion-icon name="chatbubbles-outline"></ion-icon>
-                    </div>
-                </div>
-
+                <!-- Replaced Comments with Orders -->
+    <div class="card">
+        <div>
+            <div class="numbers">284</div>
+            <div class="cardName">Orders</div>
+        </div>
+        <div class="iconBx">
+            <ion-icon name="receipt-outline"></ion-icon>
+        </div>
+    </div>
                 <div class="card">
                     <div>
                         <div class="numbers">$7,842</div>

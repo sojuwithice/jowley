@@ -34,8 +34,8 @@
 
     <div id="profileMenu" class="profile-menu">
         <ul>
-            <li><a href="#">My Profile</a></li>
-            <li><a href="#">My Purchases</a></li>
+            <li><a href="{{ route('usersprofile') }}">My Profile</a></li>
+            <li><a href="{{ route('purchasepage') }}">My Purchases</a></li>
             <li><a href="{{ route('logout') }}">Logout</a></li>
         </ul>
     </div>
@@ -47,7 +47,7 @@
 
 <div id="profileMenu" class="profile-menu">
     <ul>
-        <li><a href="#">My Profile</a></li>
+        <li><a href="{{ route('usersprofile') }}">My Profile</a></li>
         <li><a href="#">My Purchases</a></li>
         <li><a href="{{ route('startingpage') }}">Logout</a></li>
     </ul>

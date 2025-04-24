@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,144 +13,162 @@
     <link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=Gotu&family=Oleo+Script+Swash+Caps:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/featured.css">
 </head>
+
 <body>
 
-<!-- Top header bar -->
-<div class="top-header scroll-fade">
-    <div class="left">
-        <span>Follow us on</span>
-        <a href="#"><i class="fab fa-facebook"></i></a>
-        <a href="#"><i class="fab fa-instagram"></i></a>
-        <a href="#"><i class="fab fa-tiktok"></i></a>
-    </div>
-    <div class="right">
-        @if(Auth::check())
-        <a href="#" class="notification">
-            <i class="fas fa-bell"></i> Notification
-        </a>
-        <a href="#" class="user-profile" id="profileMenuTrigger">
-            <i class="fas fa-user"></i> {{ Auth::user()->username }}
-        </a>
-        <div id="profileMenu" class="profile-menu">
-            <ul>
-                <li><a href="#">My Profile</a></li>
-                <li><a href="#">My Purchases</a></li>
-                <li><a href="{{ route('logout') }}">Logout</a></li>
-            </ul>
+    <!-- Top header bar -->
+    <div class="top-header scroll-fade">
+        <div class="left">
+            <span>Follow us on</span>
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-tiktok"></i></a>
         </div>
-        @else
-        <a href="{{ url('/Register') }}" class="signup">Sign Up</a>
-        <a href="{{ route('LoginSignUp') }}" class="login">Log in</a>
-        @endif
-    </div>
-</div>
-
-<!-- Header Section -->
-<header class="scroll-fade">
-    <input type="checkbox" name="" id="toggler">
-    <label for="toggler" class="fas fa-bars"></label>
-    
-    <a href="#" class="logo">Jowley's Crafts</a>
-
-    <nav class="navbar">
-        <a href="#home">Home</a>
-        <a href="#products">Products</a>
-        <a href="#contactus">Contact Us</a>
-    </nav>
-
-    <div class="header-right">
-        <div class="search-bar">
-            <input type="text" placeholder="Search...">
-            <button><i class="fas fa-search"></i></button>
-        </div>
-        <div class="icons">
-            <a href="{{ route('cart') }}" class="fas fa-shopping-cart"></a>
-        </div>
-    </div>
-</header>
-
-<div class="container custom-container mt-4">
-    <!-- Products Ordered -->
-    <h4 class="fw-bold">Products Ordered</h4>
-
-    <!-- Delivery Address -->
-    <div class="card p-3 mb-3">
-        <h5 class="section-title">Delivery Address</h5>
-        <div class="d-flex justify-content-between align-items-center">
-            <div>
-                <strong>{{ Auth::user()->username }}</strong><br>
-                <span>{{ Auth::user()->phone }}</span><br>
-                @if(!isset(Auth::user()->address) || empty(Auth::user()->address))
-                <small class="text-danger">
-                    No address found. <a href="#" class="text-decoration-underline">Go to profile to add</a>
-                </small>
-            @else
-                <small>{{ Auth::user()->address }}</small>
-            @endif
+        <div class="right">
+            @if(Auth::check())
+            <a href="#" class="notification">
+                <i class="fas fa-bell"></i> Notification
+            </a>
+            <a href="#" class="user-profile" id="profileMenuTrigger">
+                <i class="fas fa-user"></i> {{ Auth::user()->username }}
+            </a>
+            <div id="profileMenu" class="profile-menu">
+                <ul>
+                    <li><a href="{{ route('usersprofile') }}">My Profile</a></li>
+                    <li><a href="{{ route('purchasepage') }}">My Purchases</a></li>
+                    <li><a href="{{ route('logout') }}">Logout</a></li>
+                </ul>
             </div>
-            <button class="btn btn-pink">Change</button>
+            @else
+            <a href="{{ url('/Register') }}" class="signup">Sign Up</a>
+            <a href="{{ route('LoginSignUp') }}" class="login">Log in</a>
+            @endif
         </div>
     </div>
 
-    <!-- Products Table -->
-    <div class="card p-3 mb-3">
-        <table class="table">
-            <thead class="table-light">
-                <tr>
-                    <th>Product Image</th>
-                    <th>Product Name</th>
-                    <th>Variation</th>
-                    <th>Unit Price</th>
-                    <th>Quantity</th>
-                    <th>Item Subtotal</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($cartItems as $item)
-                <tr>
-                    <td><img src="{{ asset('images/' . $item->product->image) }}" alt="{{ $item->product->name }}" width="80"></td>
-                    <td>
-                        <strong>{{ $item->product->name }}</strong><br>
-                        <small>{{ $item->product->description }}</small>
-                    </td>
-                    <td>{{ $item->variation ? 'Variation: ' . $item->variation : 'No Variation' }}</td>
-                    <td>₱{{ number_format($item->product->price, 2) }}</td>
-                    <td>{{ $item->quantity }}</td>
-                    <td>₱{{ number_format($item->product->price * $item->quantity, 2) }}</td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-        <div class="text-end fw-bold">
-            Total Order ({{ count($cartItems) }} items): ₱{{ number_format($totalPrice, 2) }}
+    <!-- Header Section -->
+    <header class="scroll-fade">
+        <input type="checkbox" name="" id="toggler">
+        <label for="toggler" class="fas fa-bars"></label>
+        <a href="#" class="logo">Jowley's Crafts</a>
+        <nav class="navbar">
+            <a href="#home">Home</a>
+            <a href="#products">Products</a>
+            <a href="#contactus">Contact Us</a>
+        </nav>
+        <div class="header-right">
+            <div class="search-bar">
+                <input type="text" placeholder="Search...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+            <div class="icons">
+                <a href="{{ route('cart') }}" class="fas fa-shopping-cart"></a>
+            </div>
         </div>
+    </header>
+
+    <div class="container custom-container mt-4">
+        <!-- Products Ordered -->
+        <h4 class="fw-bold">Products Ordered</h4>
+
+        <!-- Delivery Address -->
+        <div class="card p-3 mb-3">
+            <h5 class="section-title">Delivery Address</h5>
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    @php
+                        $defaultAddress = Auth::user()->addresses()->where('is_default', 1)->first();
+                    @endphp
+                    @if($defaultAddress)
+                    <strong>{{ $defaultAddress->full_name }}</strong><br>
+                    <span>{{ $defaultAddress->phone_number }}</span><br>
+                    <span>{{ $defaultAddress->street }}<br>
+                        {{ $defaultAddress->barangay }}, {{ $defaultAddress->city }}, {{ $defaultAddress->province }}</span><br>
+                    @else
+                    <small class="text-danger">
+                        No address found. <a href="#" class="text-decoration-underline">Go to profile to add</a>
+                    </small>
+                    @endif
+                </div>
+                <button class="btn btn-pink">Change</button>
+            </div>
+        </div>
+
+        <!-- Products Table -->
+        <div class="card p-3 mb-3">
+            <table class="table">
+                <thead class="table-light">
+                    <tr>
+                        <th>Product Image</th>
+                        <th>Product Name</th>
+                        <th>Variation</th>
+                        <th>Unit Price</th>
+                        <th>Quantity</th>
+                        <th>Item Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($cartItems as $item)
+                    <tr>
+                        <td><img src="{{ asset('images/' . $item->product->image) }}" alt="{{ $item->product->name }}" width="80"></td>
+                        <td>
+                            <strong>{{ $item->product->name }}</strong><br>
+                            <small>{{ $item->product->description }}</small>
+                        </td>
+                        <td>{{ $item->variation ? 'Variation: ' . $item->variation : 'No Variation' }}</td>
+                        <td>₱{{ number_format($item->product->price, 2) }}</td>
+                        <td>{{ $item->quantity }}</td>
+                        <td>₱{{ number_format($item->product->price * $item->quantity, 2) }}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            <div class="text-end fw-bold">
+                Total Order ({{ count($cartItems) }} items): ₱{{ number_format($totalPrice, 2) }}
+            </div>
+        </div>
+
+        <!-- Payment Methods -->
+        <div class="card p-3">
+            <h5 class="section-title">Payment Methods</h5>
+            <div class="d-flex justify-content-end gap-3">
+                <button class="btn btn-pink payment-method" id="cash-on-delivery">Cash on Delivery</button>
+                <button class="btn btn-pink payment-method" id="gcash-method">
+                    <img src="/image/gcash.png" alt="GCash" style="width: 20px; height: 20px; margin-right: 8px;"> Gcash
+                </button>
+            </div>
+            <hr>
+            <div>
+                <p>Merchandise Subtotal: <span class="float-end">₱{{ number_format($subtotal, 2) }}</span></p>
+                <p>Shipping Subtotal: <span class="float-end">₱0.00</span></p>
+                <p class="fw-bold">Total Payment: <span class="float-end">₱{{ number_format($totalPrice, 2) }}</span></p>
+            </div>
+        </div>
+
+        <!-- Place Order Button -->
+        <div class="d-flex justify-content-end mt-3">
+            <button id="placeOrderBtn" class="btn btn-pink">Place Order</button>
+        </div>
+
+        <!-- Modal for Payment Method -->
+        <div class="modal fade" id="paymentMethodModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content" style="margin-left: 15px; margin-right: 15px;">
+                    <div class="modal-header">
+                        <h5 class="modal-title" style="color: #ec32b5;">Please Choose a Payment Method</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>You must select a payment method before placing your order.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
-    <!-- Payment Methods -->
-    <div class="card p-3">
-    <h5 class="section-title">Payment Methods</h5>
-    <div class="d-flex justify-content-end gap-3">
-        <button class="btn btn-pink">Cash on Delivery</button>
-        <button class="btn btn-pink">
-            <img src="/image/gcash.png" alt="GCash" style="width: 20px; height: 20px; margin-right: 8px;"> Gcash
-        </button>
-    </div>
-    <hr>
-    <div>
-        <p>Merchandise Subtotal: <span class="float-end">₱{{ number_format($subtotal, 2) }}</span></p>
-        <p>Shipping Subtotal: <span class="float-end">₱0.00</span></p>
-        <p class="fw-bold">Total Payment: <span class="float-end">₱{{ number_format($totalPrice, 2) }}</span></p>
-    </div>
-</div>
-
-<!-- Place Order Button -->
-<div class="d-flex justify-content-end mt-3">
-    <button class="btn btn-pink">Place Order</button>
-</div>
-
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
         const scrollElements = document.querySelectorAll(".scroll-fade");
 
         const observer = new IntersectionObserver((entries) => {
@@ -178,6 +197,36 @@
             profileMenu.style.display = 'none';
         }
     });
-</script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const paymentButtons = document.querySelectorAll('.payment-method');
+            let selectedPaymentMethod = null;
+
+            paymentButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    // Remove the 'active' class from all buttons
+                    paymentButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add 'active' class to the clicked button
+                    this.classList.add('active');
+                    
+                    // Set the selected payment method
+                    selectedPaymentMethod = this.id;
+                });
+            });
+
+            // Place Order Button Handler
+            document.getElementById('placeOrderBtn').addEventListener('click', function () {
+                if (!selectedPaymentMethod) {
+                    // If no payment method is selected, show the modal
+                    const modal = new bootstrap.Modal(document.getElementById('paymentMethodModal'));
+                    modal.show();
+                } else {
+                    // Proceed with the order
+                    // Add logic for placing the order here
+                }
+            });
+        });
+    </script>
 </body>
+
 </html>

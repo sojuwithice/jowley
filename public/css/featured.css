@@ -694,3 +694,7 @@ h3 {
     margin-left: 0;
     text-align: center;
 }
+.payment-method.active {
+    background-color: #ec32b5; /* or any color you prefer */
+    color: white;
+}

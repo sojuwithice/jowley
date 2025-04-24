@@ -51,7 +51,7 @@ class LoginController extends Controller
 
         // If the user is an admin, redirect to the admin dashboard
         if ($user->is_admin) {
-            return redirect()->route('SellerDash')->with('message', 'Welcome back, Admin!');
+            return redirect()->route('AdminDashboard')->with('message', 'Welcome back, Admin!');
         }
 
         // Redirect to homepage for regular users

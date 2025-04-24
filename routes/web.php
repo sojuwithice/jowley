@@ -8,10 +8,14 @@ use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AdminController; 
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\CartController;
 use App\Models\Product;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\AddressController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderController;
+
 
 
 Route::get('/startingpage', function () {
@@ -75,13 +79,13 @@ Route::get('/logout', function () {
     session()->invalidate(); // Invalidates the session
     session()->regenerateToken(); // Regenerates the CSRF token
 
-    return redirect('/home'); // Redirect to the homepage
+    return redirect('/startingpage'); // Redirect to the homepage
 })->name('logout');
 // Checkout Route
 
 
 
-Route::get('/SellerDash', [AdminController::class, 'index'])->name('SellerDash');
+
 
 Route::get('/product/{slug}', [ProductController::class, 'show'])->name('product.show');
 
@@ -130,10 +134,17 @@ Route::get('/checkout', function () {
     return view('checkout');
 })->name('checkout');
 
-Route::get('usersprofile', function () {
-    return view('usersprofile'); 
-});
 
-Route::get('AdminDashboard', function () {
-    return view('AdminDashboard'); 
+
+Route::get('/profile', [UserController::class, 'profile'])->name('usersprofile');
+
+
+Route::get('/AdminDasboard', [AdminController::class, 'index'])->name('AdminDashboard');
+Route::post('/update-profile', [UserController::class, 'updateProfile'])->name('update.profile');
+
+
+Route::middleware(['auth'])->group(function () {
+    Route::post('/addresses', [AddressController::class, 'store'])->name('addresses.store');
 });
+Route::post('/update-password', [UserController::class, 'updatePassword'])->name('password.update');
+

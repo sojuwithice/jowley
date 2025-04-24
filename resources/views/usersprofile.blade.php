@@ -27,13 +27,31 @@ $accountCreationDate = isset($_SESSION["created_at"]) ? $_SESSION["created_at"] 
       <a href="#"><i class="fab fa-instagram"></i></a>
       <a href="#"><i class="fab fa-tiktok"></i></a>
   </div>
+  
   <div class="right">
-      <a href="#" class="notification">
-         <i class="fas fa-bell"></i> Notification
-      </a>
-      <a href="#" class="user">
-         <i class="fas fa-user"></i> <?php echo $username; ?>
-      </a>
+    @guest
+        <a href="{{ url('/Register') }}" class="signup">Sign Up</a>
+        <a href="{{ route('LoginSignUp') }}" class="login">Log in</a>
+    @else
+        <!-- Notifications and Profile Menu for logged-in users -->
+        <a href="#" class="notification">
+            <i class="fas fa-bell"></i> Notification
+        </a>
+        <a href="#" class="user-profile" id="profileMenuTrigger">
+            <i class="fas fa-user"></i> {{ Auth::user()->username }}
+        </a>
+
+        <div id="profileMenu" class="profile-menu">
+            <ul>
+                <li><a href="{{ route('usersprofile') }}">My Profile</a></li>
+                <li><a href="#">My Purchases</a></li>
+                <li><a href="{{ route('logout') }}">Logout</a></li>
+
+            </ul>
+        </div>
+    @endguest
+</div>
+
     </div>
 </div>
 <header>
@@ -49,7 +67,7 @@ $accountCreationDate = isset($_SESSION["created_at"]) ? $_SESSION["created_at"] 
        <button><i class="fas fa-search"></i></button>
  </div>
     <div class="icons">
-     <a href="#" class="fas fa-shopping-cart"></a>
+     <a href="{{ route('cart') }}" class="fas fa-shopping-cart"></a>
     </div>
  </div>
 </header>
@@ -58,7 +76,7 @@ $accountCreationDate = isset($_SESSION["created_at"]) ? $_SESSION["created_at"] 
  <aside class="sidebar">
    <div class="user-info">
      <img src="image/editusw.png" class="users-i">
-      <span><?php echo $username; ?></span>
+     <span>{{ Auth::user()->username }}</span>
    </div>
      <nav class="pmenu">
      <div class="menu-item">
@@ -101,99 +119,128 @@ $accountCreationDate = isset($_SESSION["created_at"]) ? $_SESSION["created_at"] 
           <label for="imageUpload" class="btn-img" style="cursor: pointer;">Select Image</label>
             <p>File size maximum 1MB</p>
        </div>
-       <form>
-           <label for="username">Username:</label>
-       <div class="input-container">
-           <input type="text" id="username" name="username" placeholder="" readonly>
-       </div>
-	   <label for="email">Email Address:</label>
-       <div class="input-container">
-           <input type="email" id="email" name="email" placeholder="">
-       </div>
-	   <label for="number">Phone Number:</label>
-       <div class="input-container">
-           <input type="text" id="number" name="number" placeholder="">
-       </div>
-           <label>Gender:</label>
-       <div class="gender-toggle">
-            <input type="radio" id="female" name="gender" value="female">
-            <label for="female">Female</label>
-            <input type="radio" id="male" name="gender" value="male">
-            <label for="male">Male</label>
-            <input type="radio" id="others" name="gender" value="others">
-            <label for="others">Others</label>
-       </div>
-	    <label for="dob">Date of Birth:</label>
-       <div class="input-container">
-            <input type="date" id="dob" name="dob">
-       </div>
+       <form action="{{ route('update.profile') }}" method="POST">
+       @csrf
+       <label for="username">Username:</label>
+<div class="input-container d-flex align-items-center gap-2">
+    <input type="text" id="username" name="username" value="{{ Auth::user()->username }}" readonly>
+    <i class="fas fa-edit edit-icon" onclick="enableEdit('username')"></i>
+</div>
+
+<label for="email">Email Address:</label>
+<div class="input-container d-flex align-items-center gap-2">
+    <input type="email" id="email" name="email" value="{{ Auth::user()->email }}" readonly>
+    <i class="fas fa-edit edit-icon" onclick="enableEdit('email')"></i>
+</div>
+
+<label for="number">Phone Number:</label>
+<div class="input-container d-flex align-items-center gap-2"> <input type="text" name="phone" value="{{ old('phone', Auth::user()->phone) }}" class="form-control" id="phone">
+    <i class="fas fa-edit edit-icon" onclick="enableEdit('number')"></i>
+</div>
+<label>Gender:</label>
+<div class="gender-toggle">
+    <input type="radio" id="female" name="gender" value="female" {{ Auth::user()->gender == 'female' ? 'checked' : '' }}>
+    <label for="female">Female</label>
+    <input type="radio" id="male" name="gender" value="male" {{ Auth::user()->gender == 'male' ? 'checked' : '' }}>
+    <label for="male">Male</label>
+    <input type="radio" id="others" name="gender" value="others" {{ Auth::user()->gender == 'others' ? 'checked' : '' }}>
+    <label for="others">Others</label>
+</div>
+<label for="dob">Date of Birth:</label>
+<div class="input-container">
+    <input type="date" id="dob" name="dob" value="{{ \Carbon\Carbon::parse(Auth::user()->dob)->toDateString() ?? '' }}">
+</div>
+
            <button type="submit" class="save-button">Save Changes</button>
    </form>
   </div>
  </div>
-	<div id="addresses-section" class="content-section" style="display: none;">
-            <h2>My Addresses</h2>
-              <p>Manage your shipping addresses</p>
-        <div class="line"></div>
-        <div class="address-container">
-            <button class="add-address-btn">Add New Address</button>    
+ @auth
+<div id="addresses-section" class="content-section" style="display: none;">
+    <h2>My Addresses</h2>
+    <p>Manage your shipping addresses</p>
+    <div class="line"></div>
+
+    <div class="address-container">
+        <button class="add-address-btn" data-bs-toggle="modal" data-bs-target="#addAddressModal">
+            Add New Address
+        </button>
+
         <div class="address-list">
+    @forelse (auth()->user()->addresses as $address)
         <div class="address-card">
-	<div class="address-details">
-             <h4>Marijoy Novora</h4>
-               <p class="phone-number">
-                <i class="fas fa-phone"></i> 09300311853</p>
-               <p class="address-text">
-                <i class="fas fa-map-marker-alt"></i> Purok 3, EM'S Barrio<br>EM'S Barrio, Legazpi City, Albay</p>
-               <span class="default-badge">Default</span>
+            <div class="address-details">
+                <h4>{{ $address->full_name }}</h4>
+                <p class="phone-number">
+                    <i class="fas fa-phone"></i> {{ $address->phone_number }}
+                </p>
+                <p class="address-text">
+                    <i class="fas fa-map-marker-alt"></i>
+                    {{ $address->street }},
+                    {{ $address->barangay }},
+                    {{ $address->city }},
+                    Albay
+                </p>
+                @if ($address->is_default)
+                    <span class="default-badge">Default</span>
+                @endif
+            </div>
+            <div class="address-card-actions">
+                <button class="action-btn edit-btn" data-id="{{ $address->id }}">
+                    <i class="fas fa-edit"></i> Edit
+                </button>
+                <button class="action-btn delete-btn" data-id="{{ $address->id }}">
+                    <i class="fas fa-trash"></i> Delete
+                </button>
+            </div>
         </div>
-        <div class="address-card-actions">
-             <button class="action-btn edit-btn">
-                <i class="fas fa-edit"></i> Edit</button>
-             <button class="action-btn delete-btn">
-                <i class="fas fa-trash"></i> Delete </button>
-        </div>
-      </div>
-        <div class="address-card">
-        <div class="address-details">
-            <h4>Aika Barin</h4>
-             <p class="phone-number">
-              <i class="fas fa-phone"></i> 09300311853</p>
-             <p class="address-text">
-               <i class="fas fa-map-marker-alt"></i> Lot 1 blk 67 upper bicutan tagum st<br>Upper Bicutan, Taguig City, Metro Manila, 1633</p>
-        </div>
-        <div class="address-card-actions">
-             <button class="action-btn edit-btn" data-toggle="modal" data-target="#exampleModal">
-               <i class="fas fa-edit"></i> Edit</button>
-	     <button class="action-btn delete-btn">
-               <i class="fas fa-trash"></i> Delete</button>
-        </div>
-       </div>
-      </div>
-     </div>
-   </div>
+    @empty
+        <p style="padding: 15px; font-size: 16px;">You don't have addresses yet.</p>
+    @endforelse
+</div>
+
+    </div>
+</div>
+@endauth
+
 	<div id="password-section" class="content-section" style="display: none;">
             <h2>Change Password</h2>
              <p>Update your account password</p>
         <div class="line"></div>
-   	<div class="password-form">
-         <form>
-         <div class="input-container">
-             <label for="current-password">Current Password:</label>
-              <input type="password" id="current-password" name="current-password" required>
-         </div>
-         <div class="input-container">
-             <label for="new-password">New Password:</label>
-               <input type="password" id="new-password" name="new-password" required>
-         </div>
-         <div class="input-container">
-             <label for="confirm-password">Confirm New Password:</label>
-                <input type="password" id="confirm-password" name="confirm-password" required>
-         </div>
-             <button type="submit" class="save-button">Update Password</button>
-          </form>
-         </div>
+        <div class="password-form">
+    @if (session('error'))
+        <div style="color: red; margin-bottom: 10px;">
+            {{ session('error') }}
         </div>
+    @endif
+
+    @if (session('success'))
+        <div style="color: green; margin-bottom: 10px;">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    <form method="POST" action="{{ route('password.update') }}">
+        @csrf
+        <div class="input-container">
+            <label for="current-password">Current Password:</label>
+            <input type="password" id="current-password" name="current_password" required>
+        </div>
+
+        <div class="input-container">
+            <label for="new-password">New Password:</label>
+            <input type="password" id="new-password" name="new_password" required>
+        </div>
+
+        <div class="input-container">
+            <label for="confirm-password">Confirm New Password:</label>
+            <input type="password" id="confirm-password" name="confirm_password" required>
+        </div>
+
+        <button type="submit" class="save-button">Update Password</button>
+    </form>
+</div>
+
          <div id="privacy-section" class="content-section" style="display: none;">
             <h2>Privacy Settings</h2>
             <p>Control your privacy preferences</p>
@@ -242,59 +289,79 @@ $accountCreationDate = isset($_SESSION["created_at"]) ? $_SESSION["created_at"] 
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
       <div class="modal-body" style="padding-left: 25px; padding-right: 25px;">
-        <form id="addressForm">
-          <div class="mb-3">
-            <label class="form-label" style="font-size: 15px;">Full Name</label>
-            <input type="text" class="form-control" style="font-size: 15px;" required>
-          </div>
-          <div class="mb-3">
-            <label class="form-label" style="font-size: 15px;">Phone Number</label>
-            <input type="tel" class="form-control" style="font-size: 15px;" 
-                   pattern="[0-9]*" 
-                   oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-                   maxlength="15"
-                   required>
-          </div>
-          <div class="mb-3">
-            <label class="form-label" style="font-size: 15px;">Zip code</label>
-            <input type="text" class="form-control" style="font-size: 15px;" 
-                   pattern="[0-9]*"
-                   oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-                   maxlength="10"
-                   required>
-          </div>
-          <div class="mb-3">
-            <label class="form-label" style="font-size: 15px;">Street Building House No. Barangay</label>
-            <textarea class="form-control" style="font-size: 15px;" rows="2" required></textarea>
-          </div>
-          
-          <div class="mb-3">
-            <label class="form-label" style="font-size: 15px;">Label as:</label> 
-            <div class="d-flex gap-2">
-              <button type="button" class="address-label-btn active" 
-                      data-label="home" style="font-size: 13px; padding: 5px 13px;">
-                <i class="bi bi-house-door me-2"></i>Home</button>
-              <button type="button" class="address-label-btn" 
-                      data-label="work" style="font-size: 13px; padding: 5px 13px;">
-                <i class="bi bi-briefcase me-2"></i>Work</button>
-            </div>
-            <input type="hidden" name="address_label" id="addressLabel" value="home">
-          </div>
+  <form id="addressForm">
+    <div class="mb-3">
+      <label class="form-label" style="font-size: 15px;">Full Name</label>
+      <input type="text" class="form-control" name="full_name" style="font-size: 15px;" required>
+    </div>
 
-          <div class="mb-3 form-check">
-            <input type="checkbox" class="form-check-input" id="defaultAddress">
-            <label class="form-check-label" for="defaultAddress" style="font-size: 14px;">
-              Set as default address
-            </label>
-          </div>
-          
-          <div class="mt-4">
-            <button type="submit" class="btn btn-primary" style="font-size: 14px; padding: 10px;">
-              Save Address
-            </button>
-          </div>
-        </form>
+    <div class="mb-3">
+      <label class="form-label" style="font-size: 15px;">Phone Number</label>
+      <input type="tel" class="form-control" name="phone_number" style="font-size: 15px;" 
+             pattern="[0-9]*" 
+             oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+             maxlength="15"
+             required>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label" style="font-size: 15px;">City</label>
+      <select class="form-control" id="city" name="city" style="font-size: 15px;" required>
+        <option value="">-- Select City --</option>
+        <option value="Legazpi">Legazpi</option>
+        <option value="Daraga">Daraga</option>
+        <option value="Tabaco">Tabaco</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label" style="font-size: 15px;">Barangay</label>
+      <select class="form-control" id="barangay" name="barangay" style="font-size: 15px;" required>
+        <option value="">-- Select Barangay --</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label" style="font-size: 15px;">Street Building House No. Barangay</label>
+      <textarea class="form-control" name="street" style="font-size: 15px;" rows="2" required></textarea>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label" style="font-size: 15px;">Province</label>
+      <input type="text" class="form-control" value="Albay" disabled>
+    </div> 
+
+    <div class="mb-3">
+      <label class="form-label" style="font-size: 15px;">Label as:</label> 
+      <div class="d-flex gap-2">
+        <button type="button" class="address-label-btn active" 
+                data-label="home" style="font-size: 13px; padding: 5px 13px;">
+          <i class="bi bi-house-door me-2"></i>Home</button>
+        <button type="button" class="address-label-btn" 
+                data-label="work" style="font-size: 13px; padding: 5px 13px;">
+          <i class="bi bi-briefcase me-2"></i>Work</button>
       </div>
+      <input type="hidden" name="label" id="addressLabel" value="home">
+    </div>
+
+    <div class="mb-3 form-check">
+      <input type="checkbox" class="form-check-input" id="defaultAddress" name="is_default" value="1">
+      <label class="form-check-label" for="defaultAddress" style="font-size: 14px;">
+        Set as default address
+      </label>
+    </div>
+    
+    <div class="mt-4">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="font-size: 14px; padding: 10px;">
+              Cancel
+            </button>
+      <button type="submit" class="btn btn-primary" style="font-size: 14px; padding: 10px;">
+        Save Address
+      </button>
+    </div>
+  </form>
+</div>
+
     </div>
   </div>
 </div>
@@ -446,6 +513,72 @@ function previewImage(event) {
         reader.readAsDataURL(event.target.files[0]);
     }
 }
+
+document.getElementById('profileMenuTrigger').addEventListener('click', function(event) {
+        event.preventDefault();
+        const profileMenu = document.getElementById('profileMenu');
+        profileMenu.style.display = (profileMenu.style.display === 'block') ? 'none' : 'block';
+    });
+
+    // Close the profile menu if clicked outside
+    window.addEventListener('click', function(event) {
+        const profileMenu = document.getElementById('profileMenu');
+        if (!event.target.closest('#profileMenuTrigger') && !event.target.closest('#profileMenu')) {
+            profileMenu.style.display = 'none';
+        }
+    });
+
+    function enableEdit(fieldId) {
+        const input = document.getElementById(fieldId);
+        input.removeAttribute('readonly');
+        input.focus();
+    }
+
+    const barangays = {
+  Legazpi: ["EM's Barrio", "Bonot", "Rawis", "Ilihan", "Taysan"],
+  Daraga: ["Bañag", "Tagas", "Binitayan", "Sagpon"],
+  Tabaco: ["Baranghawon", "Cobo", "Oas", "Mayon", "Matagbac"]
+};
+
+document.getElementById('city').addEventListener('change', function () {
+  const city = this.value;
+  const barangaySelect = document.getElementById('barangay');
+
+  // Clear previous options
+  barangaySelect.innerHTML = '<option value="">-- Select Barangay --</option>';
+
+  if (barangays[city]) {
+    barangays[city].forEach(brgy => {
+      const option = document.createElement('option');
+      option.value = brgy;
+      option.textContent = brgy;
+      barangaySelect.appendChild(option);
+    });
+  }
+});
+
+document.getElementById('addressForm').addEventListener('submit', function (e) {
+  e.preventDefault();
+
+  const form = new FormData(this);
+  form.append('label', document.getElementById('addressLabel').value);
+  form.append('is_default', document.getElementById('defaultAddress').checked ? 1 : 0);
+
+  fetch("{{ route('addresses.store') }}", {
+    method: "POST",
+    headers: {
+      "X-CSRF-TOKEN": "{{ csrf_token() }}"
+    },
+    body: form
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      alert("Address added successfully!");
+      location.reload(); // or dynamically add to address list
+    }
+  });
+});
 </script>
 </body>
 </html>
