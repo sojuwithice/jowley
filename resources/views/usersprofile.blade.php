@@ -87,7 +87,6 @@ $accountCreationDate = isset($_SESSION["created_at"]) ? $_SESSION["created_at"] 
      <div class="dropdown-item" onclick="showSection(event, 'profile-section')">Profile</div>
      <div class="dropdown-item" onclick="showSection(event, 'addresses-section'); handleAddressSection();">Addresses</div>
      <div class="dropdown-item" onclick="showSection(event, 'password-section')">Change Password</div>
-     <div class="dropdown-item" onclick="showSection(event, 'privacy-section')">Privacy Settings</div>
     </div>
     </div>
        <div class="menu-item">
