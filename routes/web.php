@@ -148,3 +148,6 @@ Route::middleware(['auth'])->group(function () {
 });
 Route::post('/update-password', [UserController::class, 'updatePassword'])->name('password.update');
 
+Route::resource('products', ProductController::class);
+Route::get('/admin/products', [ProductController::class, 'showAdminProducts'])->name('admin.products');
+Route::put('/products/{id}', [ProductController::class, 'update'])->name('products.update');

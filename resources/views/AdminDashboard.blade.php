@@ -31,15 +31,14 @@
                         <span class="title">Dashboard</span>
                     </a>
                 </li>
-
                 <li>
-                    <a href="#">
-                    <span class="icon">
-                    <ion-icon name="cube-outline"></ion-icon>
-                </span>
-                    <span class="title">Products</span>
-                </a>
-                </li>
+                <a href="{{ route('admin.products') }}">
+                <span class="icon">
+             <ion-icon name="cube-outline"></ion-icon>
+        </span>
+        <span class="title">Products</span>
+    </a>
+</li>
 
                 <li>
                     <a href="#">

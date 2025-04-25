@@ -110,7 +110,21 @@
                 <tbody>
                     @foreach($cartItems as $item)
                     <tr>
-                        <td><img src="{{ asset('images/' . $item->product->image) }}" alt="{{ $item->product->name }}" width="80"></td>
+                        <td> @php
+                            $defaultImage = 'default.jpg';
+                            $rawImages = $item->product->images;
+
+                            $images = is_string($rawImages) ? json_decode($rawImages, true) : $rawImages;
+
+                            $imageFilename = $images[0] ?? $defaultImage;
+
+                            $imageFilename = str_replace('\\', '/', $imageFilename);
+
+                            $finalPath = \Illuminate\Support\Str::startsWith($imageFilename, 'image/') ? $imageFilename : 'image/' . $imageFilename;
+
+                        @endphp
+
+                        <img src="{{ asset($finalPath) }}" alt="{{ $item->product->name }}" width="100"></td>
                         <td>
                             <strong>{{ $item->product->name }}</strong><br>
                             <small>{{ $item->product->description }}</small>
