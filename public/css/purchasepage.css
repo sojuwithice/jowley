@@ -502,6 +502,37 @@ header {
 }
   
 
+.profile-menu {
+  display: none;
+  position: absolute;
+  top: 50px;
+  right: 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  z-index: 1000;
+}
 
+.profile-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.profile-menu ul li {
+  padding: 8px 10px;
+}
+
+.profile-menu ul li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+}
+
+.profile-menu ul li a:hover {
+  color: #E32C89;
+}
 
 

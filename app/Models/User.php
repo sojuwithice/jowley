@@ -26,5 +26,13 @@ class User extends Authenticatable
         return $this->is_admin == 1;
     }
 
- 
+    public function addresses()
+    {
+        return $this->hasMany(Address::class);
+    }
+    public function orders()
+{
+    return $this->hasMany(Order::class);
+}
+
 }

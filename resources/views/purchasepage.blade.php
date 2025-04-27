@@ -20,33 +20,13 @@
     </div>
 
     <div class="right">
-    @guest
-        <a href="{{ url('/Register') }}" class="signup">Sign Up</a>
-        <a href="{{ route('LoginSignUp') }}" class="login">Log in</a>
-    @else
-        
-        <a href="#" class="notification" id="notificationButton">
+        <a href="#" class="notification">
             <i class="fas fa-bell"></i> Notification
-            @if ($unreadCount > 0)
-            <span class="notification-badge" id="notificationBadge">{{ $unreadCount }}</span>
-        @else
-            <span class="notification-badge" id="notificationBadge" style="display: none;">0</span>
-        @endif
         </a>
-        <a href="#" class="user-profile" id="profileMenuTrigger">
-            <i class="fas fa-user"></i> {{ Auth::user()->username }}
+        <a href="#" class="user-profile">
+            <i class="fas fa-user"></i> AkosiMJ#01
         </a>
-
-        <div id="profileMenu" class="profile-menu">
-            <ul>
-                <li><a href="#">My Profile</a></li>
-                <li><a href="{{ route('purchasepage') }}">My Purchases</a></li>
-                <li><a href="{{ route('logout') }}">Logout</a></li>
-
-            </ul>
-        </div>
-    @endguest
-</div>
+    </div>
 </div>
 </body>
 </html>
@@ -136,42 +116,6 @@
 
 <section class="order-wrapper">
 
-  <!-- Order 1 -->
-  <div class="order-box" data-status="completed">
-    <div class="order-status">
-    <span class="status-info">Waiting for Courier</span>
-      <span class="completed"> | Completed</span>
-    </div>
-
-    <div class="order-main">
-      <div class="product-image">
-        <img src="{{ asset('image/mini-flower.jpg') }}" alt="Mini Fuzzy Flower" class="product-img">
-      </div>
-      <div class="product-info">
-        <h3>Mini Fuzzy Flower</h3>
-        <p class="desc">Adorable mini fuzzy flowers, perfect for adding a soft, handmade touch to your space!</p>
-        <p class="variation">Variation: Pink</p>
-      </div>
-      <div class="product-price">₱40.00</div>
-    </div>
-
-    <div class="order-subinfo">
-      <span>Order Received on 02/01/2025</span>
-      <span>Item(s): 1</span>
-    </div>
-
-    <div class="order-footer">
-      <div class="footer-left">
-        <span>Order Total: <span class="price">₱40.00</span></span>
-        <span>Date Received: 03/1/2025</span>
-        <span>Time: 12:00 PM</span>
-      </div>
-      <div class="footer-right">
-        <button class="buy-again">Buy Again</button>
-        <button class="view-rating">View Shop Rating</button>
-      </div>
-    </div>
-  </div>
 
   <!-- Order 2 -->
   <div class="order-box" data-status="to-pay">
@@ -210,191 +154,10 @@
     </div>
   </div>
 
-  <div class="order-box" data-status="to-ship">
-    <div class="order-status">
-    <span class="status-info">Parcel has been delivered</span>
-      <span class="to-ship">| To Ship</span>
-    </div>
-
-    <div class="order-main">
-      <div class="product-image">
-        <img src="{{ asset('image/mini-flower.jpg') }}" alt="Mini Fuzzy Flower" class="product-img">
-      </div>
-      <div class="product-info">
-        <h3>Mini Fuzzy Flower</h3>
-        <p class="desc">Adorable mini fuzzy flowers, perfect for adding a soft, handmade touch to your space!</p>
-        <p class="variation">Variation: Pink</p>
-      </div>
-      <div class="product-price">₱40.00</div>
-    </div>
-
-    <div class="order-subinfo">
-      <span>Order Received on 02/01/2025</span>
-      <span>Item(s): 1</span>
-    </div>
-
-    <div class="order-footer">
-      <div class="footer-left">
-        <span>Order Total: <span class="price">₱40.00</span></span>
-        <span>Date Received: 03/1/2025</span>
-        <span>Time: 12:00 PM</span>
-      </div>
-      <div class="footer-right">
-        <button class="buy-again">Buy Again</button>
-        <button class="view-rating">View Shop Rating</button>
-      </div>
-    </div>
-  </div>
-
-
-  <div class="order-box" data-status="to-receive">
-    <div class="order-status">
-    <span class="status-info">Parcel has been delivered</span>
-      <span class="to-receive">| To Receive</span>
-    </div>
-
-    <div class="order-main">
-      <div class="product-image">
-        <img src="{{ asset('image/mini-flower.jpg') }}" alt="Mini Fuzzy Flower" class="product-img">
-      </div>
-      <div class="product-info">
-        <h3>Mini Fuzzy Flower</h3>
-        <p class="desc">Adorable mini fuzzy flowers, perfect for adding a soft, handmade touch to your space!</p>
-        <p class="variation">Variation: Pink</p>
-      </div>
-      <div class="product-price">₱40.00</div>
-    </div>
-
-    <div class="order-subinfo">
-      <span>Order Received on 02/01/2025</span>
-      <span>Item(s): 1</span>
-    </div>
-
-    <div class="order-footer">
-      <div class="footer-left">
-        <span>Order Total: <span class="price">₱40.00</span></span>
-        <span>Date Received: 03/1/2025</span>
-        <span>Time: 12:00 PM</span>
-      </div>
-      <div class="footer-right">
-        <button class="buy-again">Buy Again</button>
-        <button class="view-rating">View Shop Rating</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="order-box" data-status="completed">
-    <div class="order-status">
-    <span class="status-info">Parcel has been delivered</span>
-      <span class="completed">| Completed</span>
-    </div>
-
-    <div class="order-main">
-      <div class="product-image">
-        <img src="{{ asset('image/mini-flower.jpg') }}" alt="Mini Fuzzy Flower" class="product-img">
-      </div>
-      <div class="product-info">
-        <h3>Mini Fuzzy Flower</h3>
-        <p class="desc">Adorable mini fuzzy flowers, perfect for adding a soft, handmade touch to your space!</p>
-        <p class="variation">Variation: Pink</p>
-      </div>
-      <div class="product-price">₱40.00</div>
-    </div>
-
-    <div class="order-subinfo">
-      <span>Order Received on 02/01/2025</span>
-      <span>Item(s): 1</span>
-    </div>
-
-    <div class="order-footer">
-      <div class="footer-left">
-        <span>Order Total: <span class="price">₱40.00</span></span>
-        <span>Date Received: 03/1/2025</span>
-        <span>Time: 12:00 PM</span>
-      </div>
-      <div class="footer-right">
-        <button class="buy-again">Buy Again</button>
-        <button class="view-rating">View Shop Rating</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="order-box" data-status="cancelled">
-    <div class="order-status">
-    <span class="status-info">Parcel has been delivered</span>
-      <span class="cancelled">| Cancelled</span>
-    </div>
-
-    <div class="order-main">
-      <div class="product-image">
-        <img src="{{ asset('image/mini-flower.jpg') }}" alt="Mini Fuzzy Flower" class="product-img">
-      </div>
-      <div class="product-info">
-        <h3>Mini Fuzzy Flower</h3>
-        <p class="desc">Adorable mini fuzzy flowers, perfect for adding a soft, handmade touch to your space!</p>
-        <p class="variation">Variation: Pink</p>
-      </div>
-      <div class="product-price">₱40.00</div>
-    </div>
-
-    <div class="order-subinfo">
-      <span>Order Received on 02/01/2025</span>
-      <span>Item(s): 1</span>
-    </div>
-
-    <div class="order-footer">
-      <div class="footer-left">
-        <span>Order Total: <span class="price">₱40.00</span></span>
-        <span>Date Received: 03/1/2025</span>
-        <span>Time: 12:00 PM</span>
-      </div>
-      <div class="footer-right">
-        <button class="buy-again">Buy Again</button>
-        <button class="view-rating">View Shop Rating</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="order-box" data-status="completed">
-    <div class="order-status">
-    <span class="status-info">Parcel has been delivered</span>
-      <span class="completed">| Completed</span>
-    </div>
-
-    <div class="order-main">
-      <div class="product-image">
-        <img src="{{ asset('image/mini-flower.jpg') }}" alt="Mini Fuzzy Flower" class="product-img">
-      </div>
-      <div class="product-info">
-        <h3>Mini Fuzzy Flower</h3>
-        <p class="desc">Adorable mini fuzzy flowers, perfect for adding a soft, handmade touch to your space!</p>
-        <p class="variation">Variation: Pink</p>
-      </div>
-      <div class="product-price">₱40.00</div>
-    </div>
-
-    <div class="order-subinfo">
-      <span>Order Received on 02/01/2025</span>
-      <span>Item(s): 1</span>
-    </div>
-
-    <div class="order-footer">
-      <div class="footer-left">
-        <span>Order Total: <span class="price">₱40.00</span></span>
-        <span>Date Received: 03/1/2025</span>
-        <span>Time: 12:00 PM</span>
-      </div>
-      <div class="footer-right">
-        <button class="buy-again">Buy Again</button>
-        <button class="view-rating">View Shop Rating</button>
-      </div>
-    </div>
-  </div>
-
-</section>
+ 
 
 <div class="purchase-see-more-container scroll-fade">
-<a href="{{ route('shop.index') }}">Shop</a>
+    <a href="{{ route('shop') }}">
         <button class="purchase-see-more-btn" id="shopMoreBtn">Shop more</button>
     </a>
 
@@ -597,25 +360,7 @@
 
   document.querySelector('.tab[data-status="all"]').click();
 
- // profile menu//
-  document.getElementById('profileMenuTrigger').addEventListener('click', function(event) {
-        event.preventDefault();
-        const profileMenu = document.getElementById('profileMenu');
-        profileMenu.style.display = (profileMenu.style.display === 'block') ? 'none' : 'block';
-    });
-  // Close the profile menu if clicked outside
-  window.addEventListener('click', function(event) {
-        const profileMenu = document.getElementById('profileMenu');
-        if (!event.target.closest('#profileMenuTrigger') && !event.target.closest('#profileMenu')) {
-            profileMenu.style.display = 'none';
-        }
-    });
 
-  /* notif modal js*/
-  document.getElementById('notificationButton').addEventListener('click', function(e) {
-            e.preventDefault();
-            document.getElementById('notificationModal').style.display = 'block';
-        });
 
 
 

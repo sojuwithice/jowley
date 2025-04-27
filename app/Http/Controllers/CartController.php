@@ -124,7 +124,7 @@ class CartController extends Controller
     public function destroy($productId)
     {
         $cartItem = Cart::where('product_id', $productId)
-                        ->where('user_id', auth()->id())
+                        ->where('user_id', Auth::id())
                         ->first();
     
         if ($cartItem) {
@@ -135,33 +135,29 @@ class CartController extends Controller
         return response()->json(['success' => false, 'message' => 'Item not found'], 404);
     }
     
-    public function directCheckout(Request $request)
+   public function checkout(Request $request)
 {
-    if (!Auth::check()) {
-        return redirect()->route('login')->with('error', 'You need to be logged in to proceed to checkout.');
+    $selectedItems = json_decode($request->input('selected_items'), true);
+
+    if (empty($selectedItems)) {
+        return redirect()->back()->with('error', 'No items selected for checkout.');
     }
 
-    $request->validate([
-        'product_id' => 'required|exists:products,id',
-        'quantity' => 'required|integer|min:1',
-    ]);
+    $cartItems = [];
+    foreach ($selectedItems as $item) {
+        $cartItem = Cart::with('product')->where('product_id', $item['product_id'])
+            ->where('user_id', Auth::id())
+            ->first();
 
-    // Clear current cart
-    Cart::where('user_id', Auth::id())->delete();
+        if ($cartItem) {
+            $cartItem->selected_quantity = $item['quantity'];
+            $cartItem->selected_color = $item['color'] ?? null;
+            $cartItems[] = $cartItem;
+        }
+    }
 
-    // Add the single product to cart
-    $product = Product::find($request->product_id);
-    
-    Cart::create([
-        'user_id' => Auth::id(),
-        'product_id' => $request->product_id,
-        'quantity' => $request->quantity,
-        'price' => $product->price,
-        'product_name' => $product->name,
-        'image' => $product->images[0],
-    ]);
-
-    return redirect()->route('checkout'); // Make sure this route exists
+    return view('checkout', compact('cartItems'));
 }
+
     
 }

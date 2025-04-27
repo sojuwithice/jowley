@@ -1,0 +1,578 @@
+:root {
+    --pink: #E32C89;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Gabarito', sans-serif;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    text-transform: capitalize;
+    transition: 0.2s linear;
+}
+
+html {
+    font-size: 62.5%;
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+    overflow-x: hidden;
+}
+
+body {
+    background: #f9f9f9;
+}
+
+.top-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 9%;
+    background: white;
+    font-size: 16px;
+    border-bottom: 1px solid var(--pink);
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1100;
+    height: 65px;
+}
+
+.top-header .left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.top-header .left a {
+    color: #fff;
+    background: var(--pink);
+    padding: 5px 8px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 15px;
+}
+
+.top-header .right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.top-header .right a {
+    color: black;
+    text-decoration: none;
+    font-size: 15px;
+}
+
+.top-header .right a.notification {
+    color: var(--pink);
+}
+
+.top-header .right a.user {
+    color: var(--pink);
+}
+
+header {
+    position: fixed;
+    top: 65px;
+    left: 0;
+    right: 0;
+    background: white;
+    padding: 1.5rem 9%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1000;
+    height: 80px;
+    border-bottom: 1px solid var(--pink);
+}
+
+header .logo {
+    font-size: 3rem;
+    color: var(--pink);
+    font-family: 'Oleo Script Swash Caps', cursive;
+    text-decoration: none;
+}
+
+header .navbar a {
+    font-size: 1.7rem;
+    padding: 0 1.8rem;
+    color: #000000;
+    text-decoration: none;
+}
+
+header .navbar a:hover {
+    color: var(--pink);
+    text-decoration: underline;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+header .search-bar {
+    display: flex;
+    align-items: center;
+    border: 2px solid var(--pink);
+    border-radius: 20px;
+    padding: 1px 10px;
+    width: 250px;
+    background: white;
+}
+
+header .search-bar input {
+    border: none;
+    outline: none;
+    font-size: 1.5rem;
+    padding: 5px;
+    flex: 1;
+    color: black;
+}
+
+header .search-bar input::placeholder {
+    color: gray;
+}
+
+header .search-bar button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.8rem;
+    color: var(--pink);
+}
+
+header .icons a {
+    display: flex;
+    font-size: 2rem;
+    color: var(--pink);
+    margin-left: 1.5rem;
+    align-items: center;
+}
+
+header .icons a:hover {
+    color: #FBD0D7;
+}
+
+/* Profile Page Styles */
+.profile-container {
+    display: flex;
+    margin: 150px auto;
+    width: 80%;
+    gap: 20px;
+}
+
+.sidebar {
+    width: 28%;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar .user-info .username-container {
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    gap: 10px; 
+}
+
+.sidebar .user-info .users-i {
+    width:50px;
+    height: 50px;
+    color: var(--pink);
+    margin-top: 20px;
+    margin-left: 8px;
+}
+
+.sidebar .user-info span {
+    position: relative;
+    top: 10px; 
+    font-size: 1.8rem;
+    margin-left: 10px;
+}
+
+
+
+.sidebar .pmenu {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 1.8rem;
+    margin-left: 10px;  
+    margin-top: 20px;
+    padding-left: 15px; 
+}
+
+.menu-item {
+    position: relative; 
+}
+
+.menu-item span{
+    margin-left: 15px; 
+
+}
+
+.menu-button {
+    background: none;
+    border: none;
+    text-align: left;
+    width: 100%;
+    padding: 10px 15px 10px 0; 
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 1.6rem;
+    color: black;
+}
+
+/* Dropdown Content Styles */
+.dropdown-content {
+    display: none;
+    width: calc(80% + 15px); 
+    margin-left: 25px;
+    padding-left: 10px; 
+}
+
+.dropdown-item {
+    padding: 10px 0; 
+    display: flex;
+    align-items: center;
+    border-left: 3px solid transparent;
+    font-size: 15px;
+    cursor: pointer;
+    color: black;
+    margin-left: 5px;
+}
+
+.dropdown-item:hover {
+    background-color: #ffffff;
+    border-left: 3px solid var(--pink);
+    padding-left: 7px; 
+    color: var(--pink);
+}
+
+.profile-content {
+    width: 75%;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-content h2 {
+    font-size: 2.5rem;
+    color: var(--pink);
+    margin-bottom: 10px;
+}
+
+.profile-content p {
+    font-size: 1.6rem;
+    color: rgb(0, 0, 0);
+    margin-bottom: 20px;
+}
+
+.profile-form {
+    display: flex;
+    gap: 20px;
+}   
+
+.profile-picture {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-top: 70px;
+}
+
+.profile-picture i {
+    font-size: 8rem;
+    color: var(--pink);
+    margin-bottom: 15px;
+}
+
+label[for="imageUpload"] {
+    background-color: #E32C89 !important;
+    border-color: #E32C89 !important;
+}
+
+.profile-picture p {
+    font-size: 1rem;
+    color: gray;
+    margin-top: 5px;
+}
+
+.profile-form {
+    display: flex;
+    justify-content: flex-end;
+    gap: 100px;
+    margin-left: 90px;
+}
+
+.profile-form form {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-form label {
+    display: block;
+    font-size: 1.6rem;
+    margin-top: 10px;
+    color: black;
+}
+
+.profile-picture .btn-img{
+    color: white;
+    padding: 8px 18px;
+    border-radius: 5px;
+    background: var(--pink);
+}
+
+.profile-form input,
+.profile-form select {
+    width: 90%;
+    padding: 8px 20px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1.4rem;
+}
+
+.profile-form input[readonly] {
+    background: #f9f9f9;
+    color: gray;
+}
+
+.save-button {
+    background: var(--pink);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.6rem;
+    margin-top: 50px;
+    width: 90%;
+}
+
+.gender-toggle {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.gender-toggle input[type="radio"] {
+    width: 15px;
+    height: 15px;
+}
+
+.line {
+    width: 100%;
+    height: 2px;
+    background-color: #ec32b5; 
+    margin: 20px 0; 
+}
+
+.content-section {
+    display: none;
+}
+
+.dropdown-item.active {
+    color: #ec008c;
+    font-weight: bold;
+}
+
+.address-container {
+    margin-top: 20px;
+}
+
+.add-address-btn {
+    position: relative; 
+    margin-left: 76%;
+    background-color: var(--pink);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: background-color 0.3s;
+    margin-bottom: 20px;
+    
+}
+.add-address-btn:hover {
+    background-color: #c50076;
+   
+}
+
+.address-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.address-card {
+    border: 1px solid var(--pink);
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    background-color: #fffffffb;
+}
+
+.address-details {
+    flex: 1;
+}
+
+.address-details h4{
+    margin: 0 0 10px 0;
+    color: #000000;
+    font-size: 18px;
+}
+
+.phone-number, .address-text {
+    margin: 5px 0;
+    color: var(--pink);
+}
+
+.phone-number i, .address-text i {
+    margin-right: 8px;
+    color: var(--pink);
+}
+
+/* Container for action buttons */
+.address-card-actions {
+    display: flex;
+    flex-direction: row;
+    gap: 10px; 
+    align-items: center; 
+}
+
+/* Base button style (original design) */
+.action-btn {
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: 1px solid var(--pink); /* Pink border */
+    background-color: white; /* White background */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+    color: var(--pink); /* Pink text */
+    transition: background-color 0.3s, color 0.3s; /* Smooth hover effect */
+}
+
+/* Edit button (keep original pink outline) */
+.edit-btn {
+    color: var(--pink);
+    border-color: var(--pink);
+}
+
+.edit-btn:hover {
+    background-color: var(--pink); /* Pink background on hover */
+    color: white; /* White text on hover */
+}
+
+/* Delete button (keep original pink outline) */
+.delete-btn {
+    color: var(--pink);
+    border-color: var(--pink);
+}
+
+.delete-btn:hover {
+    background-color: rgb(150, 5, 17); 
+    color: white; 
+
+}
+/* Default badge (optional) */
+.default-badge {
+    border: 1px solid var(--pink);
+    background-color: white;
+    color: var(--pink);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+.btn-primary {
+    background-color: var(--pink); 
+    border-color: #c50076;
+    color: #fff; 
+
+  }
+
+  .btn-primary:hover {
+    background-color: #c50076; /* hover effect */
+    border-color: #c50076;
+  }
+  .address-label-btn {
+    transition: all 0.3s ease;
+    border-radius: 20px;
+    border-width: 2px;
+  }
+  
+  .address-label-btn:hover {
+    transform: translateY(-2px);
+  }
+  
+  .address-label-btn.active {
+    background-color: #ec32b5 !important;
+    border-color: #ec32b5 !important;
+    color: white !important;
+  }
+
+  .profile-menu {
+    display: none;
+    position: absolute;
+    top: 50px;
+    right: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    z-index: 1000;
+}
+
+.profile-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.profile-menu ul li {
+    padding: 8px 10px;
+}
+
+.profile-menu ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+}
+
+.profile-menu ul li a:hover {
+    color: #E32C89;
+}
+input[readonly] {
+    background-color: #f0f0f0; 
+    cursor: not-allowed; 
+}
+.edit-icon {
+    cursor: pointer;
+    color: #333;
+    transition: color 0.3s;
+}
+
+.edit-icon:hover {
+    color: #E32C89;
+}
+
