@@ -159,7 +159,7 @@
             
         </table>
         @if($cartItems->isEmpty())
-    <p>Your cart is empty. Start shopping now!</p>
+        <p style="font-size: 14.6px; margin-left:10px; margin-top:10px;">Your cart is empty. Start shopping now!</p>
 @endif
         
         <!-- Checkout Section -->

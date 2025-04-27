@@ -116,7 +116,7 @@ header .logo{
 }
 
 header .navbar a{
-    font-size: 2rem;
+    font-size: 1.7rem;
     padding: 0 1.5rem;
     color: #000000;
     text-decoration: none;
@@ -220,6 +220,7 @@ header .fa-bars{
     gap: 10px;
     width: 100%;
     color: #333;
+    margin-bottom: 20px;
 }
 
 .cart-container {
@@ -248,9 +249,10 @@ header .fa-bars{
 .cart-table td {
     padding: 12px;
     text-align: center;
-    font-weight: bold;
+    font-weight: 500;
     color: #333;
     vertical-align: middle; 
+    font-size: 18px;
 }
 
 

@@ -139,7 +139,7 @@ Route::get('/checkout', function () {
 Route::get('/profile', [UserController::class, 'profile'])->name('usersprofile');
 
 
-Route::get('/AdminDasboard', [AdminController::class, 'index'])->name('AdminDashboard');
+Route::get('/AdminDashboard', [AdminController::class, 'index'])->name('AdminDashboard');
 Route::post('/update-profile', [UserController::class, 'updateProfile'])->name('update.profile');
 
 
@@ -151,3 +151,4 @@ Route::post('/update-password', [UserController::class, 'updatePassword'])->name
 Route::resource('products', ProductController::class);
 Route::get('/admin/products', [ProductController::class, 'showAdminProducts'])->name('admin.products');
 Route::put('/products/{id}', [ProductController::class, 'update'])->name('products.update');
+
