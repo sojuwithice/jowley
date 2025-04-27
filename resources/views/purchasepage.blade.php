@@ -20,16 +20,38 @@
     </div>
 
     <div class="right">
-        <a href="#" class="notification">
+    @guest
+        <a href="{{ url('/Register') }}" class="signup">Sign Up</a>
+        <a href="{{ route('LoginSignUp') }}" class="login">Log in</a>
+    @else
+        
+        <a href="#" class="notification" id="notificationButton">
             <i class="fas fa-bell"></i> Notification
+            @if ($unreadCount > 0)
+            <span class="notification-badge" id="notificationBadge">{{ $unreadCount }}</span>
+        @else
+            <span class="notification-badge" id="notificationBadge" style="display: none;">0</span>
+        @endif
         </a>
-        <a href="#" class="user-profile">
-            <i class="fas fa-user"></i> AkosiMJ#01
+        <a href="#" class="user-profile" id="profileMenuTrigger">
+            <i class="fas fa-user"></i> {{ Auth::user()->username }}
         </a>
-    </div>
+
+        <div id="profileMenu" class="profile-menu">
+            <ul>
+                <li><a href="#">My Profile</a></li>
+                <li><a href="{{ route('purchasepage') }}">My Purchases</a></li>
+                <li><a href="{{ route('logout') }}">Logout</a></li>
+
+            </ul>
+        </div>
+    @endguest
+</div>
 </div>
 </body>
 </html>
+
+
 
 <!-- header section starts  -->
  
@@ -37,15 +59,18 @@
   <div class="header-container">
   
     <div class="purchase-section">
-      <div class="back-arrow"><i class="fas fa-arrow-left"></i></div>
+    <div class="back-arrow" onclick="window.history.back();">
+    <i class="fas fa-arrow-left"></i>
+</div>
+
       <h2>My Purchases</h2>
     </div>
 
     <div class="header-right">
-      <div class="search-bar">
-        <input type="text" placeholder="Search...">
-        <button><i class="fas fa-search"></i></button>
-      </div>
+            <form action="{{ route('shop.index') }}" method="GET" class="search-bar">
+                <input type="text" name="q" placeholder="Search..." value="{{ request('q') }}">
+                <button type="submit"><i class="fas fa-search"></i></button>
+            </form>
       <div class="icons">
         <a href="{{ route('cart') }}" class="fas fa-shopping-cart cart-icon-link">
           <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
@@ -55,6 +80,15 @@
 
   </div>
 </header>
+
+<!-- notif modal -->
+@auth
+    <x-notifications-modal 
+        :notifications="auth()->user()->notifications"
+        :unreadCount="auth()->user()->unreadNotifications->count()" />
+@else
+    <x-notifications-modal :notifications="[]" :unreadCount="0" />
+@endauth
 
 <!-- order status -->
 
@@ -360,9 +394,10 @@
 </section>
 
 <div class="purchase-see-more-container scroll-fade">
-    <a href="{{ route('shop') }}">
+<a href="{{ route('shop.index') }}">Shop</a>
         <button class="purchase-see-more-btn" id="shopMoreBtn">Shop more</button>
     </a>
+
 </div>
 
 
@@ -562,7 +597,25 @@
 
   document.querySelector('.tab[data-status="all"]').click();
 
+ // profile menu//
+  document.getElementById('profileMenuTrigger').addEventListener('click', function(event) {
+        event.preventDefault();
+        const profileMenu = document.getElementById('profileMenu');
+        profileMenu.style.display = (profileMenu.style.display === 'block') ? 'none' : 'block';
+    });
+  // Close the profile menu if clicked outside
+  window.addEventListener('click', function(event) {
+        const profileMenu = document.getElementById('profileMenu');
+        if (!event.target.closest('#profileMenuTrigger') && !event.target.closest('#profileMenu')) {
+            profileMenu.style.display = 'none';
+        }
+    });
 
+  /* notif modal js*/
+  document.getElementById('notificationButton').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('notificationModal').style.display = 'block';
+        });
 
 
 

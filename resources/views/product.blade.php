@@ -28,9 +28,12 @@
     </div>
     <div class="right">
     @if(Auth::check())
-    <a href="#" class="notification">
-        <i class="fas fa-bell"></i> Notification
-    </a>
+    <a href="#" class="notification" id="notificationButton">
+    <i class="fas fa-bell"></i> Notification
+    @if($unreadCount > 0)
+        <span class="notification-badge">{{ $unreadCount }}</span>
+    @endif
+</a>
     <a href="#" class="user-profile" id="profileMenuTrigger">
         <i class="fas fa-user"></i> {{ Auth::user()->username }}
     </a>
@@ -117,18 +120,21 @@
             <h3 class="text-danger">₱{{ number_format($product->price, 2) }}</h3>
             <p>{{ $product->description }}</p>
 
-            <p><strong>Available Colors:</strong></p>
-<div class="color-options">
-    @if(is_array($product->available_colors) || is_object($product->available_colors))
+            
+            @if(!empty($product->available_colors) && (is_array($product->available_colors) || is_object($product->available_colors)))
+    <p><strong>Available Colors:</strong></p>
+    <div class="color-options">
         @foreach ($product->available_colors as $color)
             <span class="color-circle color-{{ strtolower($color) }} 
                   @if($loop->first) selected @endif" 
                   data-color="{{ $color }}"
                   onclick="selectColor(this)"></span>
         @endforeach
-    @endif
-    <input type="hidden" name="selected_color" id="selectedColor" value="{{ $product->available_colors[0] ?? '' }}">
-</div>
+    </div>
+    <input type="hidden" name="color" id="selectedColor" value="{{ $product->available_colors[0] ?? '' }}">
+@else
+    <input type="hidden" name="color" id="selectedColor" value="N/A">
+@endif
 
 <div class="quantity-container">
                     <label class="quantity-label">Quantity</label>
@@ -149,6 +155,7 @@
     <input type="hidden" name="image" value="{{ $product->images[0] }}">
     <input type="hidden" id="quantity_input" name="quantity" value="1">
     <input type="hidden" id="selectedColor" name="color" value="{{ $product->available_colors[0] ?? '' }}">
+    
     <div class="button-container">
     <button type="submit" class="btn btn-outline-pink me-2" id="addToCartBtn" 
             {{ $product->stock <= 0 ? 'disabled' : '' }}>
@@ -448,8 +455,27 @@ document.addEventListener("DOMContentLoaded", function() {
             buyNowBtn.classList.remove('disabled');
         }
     });
+
+    function selectColor(element) {
+    // Remove selected class from all colors
+    document.querySelectorAll('.color-circle').forEach(circle => {
+        circle.classList.remove('selected');
+    });
+    
+    // Add selected class to clicked color
+    element.classList.add('selected');
+    
+    // Update hidden input value
+    document.getElementById('selectedColor').value = element.dataset.color;
+}
 });
 </script>
+
+@if(Auth::check())
+    <x-notifications-modal 
+        :notifications="$notifications"
+        :unreadCount="$unreadCount" />
+@endif
 
 </body>
 </html>

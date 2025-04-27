@@ -262,24 +262,6 @@ main {
     font-size: 16px;           
 }
 
-.sort-options {
-    display: flex;             
-    align-items: center;      
-}
-
-.sort-btn {
-    margin-left: 10px;       
-    padding: 5px 10px;       
-    background-color: #e00078; 
-    color: white;              
-    border: none;              
-    border-radius: 4px;       
-    cursor: pointer;           
-}
-
-.sort-btn:hover {
-    background-color: #c80068; 
-}
 
 .sort-pagination {
     display: flex;
@@ -302,46 +284,209 @@ main {
     background-color: #f9e0eb;
 }
 
+/* Price Dropdown Styles */
+.price-sorting {
+    position: relative;
+    display: inline-block;
+    margin-right: 10px; /* Adjust spacing as needed */
+}
+
 .dropdown {
     position: relative;
     display: inline-block;
 }
 
-.dropdown-content {
-    display: none; /* Hide by default */
-    position: absolute;
+.price-btn {
+    padding: 8px 15px;
     background-color: white;
-    min-width: 150px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
+    border: 1px solid #E32C89;
+    color: #E32C89;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1.4rem;
+    transition: all 0.3s ease;
 }
 
-.dropdown-content a {
+.price-btn:hover {
+    background-color: #f9e0eb;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    left: 0; /* Changed from right:0 to left:0 */
+    top: 100%;
+    background-color: white;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1000;
+    border-radius: 4px;
+    margin-top: 5px;
+}
+
+.dropdown-menu a {
+    color: #333;
     padding: 8px 16px;
     text-decoration: none;
     display: block;
+    font-size: 1.4rem;
+    transition: all 0.2s ease;
 }
 
-.dropdown-content a:hover {
-    background-color: #ddd;
+.dropdown-menu a:hover {
+    background-color: #f8f8f8;
+    color: #E32C89;
 }
 
+.dropdown-menu a.active {
+    background-color: #E32C89;
+    color: white;
+}
 
-/* ✅ Fix: Make sure dropdown shows when active */
-.price-dropdown.active .dropdown-content {
+/* Show dropdown when active */
+.dropdown.active .dropdown-menu {
     display: block;
+}
+
+
+
+/* Price Dropdown Styles */
+.price-sorting {
+    display: flex;
+    justify-content: flex-end; /* ← align sa right */
+    align-items: center;
+    margin-right: 0;
+    margin-left: auto; /* para tumulak sa kanan */
+    padding: 10px 0px;
+}
+
+
+.custom-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-toggle {
+    padding: 10px 20px;
+    background: white;
+    border: 1px solid #E32C89;
+    color: #E32C89;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    width: 100px; /* Optional: para pantay button */
+    transition: all 0.3s ease;
+}
+
+.dropdown-toggle:hover {
+    background-color: #f9e0eb;
+    border-color: #E32C89;
+    color: #E32C89;
+}
+
+.dropdown-text {
+    flex: 1;
+    text-align: left;
+}
+
+.dropdown-icon {
+    display: flex;
+    align-items: center;
+    transition: transform 0.3s ease;
+}
+
+.dropdown-toggle::after {
+    display: none !important;
+}
+
+/* Dropdown menu */
+.dropdown-options {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    background: white;
+    min-width: 120px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    border-radius: 8px;
+    z-index: 1000;
+    margin-top: 5px;
+    border: 1px solid #eee;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.dropdown-options a {
+    display: block;
+    padding: 12px 20px;
+    color: #333;
+    text-decoration: none;
+    transition: all 0.2s;
+    border-bottom: 1px solid #f5f5f5;
+}
+
+.dropdown-options a:last-child {
+    border-bottom: none;
+}
+
+.dropdown-options a:hover {
+    background: #f8f8f8;
+    color: #E32C89;
+    padding-left: 25px;
+}
+
+.dropdown-options a.active {
+    background: #E32C89;
+    color: white;
+}
+
+/* Open state */
+.custom-dropdown.open .dropdown-options {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+.custom-dropdown.open .dropdown-icon {
+    transform: rotate(180deg);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
+/* Fixed Sort Buttons */
+.sort-options {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.sort-btn {
+    padding: 5px 10px;
+    background-color: #E32C89;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1.4rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.sort-btn:hover {
+    background-color: #c2185b;
+    transform: translateY(-2px);
 }
 
         
 
 
-
-
-/*.products {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    gap: 20px;
-} */
 
 .daily-container{
     position: relative;
@@ -371,7 +516,7 @@ main {
 
 .product-card {
     position: relative;
-    width: 113%;
+    width: 100%;
     height: 250px; 
     display: flex;
     flex-direction: column;
@@ -379,7 +524,6 @@ main {
     text-align: left;
     overflow: hidden;
     border-radius: 10px;
-    
     
     
 }
@@ -409,7 +553,7 @@ main {
     position: absolute;
     bottom: 10px; 
     left: 0;
-    width: 110%;
+    width: 105%;
     margin-left: -5px;
     padding: 25px 20px; 
     background-color: rgba(0, 0, 0, 0.6);
@@ -434,7 +578,7 @@ main {
 
 .product-details {
     position: absolute;
-    bottom: 25px; 
+    bottom: 15px; 
     left: 0;
     width: 85%;
     margin-left: 15px;
@@ -446,15 +590,15 @@ main {
 
 .price {
     color: white; 
-    margin-left: -5px;
+    margin-left: -9px;
 }
 
 .sold-count {
     color: #FFFFFF; 
-    margin-right:10px ;
+    margin-left:10px ;
 }
 
-.view-details {
+.view-details a {
     position: absolute;
     top: 10px;
     right: 10px;
@@ -470,9 +614,10 @@ main {
     transition: background-color 0.3s ease, color 0.3s ease;
     z-index: 2;
     cursor: pointer;
+    text-decoration: none !important;
 }
 
-.view-details:hover {
+.view-details a:hover {
     background-color: #E32C89;
     color: #fff;
 }
@@ -490,6 +635,7 @@ main {
 .pagination {
     text-align: center;
     margin-top: 50px;
+    
 }
 
 .page, .page-nav {
@@ -502,6 +648,7 @@ main {
     border-radius: 5px;
     font-size: 1.6rem;
     transition: background 0.3s ease;
+    text-decoration: none;
 }
 
 .page:hover, .page-nav:hover {
@@ -510,6 +657,39 @@ main {
 
 .page.active {
     background: #c2185b;
+}
+
+.profile-menu {
+    display: none;
+    position: absolute;
+    top: 50px;
+    right: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    z-index: 1000;
+}
+
+.profile-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.profile-menu ul li {
+    padding: 8px 10px;
+}
+
+.profile-menu ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+}
+
+.profile-menu ul li a:hover {
+    color: #007bff;
 }
 
 
