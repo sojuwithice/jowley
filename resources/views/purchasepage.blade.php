@@ -10,54 +10,66 @@
     <link rel="stylesheet" href="{{ asset('css/purchasepage.css') }}">
 </head>
 <body>
-    <div class="top-header scroll-fade">
-        <div class="left">
-            <a href="#" class="logo">Jowley's Craft</a>
-        </div>
-        <div class="right">
-            @guest
-                <a href="{{ url('/Register') }}" class="signup">Sign Up</a>
-                <a href="{{ route('LoginSignUp') }}" class="login">Log in</a>
-            @else
-                <!-- Notifications and Profile Menu for logged-in users -->
-                <a href="#" class="notification">
-                    <i class="fas fa-bell"></i> Notification
-                </a>
-                <a href="#" class="user-profile" id="profileMenuTrigger">
-                    <i class="fas fa-user"></i> {{ Auth::user()->username }}
-                </a>
-                <div id="profileMenu" class="profile-menu">
-                    <ul>
-                        <li><a href="{{ route('usersprofile') }}">My Profile</a></li>
-                        <li><a href="{{ route('purchasepage') }}">My Purchases</a></li>
-                        <li><a href="{{ route('logout') }}">Logout</a></li>
-                    </ul>
-                </div>
-            @endguest
-        </div>
+<div class="top-header scroll-fade">
+    <div class="left">
+        <a href="#" class="logo">Jowley's Craft</a>
     </div>
-  
-    <header class="scroll-fade">
-        <div class="header-container">
-            <div class="purchase-section">
-                <div class="back-arrow"><i class="fas fa-arrow-left"></i></div>
-                <h2>My Purchases</h2>
-            </div>
-            <div class="header-right">
-                <div class="search-bar">
-                    <input type="text" placeholder="Search...">
-                    <button><i class="fas fa-search"></i></button>
-                </div>
-                <div class="icons">
-                    <a href="{{ route('cart') }}" class="fas fa-shopping-cart cart-icon-link">
-                        <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
-                    </a>
-                </div>
-            </div>
+
+    <div class="right">
+    @guest
+        <a href="{{ url('/Register') }}" class="signup">Sign Up</a>
+        <a href="{{ route('LoginSignUp') }}" class="login">Log in</a>
+    @else
+        <!-- Notifications and Profile Menu for logged-in users -->
+        <a href="#" class="notification">
+            <i class="fas fa-bell"></i> Notification
+        </a>
+        <a href="#" class="user-profile" id="profileMenuTrigger">
+            <i class="fas fa-user"></i> {{ Auth::user()->username }}
+        </a>
+
+        <div id="profileMenu" class="profile-menu">
+            <ul>
+                <li><a href="{{ route('usersprofile') }}">My Profile</a></li>
+                <li><a href="{{ route('purchasepage') }}">My Purchases</a></li>
+                <li><a href="{{ route('logout') }}">Logout</a></li>
+
+            </ul>
         </div>
-    </header>
-    
-    <div class="order-status-tabs">
+    @endguest
+</div>
+</div>
+</body>
+</html>
+
+<!-- header section starts  -->
+ 
+<header class="scroll-fade">
+  <div class="header-container">
+  
+    <div class="purchase-section">
+      <div class="back-arrow"><i class="onclick="window.history.back();"></i></div>
+      <h2>My Purchases</h2>
+    </div>
+
+    <div class="header-right">
+      <div class="search-bar">
+        <input type="text" placeholder="Search...">
+        <button><i class="fas fa-search"></i></button>
+      </div>
+      <div class="icons">
+        <a href="{{ route('cart') }}" class="fas fa-shopping-cart cart-icon-link">
+          <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</header>
+
+<!-- order status -->
+
+<div class="order-status-tabs">
   <div class="tab active" data-status="all">
     <div class="circle-tab">
       <div class="icon"><i class="fas fa-box"></i></div>
@@ -152,11 +164,13 @@
         @endforeach
     </section>
 
-    <div class="purchase-see-more-container scroll-fade">
-        <a href="#">
-            <button class="purchase-see-more-btn" id="shopMoreBtn">Shop more</button>
-        </a>
-    </div>
+<div class="purchase-see-more-container scroll-fade">
+    <a href="{{ route('shop') }}">
+        <button class="purchase-see-more-btn" id="shopMoreBtn">Shop more</button>
+    </a>
+</div>
+
+
 
     <!-- footer section starts-->
 <div class="footer-line"></div>
@@ -319,19 +333,6 @@
   document.querySelector('.tab[data-status="to-pay"]').click();
 
 
-  document.getElementById('profileMenuTrigger').addEventListener('click', function(event) {
-        event.preventDefault();
-        const profileMenu = document.getElementById('profileMenu');
-        profileMenu.style.display = (profileMenu.style.display === 'block') ? 'none' : 'block';
-    });
-
-    // Close the profile menu if clicked outside
-    window.addEventListener('click', function(event) {
-        const profileMenu = document.getElementById('profileMenu');
-        if (!event.target.closest('#profileMenuTrigger') && !event.target.closest('#profileMenu')) {
-            profileMenu.style.display = 'none';
-        }
-    });
 
 
 

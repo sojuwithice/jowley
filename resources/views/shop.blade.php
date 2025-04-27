@@ -39,10 +39,12 @@
     </nav>
 
     <div class="header-right"> 
-        <div class="search-bar">
-            <input type="text" placeholder="Search...">
-            <button><i class="fas fa-search"></i></button>
-        </div>
+    <form action="{{ route('shop.index') }}" method="GET" class="search-bar">
+        <input type="text" name="q" placeholder="Search..." value="{{ request('q') }}">
+        <button type="submit"><i class="fas fa-search"></i></button>
+    </form>
+</div>
+
         <div class="icons">
             <a href="{{ route('cart') }}" class="fas fa-shopping-cart cart-icon-link">
                 <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
@@ -57,406 +59,43 @@
 <!-- {Product} -->
 <section class="daily-container scroll-fade">
     
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-5 scroll-fade">
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-5 scroll-fade">
+    @forelse ($products as $product)
         <div class="col">
             <div class="product-card">
-                <img src="{{ asset('image/mini-flower.jpg') }}" alt="Mini Fuzzy Flower" class="product-img">
-                    <p class="product-text">Mini Fuzzy Flower</p>
+                <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" class="product-img">
+                
+                <p class="product-text">{{ $product->name }}</p>
+
                 <div class="product-name-daily">
                     <div class="heart-rating">
-                        <i class="fa-solid fa-heart text-warning fs-5" data-value="1"></i>
-                        <i class="fa-solid fa-heart text-warning fs-5" data-value="2"></i>
-                        <i class="fa-solid fa-heart text-warning fs-5" data-value="3"></i>
-                        <i class="fa-regular fa-heart text-warning fs-5" data-value="4"></i>
-                        <i class="fa-regular fa-heart text-warning fs-5" data-value="5"></i>
+                        @for ($i = 1; $i <= 5; $i++)
+                            @if ($i <= $product->rating)
+                                <i class="fa-solid fa-heart text-warning fs-5" data-value="{{ $i }}"></i>
+                            @else
+                                <i class="fa-regular fa-heart text-warning fs-5" data-value="{{ $i }}"></i>
+                            @endif
+                        @endfor
                     </div>
                 </div>
 
                 <div class="product-details">
-                    <span class="price">₱55</span>
-                    <span class="sold-count">20 sold</span>
+                    <span class="price">₱{{ number_format($product->price, 2) }}</span>
+                    <span class="sold-count">{{ $product->sold_count }} sold</span>
                 </div>
 
                 <div class="view-details">
-                    <button class="btn-details">View Details</button>
+                    <a href="{{ route('product.show', $product->id) }}" class="btn-details">View Details</a>
                 </div>
             </div>
         </div>
+    @empty
+        <p class="text-center">No products found.</p>
+    @endforelse
+</div>
 
-        <div class="col">
-            <div class="product-card">
-                <img src="{{ asset('image/baby-mushroom.jpg') }}" alt="Mini Fuzzy Flower" class="product-img">
-                <p class="product-text">Cute Baby Mushroom</p>
-                <div class="product-name-daily">
-                    <div class="heart-rating">
-                        <i class="fa-solid fa-heart text-warning fs-5" data-value="1"></i>
-                        <i class="fa-solid fa-heart text-warning fs-5" data-value="2"></i>
-                        <i class="fa-solid fa-heart text-warning fs-5" data-value="3"></i>
-                        <i class="fa-regular fa-heart text-warning fs-5" data-value="4"></i>
-                        <i class="fa-regular fa-heart text-warning fs-5" data-value="5"></i>
-                    </div>
-                </div>
 
-                <div class="product-details">
-                    <span class="price">₱55</span>
-                    <span class="sold-count">20 sold</span>
-                </div>
-
-                <div class="view-details">
-                    <button class="btn-details">View Details</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="col">
-            <div class="product-card">
-                <img src="{{ asset('image/crochet-top.jpg') }}" alt="Mini Fuzzy Flower" class="product-img">
-                <p class="product-text">Handmade Crochet Top</p>
-                <div class="product-name-daily">
-                    <div class="heart-rating">
-                        <i class="fa-solid fa-heart text-warning fs-5" data-value="1"></i>
-                        <i class="fa-solid fa-heart text-warning fs-5" data-value="2"></i>
-                        <i class="fa-solid fa-heart text-warning fs-5" data-value="3"></i>
-                        <i class="fa-regular fa-heart text-warning fs-5" data-value="4"></i>
-                        <i class="fa-regular fa-heart text-warning fs-5" data-value="5"></i>
-                    </div>
-                </div>
-
-                <div class="product-details">
-                    <span class="price">₱300</span>
-                    <span class="sold-count">3 sold</span>
-                </div>
-
-                <div class="view-details">
-                    <button class="btn-details">View Details</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="col">
-            <div class="product-card">
-                <img src="{{ asset('image/single-tulip.jpg') }}" alt="Mini Fuzzy Flower" class="product-img">
-                <p class="product-text">Single Tulip Crochet Bouquet</p>
-                <div class="product-name-daily">
-                    <div class="heart-rating">
-                        <i class="fa-solid fa-heart text-warning fs-5" data-value="1"></i>
-                        <i class="fa-solid fa-heart text-warning fs-5" data-value="2"></i>
-                        <i class="fa-solid fa-heart text-warning fs-5" data-value="3"></i>
-                        <i class="fa-regular fa-heart text-warning fs-5" data-value="4"></i>
-                        <i class="fa-regular fa-heart text-warning fs-5" data-value="5"></i>
-                    </div>
-                </div>
-
-                <div class="product-details">
-                    <span class="price">₱130</span>
-                    <span class="sold-count">140 sold</span>
-                </div>
-
-                <div class="view-details">
-                    <button class="btn-details">View Details</button>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="product-card">
-                <img src="{{ asset('image/sunflower.jpg') }}" alt="Mini Fuzzy Flower" class="product-img">
-                <p class="product-text">Crochet Sunflower Bouquet</p>
-                <div class="product-name-daily">
-                    <div class="heart-rating">
-                        <i class="fa-solid fa-heart text-warning fs-5" data-value="1"></i>
-                        <i class="fa-solid fa-heart text-warning fs-5" data-value="2"></i>
-                        <i class="fa-solid fa-heart text-warning fs-5" data-value="3"></i>
-                        <i class="fa-regular fa-heart text-warning fs-5" data-value="4"></i>
-                        <i class="fa-regular fa-heart text-warning fs-5" data-value="5"></i>
-                    </div>
-                </div>
-
-                <div class="product-details">
-                    <span class="price">₱160</span>
-                    <span class="sold-count">5 sold</span>
-                </div>
-
-                <div class="view-details">
-                    <button class="btn-details">View Details</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="col">
-            <div class="product-card">
-                <img src="{{ asset('image/earrings.jpg') }}" alt="Mini Fuzzy Flower" class="product-img">
-                <p class="product-text">Tulip Earrings</p>
-                <div class="product-name-daily">
-                    <div class="heart-rating">
-                        <i class="fa-solid fa-heart text-warning fs-5" data-value="1"></i>
-                        <i class="fa-solid fa-heart text-warning fs-5" data-value="2"></i>
-                        <i class="fa-solid fa-heart text-warning fs-5" data-value="3"></i>
-                        <i class="fa-regular fa-heart text-warning fs-5" data-value="4"></i>
-                        <i class="fa-regular fa-heart text-warning fs-5" data-value="5"></i>
-                    </div>
-                </div>
-
-                <div class="product-details">
-                    <span class="price">₱40</span>
-                    <span class="sold-count">50 sold</span>
-                </div>
-
-                <div class="view-details">
-                    <button class="btn-details">View Details</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="col">
-            <div class="product-card">
-                <img src="{{ asset('image/headband.jpg') }}" alt="Mini Fuzzy Flower" class="product-img">
-                <p class="product-text">Tulip Headband</p>
-                <div class="product-name-daily">
-                    <div class="heart-rating">
-                        <i class="fa-solid fa-heart text-warning fs-5" data-value="1"></i>
-                        <i class="fa-solid fa-heart text-warning fs-5" data-value="2"></i>
-                        <i class="fa-solid fa-heart text-warning fs-5" data-value="3"></i>
-                        <i class="fa-regular fa-heart text-warning fs-5" data-value="4"></i>
-                        <i class="fa-regular fa-heart text-warning fs-5" data-value="5"></i>
-                    </div>
-                </div>
-
-                <div class="product-details">
-                    <span class="price">₱90</span>
-                    <span class="sold-count">10 sold</span>
-                </div>
-
-                <div class="view-details">
-                    <button class="btn-details">View Details</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="col">
-            <div class="product-card">
-                <img src="{{ asset('image/daisy-bracelet.jpg') }}" alt="Mini Fuzzy Flower" class="product-img">
-                <p class="product-text">Daisy Bracelet</p>
-                <div class="product-name-daily">
-                    <div class="heart-rating">
-                        <i class="fa-solid fa-heart text-warning fs-5" data-value="1"></i>
-                        <i class="fa-solid fa-heart text-warning fs-5" data-value="2"></i>
-                        <i class="fa-solid fa-heart text-warning fs-5" data-value="3"></i>
-                        <i class="fa-regular fa-heart text-warning fs-5" data-value="4"></i>
-                        <i class="fa-regular fa-heart text-warning fs-5" data-value="5"></i>
-                    </div>
-                </div>
-
-                <div class="product-details">
-                    <span class="price">₱49</span>
-                    <span class="sold-count">87 sold</span>
-                </div>
-
-                <div class="view-details">
-                    <button class="btn-details">View Details</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="col">
-            <div class="product-card">
-                <img src="{{ asset('image/daisy-bracelet.jpg') }}" alt="Mini Fuzzy Flower" class="product-img">
-                <p class="product-text">Daisy Bracelet</p>
-                <div class="product-name-daily">
-                    <div class="heart-rating">
-                        <i class="fa-solid fa-heart text-warning fs-5" data-value="1"></i>
-                        <i class="fa-solid fa-heart text-warning fs-5" data-value="2"></i>
-                        <i class="fa-solid fa-heart text-warning fs-5" data-value="3"></i>
-                        <i class="fa-regular fa-heart text-warning fs-5" data-value="4"></i>
-                        <i class="fa-regular fa-heart text-warning fs-5" data-value="5"></i>
-                    </div>
-                </div>
-
-                <div class="product-details">
-                    <span class="price">₱49</span>
-                    <span class="sold-count">87 sold</span>
-                </div>
-
-                <div class="view-details">
-                    <button class="btn-details">View Details</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="col">
-            <div class="product-card">
-                <img src="{{ asset('image/daisy-bracelet.jpg') }}" alt="Mini Fuzzy Flower" class="product-img">
-                <p class="product-text">Daisy Bracelet</p>
-                <div class="product-name-daily">
-                    <div class="heart-rating">
-                        <i class="fa-solid fa-heart text-warning fs-5" data-value="1"></i>
-                        <i class="fa-solid fa-heart text-warning fs-5" data-value="2"></i>
-                        <i class="fa-solid fa-heart text-warning fs-5" data-value="3"></i>
-                        <i class="fa-regular fa-heart text-warning fs-5" data-value="4"></i>
-                        <i class="fa-regular fa-heart text-warning fs-5" data-value="5"></i>
-                    </div>
-                </div>
-
-                <div class="product-details">
-                    <span class="price">₱49</span>
-                    <span class="sold-count">87 sold</span>
-                </div>
-
-                <div class="view-details">
-                    <button class="btn-details">View Details</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="col">
-            <div class="product-card">
-                <img src="{{ asset('image/daisy-bracelet.jpg') }}" alt="Mini Fuzzy Flower" class="product-img">
-                <p class="product-text">Daisy Bracelet</p>
-                <div class="product-name-daily">
-                    <div class="heart-rating">
-                        <i class="fa-solid fa-heart text-warning fs-5" data-value="1"></i>
-                        <i class="fa-solid fa-heart text-warning fs-5" data-value="2"></i>
-                        <i class="fa-solid fa-heart text-warning fs-5" data-value="3"></i>
-                        <i class="fa-regular fa-heart text-warning fs-5" data-value="4"></i>
-                        <i class="fa-regular fa-heart text-warning fs-5" data-value="5"></i>
-                    </div>
-                </div>
-
-                <div class="product-details">
-                    <span class="price">₱49</span>
-                    <span class="sold-count">87 sold</span>
-                </div>
-
-                <div class="view-details">
-                    <button class="btn-details">View Details</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="col">
-            <div class="product-card">
-                <img src="{{ asset('image/daisy-bracelet.jpg') }}" alt="Mini Fuzzy Flower" class="product-img">
-                <p class="product-text">Daisy Bracelet</p>
-                <div class="product-name-daily">
-                    <div class="heart-rating">
-                        <i class="fa-solid fa-heart text-warning fs-5" data-value="1"></i>
-                        <i class="fa-solid fa-heart text-warning fs-5" data-value="2"></i>
-                        <i class="fa-solid fa-heart text-warning fs-5" data-value="3"></i>
-                        <i class="fa-regular fa-heart text-warning fs-5" data-value="4"></i>
-                        <i class="fa-regular fa-heart text-warning fs-5" data-value="5"></i>
-                    </div>
-                </div>
-
-                <div class="product-details">
-                    <span class="price">₱49</span>
-                    <span class="sold-count">87 sold</span>
-                </div>
-
-                <div class="view-details">
-                    <button class="btn-details">View Details</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="col">
-            <div class="product-card">
-                <img src="{{ asset('image/daisy-bracelet.jpg') }}" alt="Mini Fuzzy Flower" class="product-img">
-                <p class="product-text">Daisy Bracelet</p>
-                <div class="product-name-daily">
-                    <div class="heart-rating">
-                        <i class="fa-solid fa-heart text-warning fs-5" data-value="1"></i>
-                        <i class="fa-solid fa-heart text-warning fs-5" data-value="2"></i>
-                        <i class="fa-solid fa-heart text-warning fs-5" data-value="3"></i>
-                        <i class="fa-regular fa-heart text-warning fs-5" data-value="4"></i>
-                        <i class="fa-regular fa-heart text-warning fs-5" data-value="5"></i>
-                    </div>
-                </div>
-
-                <div class="product-details">
-                    <span class="price">₱49</span>
-                    <span class="sold-count">87 sold</span>
-                </div>
-
-                <div class="view-details">
-                    <button class="btn-details">View Details</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="col">
-            <div class="product-card">
-                <img src="{{ asset('image/daisy-bracelet.jpg') }}" alt="Mini Fuzzy Flower" class="product-img">
-                <p class="product-text">Daisy Bracelet</p>
-                <div class="product-name-daily">
-                    <div class="heart-rating">
-                        <i class="fa-solid fa-heart text-warning fs-5" data-value="1"></i>
-                        <i class="fa-solid fa-heart text-warning fs-5" data-value="2"></i>
-                        <i class="fa-solid fa-heart text-warning fs-5" data-value="3"></i>
-                        <i class="fa-regular fa-heart text-warning fs-5" data-value="4"></i>
-                        <i class="fa-regular fa-heart text-warning fs-5" data-value="5"></i>
-                    </div>
-                </div>
-
-                <div class="product-details">
-                    <span class="price">₱49</span>
-                    <span class="sold-count">87 sold</span>
-                </div>
-
-                <div class="view-details">
-                    <button class="btn-details">View Details</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="col">
-            <div class="product-card">
-                <img src="{{ asset('image/daisy-bracelet.jpg') }}" alt="Mini Fuzzy Flower" class="product-img">
-                <p class="product-text">Daisy Bracelet</p>
-                <div class="product-name-daily">
-                    <div class="heart-rating">
-                        <i class="fa-solid fa-heart text-warning fs-5" data-value="1"></i>
-                        <i class="fa-solid fa-heart text-warning fs-5" data-value="2"></i>
-                        <i class="fa-solid fa-heart text-warning fs-5" data-value="3"></i>
-                        <i class="fa-regular fa-heart text-warning fs-5" data-value="4"></i>
-                        <i class="fa-regular fa-heart text-warning fs-5" data-value="5"></i>
-                    </div>
-                </div>
-
-                <div class="product-details">
-                    <span class="price">₱49</span>
-                    <span class="sold-count">87 sold</span>
-                </div>
-
-                <div class="view-details">
-                    <button class="btn-details">View Details</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="col">
-            <div class="product-card">
-                <img src="{{ asset('image/daisy-bracelet.jpg') }}" alt="Mini Fuzzy Flower" class="product-img">
-                <p class="product-text">Daisy Bracelet</p>
-                <div class="product-name-daily">
-                    <div class="heart-rating">
-                        <i class="fa-solid fa-heart text-warning fs-5" data-value="1"></i>
-                        <i class="fa-solid fa-heart text-warning fs-5" data-value="2"></i>
-                        <i class="fa-solid fa-heart text-warning fs-5" data-value="3"></i>
-                        <i class="fa-regular fa-heart text-warning fs-5" data-value="4"></i>
-                        <i class="fa-regular fa-heart text-warning fs-5" data-value="5"></i>
-                    </div>
-                </div>
-
-                <div class="product-details">
-                    <span class="price">₱49</span>
-                    <span class="sold-count">87 sold</span>
-                </div>
-
-                <div class="view-details">
-                    <button class="btn-details">View Details</button>
-                </div>
-            </div>
-        </div>
-    </div>
+        
 
     
 
