@@ -15,6 +15,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PurchaseController;
 
 
 
@@ -151,3 +152,7 @@ Route::post('/update-password', [UserController::class, 'updatePassword'])->name
 Route::resource('products', ProductController::class);
 Route::get('/admin/products', [ProductController::class, 'showAdminProducts'])->name('admin.products');
 Route::put('/products/{id}', [ProductController::class, 'update'])->name('products.update');
+
+Route::post('/place-order', [OrderController::class, 'store'])->name('placeOrder');
+Route::get('/purchases', [PurchaseController::class, 'showPurchases'])->name('purchasepage');
+
