@@ -1,13 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController; 
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CartController;
 use App\Models\Product;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\CheckoutController;
@@ -15,9 +15,10 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PurchaseController;
 
 
-
+// STARTING PAGE & HOMEPAGE
 Route::get('/startingpage', function () {
     return view('startingpage');
 })->name('startingpage');
@@ -26,7 +27,7 @@ Route::get('/homepage', function () {
     return view('homepage');
 })->name('homepage');
 
-// Redirect logic
+// ROOT REDIRECT BASED ON AUTH
 Route::get('/', function () {
     if (Auth::check()) {
         return redirect()->route('homepage');
@@ -35,7 +36,7 @@ Route::get('/', function () {
     }
 });
 
-
+// AUTH ROUTES
 Route::get('/LoginSignUp', function () {
     return view('LoginSignUp'); 
 })->name('LoginSignUp');
@@ -64,28 +65,30 @@ Route::get('AboutPage', function () {
 Route::get('/butterfly-bouquet', function () {
     return view('butterflybouquet');
 })->name('butterflybouquet');
+Route::get('/checkout', function () {
+    return view('checkout');
+})->name('checkout');
 
 
-
-Route::post('/register', [RegisterController::class, 'register']);
-
-Route::get('/home', [HomeController::class, 'index'])->name('homepage');
- 
-Route::post('/LoginSignUp', [LoginController::class, 'login'])->name('LoginSignUp');
-
+Route::post('/register', [RegisterController::class, 'register'])->name('register.submit');
 
 Route::get('/logout', function () {
     Auth::logout(); // Logs out the user
     session()->invalidate(); // Invalidates the session
     session()->regenerateToken(); // Regenerates the CSRF token
 
-    return redirect('/startingpage'); // Redirect to the homepage
+    return redirect('/home'); // Redirect to the homepage
 })->name('logout');
 // Checkout Route
+Route::get('/checkout', function() {
+    if (!Auth::check()) {
+        return redirect()->route('LoginSignUp')->with('message', 'Please log in to proceed to checkout.');
+    }
+    return view('checkout');
+})->name('checkout');
 
 
-
-
+Route::get('/SellerDash', [AdminController::class, 'index'])->name('SellerDash');
 
 Route::get('/product/{slug}', [ProductController::class, 'show'])->name('product.show');
 
@@ -151,4 +154,8 @@ Route::post('/update-password', [UserController::class, 'updatePassword'])->name
 Route::resource('products', ProductController::class);
 Route::get('/admin/products', [ProductController::class, 'showAdminProducts'])->name('admin.products');
 Route::put('/products/{id}', [ProductController::class, 'update'])->name('products.update');
+
+Route::post('/place-order', [OrderController::class, 'store'])->name('placeOrder');
+Route::get('/purchases', [PurchaseController::class, 'showPurchases'])->name('purchasepage');
+
 

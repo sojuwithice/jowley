@@ -66,9 +66,9 @@
 
 
     <nav class="navbar">
-        <a href="#home">Home</a>
-        <a href="#products">Products</a>
-        <a href="#contactus">Contact Us</a>
+    <a href="{{ route('homepage') }}">Home</a>
+            <a href="#products">Products</a>
+        
     </nav>
 
     <div class="header-right"> 

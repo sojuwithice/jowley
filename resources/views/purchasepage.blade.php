@@ -1,17 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-
     <title>Jowley's Crafts</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=Gotu&family=Oleo+Script+Swash+Caps:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
     <link rel="stylesheet" href="{{ asset('css/purchasepage.css') }}">
-
-
 </head>
 <body>
 <div class="top-header scroll-fade">
@@ -52,7 +48,7 @@
   <div class="header-container">
   
     <div class="purchase-section">
-      <div class="back-arrow"><i class="fas fa-arrow-left"></i></div>
+      <div class="back-arrow"><i class="onclick="window.history.back();"></i></div>
       <h2>My Purchases</h2>
     </div>
 
@@ -98,12 +94,7 @@
       <span>To Receive</span>
     </div>
   </div>
-  <div class="tab" data-status="completed">
-    <div class="circle-tab">
-      <div class="icon"><i class="fas fa-shopping-bag"></i></div>
-      <span>Completed</span>
-    </div>
-  </div>
+  
   <div class="tab" data-status="cancelled">
     <div class="circle-tab">
       <div class="icon"><i class="fas fa-box-open"></i></div>
@@ -113,59 +104,75 @@
 </div>
 
 
-<!-- order cards -->
+    <!-- order cards -->
+    <section class="order-wrapper">
+    @foreach($orders as $order)
+    <div class="order-box">
+        <div class="order-status">
+            <span class="status-info">{{ $order->status }}</span>
+            <span class="to-pay">| To Pay</span>
+        </div>
 
-<section class="order-wrapper">
+        @foreach($order->orderItems as $orderItem)
+            <div class="order-main">
+                <div class="product-image">
+                @php
+        $defaultImage = 'default.jpg';
+        $rawImages = $orderItem->product->images;
 
+        // Decoding the images if it's a JSON string
+        $images = is_string($rawImages) ? json_decode($rawImages, true) : $rawImages;
 
-  <!-- Order 2 -->
-  <div class="order-box" data-status="to-pay">
-    <div class="order-status">
-    <span class="status-info">Parcel has been delivered</span>
-      <span class="to-pay">| To Pay</span>
-    </div>
+        // Get the first image, or default if none exist
+        $imageFilename = $images[0] ?? $defaultImage;
 
-    <div class="order-main">
-      <div class="product-image">
-        <img src="{{ asset('image/mini-flower.jpg') }}" alt="Mini Fuzzy Flower" class="product-img">
-      </div>
-      <div class="product-info">
-        <h3>Mini Fuzzy Flower</h3>
-        <p class="desc">Adorable mini fuzzy flowers, perfect for adding a soft, handmade touch to your space!</p>
-        <p class="variation">Variation: Pink</p>
-      </div>
-      <div class="product-price">₱40.00</div>
-    </div>
+        // Ensure correct path format (forward slashes)
+        $imageFilename = str_replace('\\', '/', $imageFilename);
 
-    <div class="order-subinfo">
-      <span>Order Received on 02/01/2025</span>
-      <span>Item(s): 1</span>
-    </div>
+        // Build the final path to the image
+        $finalPath = \Illuminate\Support\Str::startsWith($imageFilename, 'image/') ? $imageFilename : 'image/' . $imageFilename;
+    @endphp
 
-    <div class="order-footer">
-      <div class="footer-left">
-        <span>Order Total: <span class="price">₱40.00</span></span>
-        <span>Date Received: 03/1/2025</span>
-        <span>Time: 12:00 PM</span>
-      </div>
-      <div class="footer-right">
-        <button class="buy-again">Buy Again</button>
-        <button class="view-rating">View Shop Rating</button>
-      </div>
-    </div>
-  </div>
+    <!-- Display the image with alt text as the product name -->
+    <img src="{{ asset($finalPath) }}" alt="{{ $orderItem->product->name }}" width="100">
+                </div>
+                <div class="product-info">
+                    <h3>{{ $orderItem->product->name }}</h3>
+                    <p class="desc">{{ $orderItem->product->description }}</p>
+                    <p class="variation">Variation: {{ $orderItem->color }}</p>
+                </div>
+                <div class="product-price">₱{{ number_format($orderItem->price, 2) }}</div>
+            </div>
+        @endforeach
+            </div>
 
- 
+            <div class="order-subinfo">
+                <span>Order Received on {{ $order->created_at->format('m/d/Y') }}</span>
+                <span>Item(s): {{ $order->orderItems->count() }}</span>
+            </div>
+
+            <div class="order-footer">
+                <div class="footer-left">
+                <span>Order Total: <span class="price">₱{{ number_format($order->total_amount, 2) }}</span></span>
+                </div>
+                <div class="footer-right">
+                    <button class="buy-again">Buy Again</button>
+                    <button class="view-rating">View Shop Rating</button>
+                </div>
+            </div>
+        </div>
+        @endforeach
+    </section>
 
 <div class="purchase-see-more-container scroll-fade">
-    <a href="#">
+    <a href="{{ route('shop') }}">
         <button class="purchase-see-more-btn" id="shopMoreBtn">Shop more</button>
     </a>
 </div>
 
 
 
-<!-- footer section starts-->
+    <!-- footer section starts-->
 <div class="footer-line"></div>
 
 <section class="footer-section"> 
@@ -207,45 +214,11 @@
   </div>
 
   <div class="footer-bottom"></div>
-</section>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    </section>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
+   document.addEventListener("DOMContentLoaded", function () {
         const scrollElements = document.querySelectorAll(".scroll-fade");
 
         const scrollObserver = new IntersectionObserver(
@@ -294,15 +267,15 @@
 
   const statusInfo = {
     'to-pay': {
-      orderStatus: "Waiting for Courier",
+      orderStatus: "Order Placed",
       orderSubinfo: "Ship within a day",
     },
     'to-ship': {
-      orderStatus: "Waiting for Shipment",
+      orderStatus: "Waiting for Courier",
       orderSubinfo: "Ship within a day",
     },
     'to-receive': {
-      orderStatus: "Out for Delivery",
+      orderStatus: "In Transit",
       orderSubinfo: "Arriving Today",
     },
     'completed': {
@@ -320,11 +293,11 @@
       tabs.forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
 
-      const selectedStatus = tab.getAttribute('data-status') || 'all';
+      const selectedStatus = tab.getAttribute('data-status') || 'to-pay';
 
       orders.forEach(order => {
         const orderStatus = order.getAttribute('data-status');
-        const showOrder = selectedStatus === 'all' || selectedStatus === orderStatus;
+        const showOrder = selectedStatus === 'to-pay' || selectedStatus === orderStatus;
 
         order.style.display = showOrder ? 'block' : 'none';
 
@@ -357,41 +330,14 @@
       });
     });
   });
-
-  document.querySelector('.tab[data-status="all"]').click();
-
-
-  document.getElementById('profileMenuTrigger').addEventListener('click', function(event) {
-        event.preventDefault();
-        const profileMenu = document.getElementById('profileMenu');
-        profileMenu.style.display = (profileMenu.style.display === 'block') ? 'none' : 'block';
-    });
-
-    // Close the profile menu if clicked outside
-    window.addEventListener('click', function(event) {
-        const profileMenu = document.getElementById('profileMenu');
-        if (!event.target.closest('#profileMenuTrigger') && !event.target.closest('#profileMenu')) {
-            profileMenu.style.display = 'none';
-        }
-    });
+  document.querySelector('.tab[data-status="to-pay"]').click();
 
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
 </script>
+
+</body>
+</html>

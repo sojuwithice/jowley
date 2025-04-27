@@ -12,7 +12,7 @@ class CartController extends Controller
     // Method to add a product to the cart
 
 
-    public function addToCart(Request $request)
+   public function addToCart(Request $request)
 {
     if (!Auth::check()) {
         return response()->json([
@@ -24,7 +24,7 @@ class CartController extends Controller
     $request->validate([
         'product_id' => 'required|exists:products,id',
         'quantity' => 'required|integer|min:1',
-        'color' => 'required|string'
+        'color' => 'nullable|string' // Changed to nullable
     ]);
 
     $product = Product::find($request->product_id);
@@ -37,6 +37,9 @@ class CartController extends Controller
 
     $existingCartItem = Cart::where('user_id', Auth::id())
                           ->where('product_id', $request->product_id)
+                          ->when($request->color, function($query) use ($request) {
+                              return $query->where('color', $request->color);
+                          })
                           ->first();
 
     $requestedQuantity = $request->quantity;
@@ -64,7 +67,7 @@ class CartController extends Controller
             'price' => $product->price,
             'product_name' => $request->product_name,
             'image' => $request->image,
-            'color' => $request->color,
+            'color' => $request->color ?? null,
         ]);
     }
 

@@ -15,6 +15,7 @@
 </head>
 <body>
 
+@include('components.notifications-modal')
 <!-- top header bar starts-->
 <!-- Top Header -->
 <div class="top-header scroll-fade">
@@ -27,9 +28,14 @@
         <a href="{{ url('/Register') }}" class="signup">Sign Up</a>
         <a href="{{ route('LoginSignUp') }}" class="login">Log in</a>
     @else
-        <!-- Notifications and Profile Menu for logged-in users -->
-        <a href="#" class="notification">
+        
+        <a href="#" class="notification" id="notificationButton">
             <i class="fas fa-bell"></i> Notification
+            @if ($unreadCount > 0)
+            <span class="notification-badge" id="notificationBadge">{{ $unreadCount }}</span>
+        @else
+            <span class="notification-badge" id="notificationBadge" style="display: none;">0</span>
+        @endif
         </a>
         <a href="#" class="user-profile" id="profileMenuTrigger">
             <i class="fas fa-user"></i> {{ Auth::user()->username }}
@@ -37,8 +43,8 @@
 
         <div id="profileMenu" class="profile-menu">
             <ul>
-                <li><a href="{{ route('usersprofile') }}">My Profile</a></li>
-                <li><a href="{{ route('purchasepage') }}">My Purchases</a></li>
+                <li><a href="#">My Profile</a></li>
+                <li><a href="#">My Purchases</a></li>
                 <li><a href="{{ route('logout') }}">Logout</a></li>
 
             </ul>
@@ -56,18 +62,27 @@
         <a href="#products">Products</a>
     </nav>
 
+    
     <div class="header-right"> 
-        <div class="search-bar">
-            <input type="text" placeholder="Search...">
-            <button><i class="fas fa-search"></i></button>
-        </div>
-        <div class="icons">
-            <a href="{{ route('cart') }}" class="fas fa-shopping-cart cart-icon-link">
-                <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
-            </a>
-        </div>
+    <form action="{{ route('shop.index') }}" method="GET" class="search-bar">
+    <input type="text" name="q" placeholder="Search..." value="{{ request('q') }}">
+        <button type="submit"><i class="fas fa-search"></i></button>
+    </form>
+
+    <div class="icons">
+        <a href="{{ route('cart') }}" class="fas fa-shopping-cart cart-icon-link">
+            <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+        </a>
     </div>
 </header>
+
+@auth
+    <x-notifications-modal 
+        :notifications="auth()->user()->notifications"
+        :unreadCount="auth()->user()->unreadNotifications->count()" />
+@else
+    <x-notifications-modal :notifications="[]" :unreadCount="0" />
+@endauth
 
 
 <!-- header section ends -->
@@ -131,6 +146,7 @@
         </div>
     </div>
 </section>
+
 
 
 <!-- catgories -->
@@ -480,6 +496,7 @@
 
     <div class="daily-see-more-container scroll-fade">
     <a href="{{ route('shop.index') }}" class="daily-see-more-btn" id="seeMoreBtn">See More</a>
+
 </div>
     </section>
 
@@ -590,5 +607,10 @@
             profileMenu.style.display = 'none';
         }
     });
+
+    document.getElementById('notificationButton').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('notificationModal').style.display = 'block';
+        });
 
 </script>
