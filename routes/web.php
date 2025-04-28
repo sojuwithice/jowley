@@ -13,7 +13,6 @@ use App\Http\Controllers\ShopController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AddressController;
-use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
 
 
@@ -35,10 +34,7 @@ Route::get('/', function () {
     }
 });
 
-// AUTH ROUTES
-Route::get('/LoginSignUp', function () {
-    return view('LoginSignUp'); 
-})->name('LoginSignUp');
+// AUTH ROUTESame('LoginSignUp');
 
 Route::get('LoginSignupPhoneNo', function () {
     return view('LoginSignupPhoneNo'); 
@@ -59,6 +55,13 @@ Route::get('AccountRecovery', function () {
 Route::get('AboutPage', function () {
     return view('AboutPage'); 
 });
+//login route
+Route::get('/LoginSignUp', function () {
+    return view('LoginSignUp'); 
+})->name('LoginSignUp');
+
+Route::post('/LoginSignUp', [LoginController::class, 'login'])->name('login.submit');
+
 
 
 Route::get('/butterfly-bouquet', function () {
@@ -129,3 +132,5 @@ Route::get('/', function () {
 Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
 
 Route::post('/direct-checkout', [CartController::class, 'directCheckout'])->name('checkout.direct');
+
+Route::get('/usersprofile', [UserController::class, 'profile'])->name('usersprofile');

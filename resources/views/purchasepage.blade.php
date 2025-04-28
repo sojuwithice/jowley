@@ -157,7 +157,7 @@
  
 
 <div class="purchase-see-more-container scroll-fade">
-    <a href="{{ route('shop') }}">
+    <a href="{{ route('shop.index') }}">
         <button class="purchase-see-more-btn" id="shopMoreBtn">Shop more</button>
     </a>
 
