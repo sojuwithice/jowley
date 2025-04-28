@@ -45,4 +45,5 @@ class CheckoutController extends Controller
     
         return view('checkout', compact('cartItems', 'totalPrice', 'subtotal'));
     }
+    
 }

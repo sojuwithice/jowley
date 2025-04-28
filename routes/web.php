@@ -14,6 +14,7 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PurchaseController;
 
 
 // STARTING PAGE & HOMEPAGE
@@ -79,7 +80,7 @@ Route::get('/logout', function () {
     session()->invalidate(); // Invalidates the session
     session()->regenerateToken(); // Regenerates the CSRF token
 
-    return redirect('/home'); // Redirect to the homepage
+    return redirect('/startingpage'); 
 })->name('logout');
 // Checkout Route
 Route::get('/checkout', function() {
@@ -123,7 +124,7 @@ Route::get('/searchpage', function () {
 
 
 
-Route::get('/shop', [ShopController::class, 'index'])->name('shop');
+
 
 Route::get('/', function () {
     return view('homepage');
@@ -133,4 +134,34 @@ Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
 
 Route::post('/direct-checkout', [CartController::class, 'directCheckout'])->name('checkout.direct');
 
-Route::get('/usersprofile', [UserController::class, 'profile'])->name('usersprofile');
+Route::post('/checkout', [CheckoutController::class, 'checkout'])->name('checkout')->middleware('auth');
+Route::get('/checkout', function () {
+    return view('checkout');
+})->name('checkout');
+
+
+
+Route::get('/profile', [UserController::class, 'profile'])->name('usersprofile');
+
+
+Route::get('/AdminDasboard', [AdminController::class, 'index'])->name('AdminDashboard');
+Route::post('/update-profile', [UserController::class, 'updateProfile'])->name('update.profile');
+
+
+Route::middleware(['auth'])->group(function () {
+    Route::post('/addresses', [AddressController::class, 'store'])->name('addresses.store');
+});
+Route::post('/update-password', [UserController::class, 'updatePassword'])->name('password.update');
+
+Route::resource('products', ProductController::class);
+Route::get('/admin/products', [ProductController::class, 'showAdminProducts'])->name('admin.products');
+Route::put('/products/{id}', [ProductController::class, 'update'])->name('products.update');
+
+Route::post('/place-order', [OrderController::class, 'store'])->name('placeOrder');
+Route::get('/purchases', [PurchaseController::class, 'showPurchases'])->name('purchasepage');
+
+
+Route::post('/cancel-order', [OrderController::class, 'cancelOrder'])->name('orders.cancel');
+
+//Route::post('/orders/{order}/cancel', [OrderController::class, 'cancel']);
+

@@ -160,9 +160,17 @@
         </div>
 
         <!-- Place Order Button -->
-        <div class="d-flex justify-content-end mt-3">
-            <button id="placeOrderBtn" class="btn btn-pink">Place Order</button>
-        </div>
+        <form id="placeOrderForm" method="POST" action="{{ route('placeOrder') }}">
+    @csrf
+
+    <input type="hidden" name="payment_method" id="paymentMethodInput">
+
+    <div class="d-flex justify-content-end mt-3">
+        <button type="submit" class="btn btn-pink">Place Order</button>
+    </div>
+</form>
+
+
 
         <!-- Modal for Payment Method -->
         <div class="modal fade" id="paymentMethodModal" tabindex="-1" aria-hidden="true">
@@ -211,35 +219,30 @@
             profileMenu.style.display = 'none';
         }
     });
-        document.addEventListener("DOMContentLoaded", function () {
-            const paymentButtons = document.querySelectorAll('.payment-method');
-            let selectedPaymentMethod = null;
+    document.addEventListener("DOMContentLoaded", function () {
+    const paymentButtons = document.querySelectorAll('.payment-method');
+    let selectedPaymentMethod = null;
 
-            paymentButtons.forEach(button => {
-                button.addEventListener('click', function () {
-                    // Remove the 'active' class from all buttons
-                    paymentButtons.forEach(btn => btn.classList.remove('active'));
-                    
-                    // Add 'active' class to the clicked button
-                    this.classList.add('active');
-                    
-                    // Set the selected payment method
-                    selectedPaymentMethod = this.id;
-                });
-            });
-
-            // Place Order Button Handler
-            document.getElementById('placeOrderBtn').addEventListener('click', function () {
-                if (!selectedPaymentMethod) {
-                    // If no payment method is selected, show the modal
-                    const modal = new bootstrap.Modal(document.getElementById('paymentMethodModal'));
-                    modal.show();
-                } else {
-                    // Proceed with the order
-                    // Add logic for placing the order here
-                }
-            });
+    paymentButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            paymentButtons.forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+            selectedPaymentMethod = this.id;
         });
+    });
+
+    // Form submit handler
+    document.getElementById('placeOrderForm').addEventListener('submit', function (event) {
+        if (!selectedPaymentMethod) {
+            event.preventDefault();
+            const modal = new bootstrap.Modal(document.getElementById('paymentMethodModal'));
+            modal.show();
+        } else {
+            document.getElementById('paymentMethodInput').value = selectedPaymentMethod;
+        }
+    });
+});
+
     </script>
 </body>
 
