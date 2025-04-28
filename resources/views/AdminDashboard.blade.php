@@ -32,19 +32,26 @@
                     </a>
                 </li>
                 <li>
+                    <a href="#">
+                        <span class="icon">
+                            <ion-icon name="home-outline"></ion-icon>
+                        </span>
+                        <span class="title">Analytics</span>
+                    </a>
+                </li>
+                <li>
                 <a href="{{ route('admin.products') }}">
                 <span class="icon">
              <ion-icon name="cube-outline"></ion-icon>
         </span>
         <span class="title">Products</span>
     </a>
-</li>
-
-                <li>
-                    <a href="#">
-                        <span class="icon">
-                            <ion-icon name="help-outline"></ion-icon>
-                        </span>
+    </li>
+        <li>
+                 <a href="#">
+                   <span class="icon">
+                    <ion-icon name="help-outline"></ion-icon>
+                    </span>
                         <span class="title">Inventory</span>
                     </a>
                 </li>
@@ -68,8 +75,7 @@
                 </li>
             </ul>
         </div>
-
-        <!-- ========================= Main ==================== -->
+        
         <div class="main">
             <div class="topbar">
                 <div class="toggle">
@@ -87,9 +93,8 @@
                     <img src="assets/imgs/customer01.jpg" alt="">
                 </div>
             </div>
-
-            <!-- ======================= Cards ================== -->
-            <div class="cardBox">
+                <span style="margin-left: 30px; margin-top:30px; font-size: 26px;">Overview</span>
+<div class="cardBox">
     <!-- Replaced Daily Views with Users -->
     <div class="card">
         <div>
@@ -100,11 +105,10 @@
             <ion-icon name="person-outline"></ion-icon>
         </div>
     </div>
-                <div class="card">
-                    <div>
-                        <div class="numbers">80</div>
-                        <div class="cardName">Sales</div>
-                    </div>
+    <div class="card">
+    <div>
+         <div class="numbers">80</div>
+            <div class="cardName">Sales</div> </div>
 
                     <div class="iconBx">
                         <ion-icon name="cart-outline"></ion-icon>
@@ -336,12 +340,9 @@
         navigation.classList.toggle("active");
         main.classList.toggle("active");
     };
-</script>
 
-
-    <!-- ====== ionicons ======= -->
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-</body>
-
+    </script>
+        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+ </body>
 </html>

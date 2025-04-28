@@ -305,8 +305,6 @@
                 <div class="social-signup">Or sign up with</div>
                 <div class="social-icons">
                     <i class="fa-brands fa-facebook"></i>
-                    <i class="fa-brands fa-instagram"></i>
-                    <i class="fa-brands fa-tiktok"></i>
                 </div>
 
             </form>
