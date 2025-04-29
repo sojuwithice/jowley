@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\User; // Make sure to include the User model
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Order;
+use App\Models\OrderItem;
 
 class AdminController extends Controller
 {
@@ -14,8 +16,14 @@ class AdminController extends Controller
         // Count non-admin users
         $nonAdminUserCount = User::where('is_admin', 0)->count();
 
+        $orderCount = Order::count();
+
+        $earnings = Order::sum('total_amount');
+
+        $totalSales = OrderItem::sum('quantity');
+
         // Pass the count to the view
-        return view('AdminDashboard', compact('nonAdminUserCount'));
+        return view('AdminDashboard', compact('nonAdminUserCount','orderCount','earnings','totalSales'));
     }
     public function products()
     {

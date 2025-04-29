@@ -16,6 +16,7 @@ use App\Http\Controllers\AddressController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\AdminProductController;
+use App\Http\Controllers\AdminAnalyticsController;
 
 
 // STARTING PAGE & HOMEPAGE
@@ -169,3 +170,7 @@ Route::get('/add-product', [AdminProductController::class, 'create'])->name('pro
 // Store the new product
 Route::post('/add-product', [AdminProductController::class, 'store'])->name('products.storeProduct');
 Route::get('/users', [UserController::class, 'index'])->name('users');
+
+
+Route::get('/analytics', [AdminAnalyticsController::class, 'index'])->name('analytics');
+
