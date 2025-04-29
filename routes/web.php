@@ -168,3 +168,4 @@ Route::get('/add-product', [AdminProductController::class, 'create'])->name('pro
 
 // Store the new product
 Route::post('/add-product', [AdminProductController::class, 'store'])->name('products.storeProduct');
+Route::get('/users', [UserController::class, 'index'])->name('users');

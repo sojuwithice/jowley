@@ -66,4 +66,10 @@ class UserController extends Controller
 
         return back()->with('success', 'Password updated successfully!');
     }
+    public function index()
+    {
+        $users = User::where('is_admin', 0)->get(); // Get non-admin users
+        return view('users', compact('users'));
+    }
+    
 }

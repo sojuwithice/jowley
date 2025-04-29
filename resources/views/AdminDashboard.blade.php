@@ -96,6 +96,7 @@
                 <span style="margin-left: 30px; margin-top:30px; font-size: 26px;">Overview</span>
 <div class="cardBox">
     <!-- Replaced Daily Views with Users -->
+    <a href="{{ route('users') }}">
     <div class="card">
         <div>
         <div class="numbers">{{ $nonAdminUserCount }}</div>
@@ -105,6 +106,7 @@
             <ion-icon name="person-outline"></ion-icon>
         </div>
     </div>
+    </a>
     <div class="card">
     <div>
          <div class="numbers">80</div>
