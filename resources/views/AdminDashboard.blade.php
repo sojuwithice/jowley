@@ -40,7 +40,7 @@
                     </a>
                 </li>
                 <li>
-                <a href="{{ route('admin.products') }}">
+                <a href="#">
                 <span class="icon">
              <ion-icon name="cube-outline"></ion-icon>
         </span>
@@ -48,7 +48,7 @@
     </a>
     </li>
         <li>
-                 <a href="#">
+                 <a href="{{ route('admin.products') }}">
                    <span class="icon">
                     <ion-icon name="help-outline"></ion-icon>
                     </span>
