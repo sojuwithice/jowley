@@ -3,180 +3,165 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jowley's Crafts</title>
+    <title>About Jowley's Crafts</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=Gotu&family=Oleo+Script+Swash+Caps:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Oleo+Script+Swash+Caps&display=swap');
-        
-    body { 
-        font-family: 'Gabarito', sans-serif; 
-    }
+        /* Background Styles */
+        .about {
+            position: relative;
+            overflow: hidden;
+        }
 
-    .hero { 
-        font-family: 'Gotu', sans-serif; 
-        background: linear-gradient(to bottom, #fdecef, white); 
-        padding: 60px 20px; 
-        text-align: center; 
-    }
+        .about .absolute {
+            position: absolute;
+            top: 100px !important;
+            inset: 0;
+            justify-content: flex-start;
+            display: inline-flex;
+            flex-direction: row;
+            z-index: 0;
+        }
 
-    .product-img { 
-        width: 100%; 
-        height: auto; 
-        border-radius: 10px; 
-    }
-    
-    .section-title { 
-        text-align: center; 
-        margin-top: 40px; 
-    }
-    
-    .about-text { 
-        max-width: 800px; 
-        margin: 0 auto; 
-        text-align: center; 
-    }
-    
-    .top-header { 
-        display: flex; 
-        justify-content: space-between; 
-        padding: 10px 20px; 
-        background-color: #f8f9fa;
-    }
-    .top-header .logo { 
-        font-family: 'Oleo Script Swash Caps', cursive; 
-        font-size: 32px; 
-        color: #E32C89; 
-    }
-    .top-header .right a { 
-        margin-left: 15px; 
-        font-weight: 500; 
-    }
-    
-    .navbar { 
-        padding: 15px 30px; 
-        background: white; 
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); 
-    }
-    .navbar a { 
-        margin: 0 15px; 
-        font-weight: 500; 
-    }
-    
-    .header-right { 
-        display: flex; 
-        align-items: center; 
-        justify-content: flex-end; 
-    }
-    
-    .search-bar { 
-        display: flex; 
-    }
-    
-    .search-bar input { 
-        border-radius: 20px; 
-        border: 1px solid #ddd; 
-        padding: 8px 15px; 
-    }
-    .icons { 
-        margin-left: 15px;
-    }
-    
-    .icon { 
-        font-size: 1.3rem; 
-        cursor: pointer; 
-    }
-     
-    .highlight-section {
-        font-family: 'Gabarito'; 
-        background: #fdecef; 
-        padding: 40px 0; 
-    }
-    
-    .bottom { 
-        font-family: 'Gabarito'; 
-        background: white ; 
-        padding: 60px 20px; 
-        text-align: center; 
-    }
-    
+        .about .absolute .bg-shape1 {
+            width: 400px;
+            height: 400px;
+            border-radius: 9999px;
+            position: relative;
+            animation: one 10s infinite;
+        }
+
+        .about .absolute .bg-shape2 {
+            width: 300px;
+            height: 300px;
+            border-radius: 9999px;
+            position: relative;
+            animation: two 10s infinite;
+        }
+
+        @keyframes one {
+            0%{left: 0px; top: 0px}
+            25%{left: -100px; top: 70px}
+            50%{left: 20px; top: 150px}
+            75%{left: 50px; top: 100px}
+            100%{left: 0px; top: 0px}
+        }
+
+        @keyframes two {
+            0%{left: 0px; top: 0px}
+            25%{left: 50px; top: 10px}
+            50%{left: 100px; top: 50px}
+            75%{left: 50px; top: 100px}
+            100%{left: 0px; top: 0px}
+        }
+
+        .about .absolute .opacity-50 {
+            opacity: .5;
+        }
+
+        .about .absolute .bg-blur {
+            filter: blur(90px);
+        }
+
+        .about .absolute .bg-primary {
+            background-color: #b96c78 !important;
+        }
+
+        .about .absolute .bg-pink {
+            background-color: #de5097 !important;
+        }
+
+        /* About Page Content Styles */
+        .about-hero {
+            padding: 5rem 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-title {
+            font-family: 'Oleo Script Swash Caps', cursive;
+            font-size: 3.5rem;
+            margin-bottom: 2rem;
+            color: #2c3e50;
+        }
+
+        .about-content {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .mission-section, .story-section, .values-section {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 10px;
+        }
+
+        .values-section ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .values-section li {
+            padding: 0.5rem 0;
+            font-size: 1.1rem;
+        }
+
+        .values-section li:before {
+            content: "🧶";
+            margin-right: 0.8rem;
+        }
+
+        /* General Styles */
+        body {
+            background: whitesmoke;
+            font-family: 'Gotu', sans-serif;
+        }
     </style>
 </head>
 <body>
-    <!-- Top Header -->
-    <div class="top-header">
-        <div class="left">
-            <a href="#" class="logo">Jowley's Craft</a>
+    <section class="about scroll-fade" id="about">
+        <div class="absolute inset-0 justify-center">
+            <div class="bg-shape1 bg-pink opacity-50 bg-blur"></div>
+            <div class="bg-shape2 bg-primary opacity-50 bg-blur"></div>
         </div>
 
-        <div class="right">
-            <a href="#" class="notification">
-                <i class="fas fa-bell"></i> Notification
-            </a>
-            <a href="#" class="user-profile">
-                <i class="fas fa-user"></i> AkosiMJ#01
-            </a>
-        </div>
-    </div>
+        <section class="hero about-hero">
+            <div class="container">
+                <h2 class="section-title">About Jowley's Crafts</h2>
+                <div class="about-content">
+                    <p class="lead">Jowley's Crafts began with a humble stall and the power of social media to showcase our one-of-a-kind crochet products and DIY kits. What started as a small passion project has grown into a thriving business, thanks to the support of our growing community of craft lovers.</p>
+                    
+                    <div class="mission-section">
+                        <h3>Our Mission</h3>
+                        <p>We aim to bring handmade warmth into every home while empowering others to discover the joy of crafting through our easy-to-use DIY kits.</p>
+                    </div>
 
-    <!-- Header Section -->
-    <header>
-        <nav class="navbar">
-            <a href="#home">Home</a>
-            <a href="#products">Products</a>
-            <a href="#contactus">FAQs</a>
-        </nav>
+                    <div class="story-section">
+                        <h3>Our Story</h3>
+                        <p>Founded in 2020 by Joanna "Jowley" Smith, our craft business started as a weekend hobby at local markets. Through social media platforms like Instagram and TikTok, we've been able to connect with craft enthusiasts worldwide and share our passion for handmade creations.</p>
+                    </div>
 
-        <div class="header-right">
-            <div class="search-bar">
-                <input type="text" placeholder="Search...">
-                <button><i class="fas fa-search"></i></button>
-            </div>
-            <div class="icons">
-                <a href="#" class="fas fa-shopping-cart cart-icon-link">
-                    <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
-                </a>
-            </div>
-        </div>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <h1>Jowley’s Crafts</h1>
-        <p>Jowley's Crafts began with a humble stall and the power of social media to showcase our one-of-a-kind crochet products and DIY kits. What started as a small passion project has grown into a thriving business, thanks to the support of our growing community of craft lovers. Our social media platforms, including Facebook and TikTok, have allowed us to reach a wider audience and share the love behind every handmade creation.</p>
-    </section>
-
-    <div class="container mt-5">
-        <div class="row text-center">
-            <div class="col-md-4">
-                <img src="product1.jpg" alt="Product 1" class="product-img">
-            </div>
-            <div class="col-md-4">
-                <img src="product2.jpg" alt="Product 2" class="product-img">
-            </div>
-            <div class="col-md-4">
-                <img src="product3.jpg" alt="Product 3" class="product-img">
-            </div>
-        </div>
-    </div>
-    
-    <section class="highlight-section text-center mt-5">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-6">
-                    <img src="highlight.jpg" alt="Feature" class="product-img">
-                </div>
-                <div class="col-md-6 text-start">
-                    <p>We specialize in crafting personalized crochet items and providing DIY kits for those who want to create something special with their own hands...</p>
+                    <div class="values-section">
+                        <h3>Our Values</h3>
+                        <ul>
+                            <li>Quality craftsmanship</li>
+                            <li>Sustainable materials</li>
+                            <li>Community support</li>
+                            <li>Creative education</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
+        </section>
     </section>
-    
-    <section class="bottom">
-                    <p>Our DIY kits come with everything you need to get started, offering a fun and creative way to engage with the craft. With a focus on personalization, we give you the opportunity to create something that reflects your own style. At Jowley's Crafts, we believe every piece tells a story—your story!</p>
-    </section>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
