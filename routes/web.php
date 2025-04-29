@@ -15,6 +15,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\AdminProductController;
 
 
 // STARTING PAGE & HOMEPAGE
@@ -162,3 +163,8 @@ Route::post('/place-order', [OrderController::class, 'store'])->name('placeOrder
 Route::get('/purchases', [PurchaseController::class, 'showPurchases'])->name('purchasepage');
 
 Route::post('/cancel-order/{order}', [OrderController::class, 'cancelOrder'])->name('cancelOrder');
+// Show the Add Product Form
+Route::get('/add-product', [AdminProductController::class, 'create'])->name('products.addProduct');
+
+// Store the new product
+Route::post('/add-product', [AdminProductController::class, 'store'])->name('products.storeProduct');

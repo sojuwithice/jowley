@@ -40,7 +40,7 @@
                     </a>
                 </li>
                 <li>
-                <a href="#">
+                <a href="{{ route('products.addProduct') }}">
                 <span class="icon">
              <ion-icon name="cube-outline"></ion-icon>
         </span>
