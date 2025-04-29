@@ -32,7 +32,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="{{ route('analytics') }}">
                         <span class="icon">
                             <ion-icon name="home-outline"></ion-icon>
                         </span>
@@ -66,7 +66,7 @@
                 </li>
 
                 <li>
-                    <a href="#">
+                    <a href="{{ route('logout') }}">
                         <span class="icon">
                             <ion-icon name="log-out-outline"></ion-icon>
                         </span>
@@ -95,7 +95,7 @@
             </div>
                 <span style="margin-left: 30px; margin-top:30px; font-size: 26px;">Overview</span>
 <div class="cardBox">
-    <!-- Replaced Daily Views with Users -->
+
     <a href="{{ route('users') }}">
     <div class="card">
         <div>
@@ -109,7 +109,7 @@
     </a>
     <div class="card">
     <div>
-         <div class="numbers">80</div>
+         <div class="numbers">{{ $totalSales }}</div>
             <div class="cardName">Sales</div> </div>
 
                     <div class="iconBx">
@@ -120,7 +120,7 @@
                 <!-- Replaced Comments with Orders -->
     <div class="card">
         <div>
-            <div class="numbers">284</div>
+            <div class="numbers">{{ $orderCount }}</div>
             <div class="cardName">Orders</div>
         </div>
         <div class="iconBx">
@@ -129,8 +129,8 @@
     </div>
                 <div class="card">
                     <div>
-                        <div class="numbers">$7,842</div>
-                        <div class="cardName">Earning</div>
+                        <div class="numbers">₱{{ number_format($earnings, 2) }}</div>
+                        <div class="cardName">Earnings</div>
                     </div>
 
                     <div class="iconBx">
