@@ -159,77 +159,40 @@
                             </tr>
                         </thead>
 
-                        <tbody>
-                            <tr>
-                                <td>Product ID</td>
-                                <td>Product Image</td>
-                                <td>Star Refrigerator</td>
-                                <td>$1200</td>
-                                <td>Paid</td>
-                                <td><span class="status delivered">Delivered</span></td>
-                            </tr>
 
-                            <tr>
-                                <td>Product ID</td>
-                                <td>Product Image</td>
-                                <td>Dell Laptop</td>
-                                <td>$110</td>
-                                <td>Due</td>
-                                <td><span class="status pending">Pending</span></td>
-                            </tr>
+<tbody>
+    @foreach($recentOrders as $item)
+        <tr>
+            <td>{{ $item->product->id ?? 'N/A' }}</td>
+            <td>
+            @php
+                            $defaultImage = 'default.jpg';
+                            $rawImages = $item->product->images;
 
-                            <tr>
-                                <td>Product ID</td>
-                                <td>Product Image</td>
-                                <td>Apple Watch</td>
-                                <td>$1200</td>
-                                <td>Paid</td>
-                                <td><span class="status return">Return</span></td>
-                            </tr>
+                            $images = is_string($rawImages) ? json_decode($rawImages, true) : $rawImages;
 
-                            <tr>
-                                <td>Product ID</td>
-                                <td>Product Image</td>
-                                <td>Addidas Shoes</td>
-                                <td>$620</td>
-                                <td>Due</td>
-                                <td><span class="status inProgress">In Progress</span></td>
-                            </tr>
+                            $imageFilename = $images[0] ?? $defaultImage;
 
-                            <tr>
-                                <td>Product ID</td>
-                                <td>Product Image</td>
-                                <td>Star Refrigerator</td>
-                                <td>$1200</td>
-                                <td>Paid</td>
-                                <td><span class="status delivered">Delivered</span></td>
-                            </tr>
+                            $imageFilename = str_replace('\\', '/', $imageFilename);
 
-                            <tr>
-                                <td>Product ID</td>
-                                <td>Product Image</td>
-                                <td>Dell Laptop</td>
-                                <td>$110</td>
-                                <td>Due</td>
-                                <td><span class="status pending">Pending</span></td>
-                            </tr>
+                            $finalPath = \Illuminate\Support\Str::startsWith($imageFilename, 'image/') ? $imageFilename : 'image/' . $imageFilename;
 
-                            <tr>
-                                <td>Product ID</td>
-                                <td>Product Image</td>
-                                <td>Apple Watch</td>
-                                <td>$1200</td>
-                                <td>Paid</td>
-                                <td><span class="status return">Return</span></td>
-                            </tr>
+                        @endphp
 
-                            <tr>
-                                <td>Addidas Shoes</td>
-                                <td>$620</td>
-                                <td>Due</td>
-                                <td><span class="status inProgress">In Progress</span></td>
-                            </tr>
-                        </tbody>
+                        <img src="{{ asset($finalPath) }}" alt="{{ $item->product->name }}" width="100">
+            </td>
+            <td>{{ $item->product->name ?? 'N/A' }}</td>
+            <td>₱{{ number_format($item->price, 2) }}</td>
+            <td>{{ $item->order->payment_method ?? 'N/A' }}</td>
+            <td>
+                <span class="status {{ strtolower($item->order->status ?? 'pending') }}">
+                    {{ ucfirst($item->order->status ?? 'Pending') }}
+                </span>
+            </td>
+        </tr>
+    @endforeach
+</tbody>
+
                     </table>
                 </div>
 

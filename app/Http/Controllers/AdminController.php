@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User; // Make sure to include the User model
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Order;
@@ -17,18 +17,35 @@ class AdminController extends Controller
         $nonAdminUserCount = User::where('is_admin', 0)->count();
 
         $orderCount = Order::count();
-
         $earnings = Order::sum('total_amount');
-
         $totalSales = OrderItem::sum('quantity');
 
-        // Pass the count to the view
-        return view('AdminDashboard', compact('nonAdminUserCount','orderCount','earnings','totalSales'));
+        // Fetch recent orders with product and order data
+        $recentOrders = OrderItem::with(['order', 'product'])
+            ->latest()
+            ->take(8)
+            ->get();
+
+        // Fetch recent customers (excluding admins)
+        $recentCustomers = User::where('is_admin', 0)
+            ->latest()
+            ->take(8)
+            ->get();
+
+        // Pass all variables to the view
+        return view('AdminDashboard', compact(
+            'nonAdminUserCount',
+            'orderCount',
+            'earnings',
+            'totalSales',
+            'recentOrders',
+            'recentCustomers'
+        ));
     }
+
     public function products()
     {
         $products = Product::all(); // You may apply pagination or filters if needed
         return view('AdminProducts', compact('products'));
     }
 }
-

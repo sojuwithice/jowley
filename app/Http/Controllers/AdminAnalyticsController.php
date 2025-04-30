@@ -15,7 +15,7 @@ class AdminAnalyticsController extends Controller
         ->groupBy('product_id')
         ->orderByDesc('total_quantity')
         ->with('product')
-        ->take(10) // top 10
+        ->take(10) 
         ->get();
 
         return view('AdminAnalytics', compact('topProducts'));
