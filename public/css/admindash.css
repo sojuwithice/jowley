@@ -344,7 +344,7 @@ body {
   font-size: 14px;
   font-weight: 500;
 }
-.status.pending {
+.status.to-pay {
   padding: 2px 4px;
   background: #ffaf02;
   color: var(--white);
@@ -352,7 +352,7 @@ body {
   font-size: 14px;
   font-weight: 500;
 }
-.status.return {
+.status.cancelled {
   padding: 2px 4px;
   background: rgb(223, 85, 6);
   color: var(--white);
@@ -360,7 +360,7 @@ body {
   font-size: 14px;
   font-weight: 500;
 }
-.status.inProgress {
+.status.delivered {
   padding: 2px 4px;
   background: #0089c9;
   color: var(--white);

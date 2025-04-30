@@ -18,11 +18,16 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         $user = Auth::user();
-        $cartItems = Cart::where('user_id', $user->id)->get();
+        $selectedItemIds = $request->input('selected_items', []);
+    $cartItems = Cart::with('product')
+        ->where('user_id', $user->id)
+        ->whereIn('id', $selectedItemIds)
+        ->get();
 
         if ($cartItems->isEmpty()) {
-            return redirect()->back()->with('error', 'Your cart is empty.');
+            return redirect()->back()->with('error', 'No items selected for checkout.');
         }
+
 
         // Find default address
         $address = $user->addresses()->where('is_default', 1)->first();
@@ -56,7 +61,7 @@ class OrderController extends Controller
         }
 
         // Clear user's cart
-        Cart::where('user_id', $user->id)->delete();
+        Cart::whereIn('id', $selectedItemIds)->delete();
 
         return redirect()->route('purchasepage')->with('success', 'Order placed successfully!');
     }

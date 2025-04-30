@@ -17,6 +17,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\AdminProductController;
 use App\Http\Controllers\AdminAnalyticsController;
+use App\Http\Controllers\PaymentController;
 
 
 // STARTING PAGE & HOMEPAGE
@@ -67,9 +68,6 @@ Route::post('/LoginSignUp', [LoginController::class, 'login'])->name('login.subm
 
 
 
-Route::get('/butterfly-bouquet', function () {
-    return view('butterflybouquet');
-})->name('butterflybouquet');
 Route::get('/checkout', function () {
     return view('checkout');
 })->name('checkout');
@@ -174,3 +172,4 @@ Route::get('/users', [UserController::class, 'index'])->name('users');
 
 Route::get('/analytics', [AdminAnalyticsController::class, 'index'])->name('analytics');
 
+Route::get('/payment/gcash/{order}', [PaymentController::class, 'showGCashPayment'])->name('payment.gcash');

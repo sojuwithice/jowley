@@ -698,3 +698,96 @@ h3 {
     background-color: #ec32b5; /* or any color you prefer */
     color: white;
 }
+
+.gcash-modal .modal-content {
+    border-radius: 15px;
+    overflow: hidden;
+}
+.gcash-modal .modal-header {
+    background-color: #0033A0;
+    color: white;
+    border-bottom: none;
+    padding: 1.5rem;
+}
+.gcash-modal .modal-title {
+    font-weight: 600;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+}
+.gcash-modal .modal-title img {
+    height: 40px;
+    margin-right: 10px;
+}
+.gcash-modal .modal-body {
+    padding: 2rem;
+}
+.gcash-brand {
+    color: #0033A0;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.amount-display {
+    background-color: #f0f8ff;
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+.amount-label {
+    font-size: 1rem;
+    color: #6c757d;
+}
+.amount-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #0033A0;
+}
+.btn-gcash {
+    background-color: #0033A0;
+    color: white;
+    font-weight: 600;
+    padding: 12px 30px;
+    border-radius: 50px;
+    border: none;
+    width: 100%;
+    transition: all 0.3s;
+}
+.btn-gcash:hover {
+    background-color: #00257a;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.order-info {
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+.payment-instructions {
+    margin-top: 2rem;
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    font-size: 0.9rem;
+}
+.product-item-gcash {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+}
+.product-item-gcash img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-right: 1rem;
+}
+.product-info-gcash {
+    flex-grow: 1;
+}

@@ -48,7 +48,7 @@
   <div class="header-container">
   
     <div class="purchase-section">
-      <div class="back-arrow"><i class="onclick="window.history.back();"></i></div>
+      <div class="back-arrow"><i class="onclick= "window.history.back();"></i></div>
       <h2>My Purchases</h2>
     </div>
 
@@ -107,7 +107,7 @@
     <!-- order cards -->
     <section class="order-wrapper">
     @foreach($orders as $order)
-    <div class="order-box">
+    <div class="order-box"  data-order-id="{{ $order->id }}">
         <div class="order-status">
             <span class="status-info">{{ $order->status }}</span>
             <span class="to-pay">| To Pay</span>
@@ -147,8 +147,13 @@
             </div>
 
             <div class="order-subinfo">
-                <span>Order Received on {{ $order->created_at->format('m/d/Y') }}</span>
-                <span>Item(s): {{ $order->orderItems->count() }}</span>
+                <span>Order Placed on {{ $order->created_at->format('m/d/Y') }}</span>
+                <span>Item(s): 
+    @php
+        $totalQuantity = $order->orderItems->sum('quantity');
+    @endphp
+    {{ $totalQuantity }}
+</span>
             </div>
 
             <div class="order-footer">
@@ -156,8 +161,10 @@
                 <span>Order Total: <span class="price">₱{{ number_format($order->total_amount, 2) }}</span></span>
                 </div>
                 <div class="footer-right">
-                    <button class="buy-again">Buy Again</button>
-                    <button class="view-rating">View Shop Rating</button>
+                <form action="{{ route('cancelOrder', $order->id) }}" method="POST">
+                    @csrf
+                    <button type="submit" class="buy-again">Cancel Order</button>
+                </form>
                 </div>
             </div>
         </div>
@@ -332,11 +339,68 @@
   });
   document.querySelector('.tab[data-status="to-pay"]').click();
 
+document.querySelectorAll('.buy-again').forEach(button => {
+  button.addEventListener('click', function(e) {
+    e.preventDefault();
+    const orderBox = this.closest('.order-box');
+    const orderId = orderBox.dataset.orderId; // Ensure each order box has the correct order ID
+
+    // Use AJAX to handle cancel order action
+    fetch(`/cancel-order/${orderId}`, {
+      method: 'POST',
+      headers: {
+        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+      },
+    })
+    .then(response => {
+      if (response.ok) {
+        // Update the UI to move the order to "Cancelled" tab
+        orderBox.setAttribute('data-status', 'cancelled'); // Change the status to "cancelled"
+        orderBox.querySelector('.status-info').textContent = "Cancelled"; // Optionally update the status text
+
+        // Hide the order in the current tab (to-pay)
+        orderBox.style.display = 'none';
+
+        // Now show the order in the "Cancelled" tab
+        const cancelledTab = document.querySelector('.tab[data-status="cancelled"]');
+        if (cancelledTab) {
+          cancelledTab.click(); // Switch to the "Cancelled" tab
+          
+          // Manually check and display the order under "Cancelled" tab
+          const cancelledOrders = document.querySelectorAll('.order-box[data-status="cancelled"]');
+          cancelledOrders.forEach(order => {
+            order.style.display = 'block'; // Show the cancelled order under the cancelled tab
+          });
+        }
+      } else {
+        alert("Failed to cancel order.");
+      }
+    })
+    .catch(error => console.error("Error cancelling order:", error));
+  });
+});
+
+
+document.getElementById('profileMenuTrigger').addEventListener('click', function (event) {
+        event.preventDefault();
+        const profileMenu = document.getElementById('profileMenu');
+        profileMenu.style.display = (profileMenu.style.display === 'block') ? 'none' : 'block';
+    });
+
+    window.addEventListener('click', function (event) {
+        const profileMenu = document.getElementById('profileMenu');
+        if (!event.target.closest('#profileMenuTrigger') && !event.target.closest('#profileMenu')) {
+            profileMenu.style.display = 'none';
+        }
+    });
+    document.getElementById('notificationButton').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('notificationModal').style.display = 'block';
+        });
 
 
 
-
-
+        
 </script>
 
 </body>

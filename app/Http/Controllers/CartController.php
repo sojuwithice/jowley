@@ -83,18 +83,17 @@ class CartController extends Controller
 
     // Method to view the cart
     public function viewCart()
-    {
-        // Get cart items for the logged-in user with product details
-        $cartItems = Cart::with('product')->where('user_id', Auth::id())->get();
+{
+    $cartItems = Cart::with('product')->where('user_id', Auth::id())->get();
+    $cartTotal = $cartItems->sum(function ($item) {
+        return $item->price * $item->quantity;
+    });
 
-        // Calculate the total price of the items in the cart
-        $cartTotal = $cartItems->sum(function ($item) {
-            return $item->price * $item->quantity;  // Calculate total based on the stored price and quantity
-        });
+    // Get the selected item ID from session if it exists
+    $selectedItemId = session('selected_item');
 
-        // Return the cart view with cart items and total
-        return view('cart', compact('cartItems', 'cartTotal'));
-    }
+    return view('cart', compact('cartItems', 'cartTotal', 'selectedItemId'));
+}
 
     // Method to update the quantity of an item in the cart
     public function updateCart(Request $request, $productId)
@@ -158,6 +157,42 @@ class CartController extends Controller
 
     return view('checkout', compact('cartItems'));
 }
+public function directCheckout(Request $request)
+{
+    if (!Auth::check()) {
+        return redirect()->route('LoginSignUp')->with('error', 'Please login to proceed with checkout.');
+    }
 
+    $request->validate([
+        'product_id' => 'required|exists:products,id',
+        'quantity' => 'required|integer|min:1',
+        'color' => 'nullable|string'
+    ]);
+
+    $product = Product::findOrFail($request->product_id);
+
+    // Check stock
+    if ($request->quantity > $product->stock) {
+        return back()->with('error', 'Not enough stock available.');
+    }
+
+    // Add item to cart (or update if exists)
+    $cartItem = Cart::updateOrCreate(
+        [
+            'user_id' => Auth::id(),
+            'product_id' => $request->product_id,
+            'color' => $request->color
+        ],
+        [
+            'quantity' => $request->quantity,
+            'price' => $product->price,
+            'product_name' => $product->name,
+            'image' => $product->images ? json_decode($product->images)[0] : null
+        ]
+    );
+
+    // Redirect to cart with the item pre-selected
+    return redirect()->route('cart')->with('selected_item', $cartItem->id);
+}
     
 }
