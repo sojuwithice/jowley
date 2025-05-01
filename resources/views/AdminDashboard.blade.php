@@ -117,7 +117,7 @@
                     </div>
                 </div>
 
-                <!-- Replaced Comments with Orders -->
+                <a href="{{ route('orders.orders') }}">
     <div class="card">
         <div>
             <div class="numbers">{{ $orderCount }}</div>
@@ -127,6 +127,7 @@
             <ion-icon name="receipt-outline"></ion-icon>
         </div>
     </div>
+</a>
                 <div class="card">
                     <div>
                         <div class="numbers">₱{{ number_format($earnings, 2) }}</div>

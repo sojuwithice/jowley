@@ -172,4 +172,9 @@ Route::get('/users', [UserController::class, 'index'])->name('users');
 
 Route::get('/analytics', [AdminAnalyticsController::class, 'index'])->name('analytics');
 
-Route::get('/payment/gcash/{order}', [PaymentController::class, 'showGCashPayment'])->name('payment.gcash');
+Route::post('/orders/{order}/update-status', [OrderController::class, 'updateStatus'])
+    ->name('orders.update-status');
+    Route::get('/orders/orders', function() {
+        $orders = \App\Models\Order::with(['user', 'orderItems.product'])->latest()->get();
+        return view('orders.orders', compact('orders'));
+    })->name('orders.orders');

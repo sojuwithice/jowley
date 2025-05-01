@@ -65,5 +65,12 @@ class OrderController extends Controller
 
         return redirect()->route('purchasepage')->with('success', 'Order placed successfully!');
     }
-    
+    public function updateStatus(Request $request, $orderId)
+{
+    $order = Order::findOrFail($orderId);
+    $order->status = $request->status;
+    $order->save();
+
+    return response()->json(['success' => true]);
+}
 }
