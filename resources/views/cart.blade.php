@@ -45,13 +45,7 @@
 @endif
 
 
-<div id="profileMenu" class="profile-menu">
-    <ul>
-        <li><a href="{{ route('usersprofile') }}">My Profile</a></li>
-        <li><a href="#">My Purchases</a></li>
-        <li><a href="{{ route('startingpage') }}">Logout</a></li>
-    </ul>
-</div>
+
 
     </div>
 </div>
@@ -105,10 +99,11 @@
                 @foreach($cartItems as $item) 
                 <tr class="cart-item" data-id="{{ $item->product->id }}">
 
-
                     <td class="product-info">
-                        <input type="checkbox" class="item-checkbox">
-
+                    <input type="checkbox" class="item-checkbox" 
+               name="selected_items[]" 
+               value="{{ $item->id }}"
+               @if(session('selected_item') == $item->id || old('selected_items.'.$loop->index) == $item->id) checked @endif>
                         @php
                             $defaultImage = 'default.jpg';
                             $rawImages = $item->product->images;
@@ -125,8 +120,7 @@
 
                         <img src="{{ asset($finalPath) }}" alt="{{ $item->product->name }}" width="100">
 
-
-                    <di class="product-details">
+                    <div class="product-details">
                             <p class="nameproduct">{{ $item->product->name }}</p>
                             <p class="product-description">{{ $item->product->description }}</p>
                             <div class="product-colors">
@@ -169,16 +163,12 @@
 
             <!-- Form to Redirect to Checkout -->
             <form id="checkout-form" action="{{ route('checkout') }}" method="POST">
-    @csrf
-    <input type="hidden" name="selected_items" id="selected-items">
-    <button type="submit" class="checkout-btn">Checkout</button>
-</form>
-
+                @csrf
+                <input type="hidden" name="selected_items" id="selected-items">
+                <button type="submit" class="checkout-btn">Checkout</button>
+            </form>
         </div>
     </div>
-
- 
-
 </section>
 
 
@@ -212,8 +202,8 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // === Cart Item Quantity Update ===
-    document.querySelectorAll(".cart-item").forEach((item) => {
+  // === Cart Item Quantity Update ===
+  document.querySelectorAll(".cart-item").forEach((item) => {
         const minusBtn = item.querySelector(".minus-btn");
         const plusBtn = item.querySelector(".plus-btn");
         const quantityInput = item.querySelector(".quantity-input");
@@ -330,34 +320,30 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-document.addEventListener("DOMContentLoaded", function () {
-    const checkoutForm = document.getElementById('checkout-form');
-    const selectedItemsInput = document.getElementById('selected-items');
+document.getElementById("checkout-form").addEventListener("submit", function(event) {
+    event.preventDefault(); // Prevent default form submission
 
-    checkoutForm.addEventListener('submit', function (e) {
-        e.preventDefault();
-
-        const selected = [];
-        document.querySelectorAll('.cart-item').forEach(row => {
-            const checkbox = row.querySelector('.item-checkbox');
-            if (checkbox && checkbox.checked) {
-                const productId = row.dataset.id;
-                const quantity = row.querySelector('.quantity-input').value;
-                const colorSelect = row.querySelector('.colors-select');
-                const color = colorSelect ? colorSelect.value : null;
-
-                selected.push({ product_id: productId, quantity, color });
-            }
-        });
-
-        if (selected.length === 0) {
-            alert("Please select at least one item to checkout.");
-            return;
+    const selectedIds = [];
+    document.querySelectorAll(".cart-item").forEach((itemRow) => {
+        const checkbox = itemRow.querySelector(".item-checkbox");
+        if (checkbox && checkbox.checked) {
+            const productId = itemRow.getAttribute("data-id");
+            const quantity = itemRow.querySelector(".quantity-input").value;
+            selectedIds.push({ product_id: productId, quantity: quantity });
         }
-
-        selectedItemsInput.value = JSON.stringify(selected);
-        checkoutForm.submit();
     });
+
+    // If no items selected, prevent submission
+    if (selectedIds.length === 0) {
+        alert("Please select at least one item to checkout.");
+        return;
+    }
+
+    // Send selected items to hidden input
+    document.getElementById("selected-items").value = JSON.stringify(selectedIds);
+
+    // Now submit the form
+    this.submit();
 });
 </script>
 

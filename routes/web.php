@@ -15,6 +15,9 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\AdminProductController;
+use App\Http\Controllers\AdminAnalyticsController;
+use App\Http\Controllers\PaymentController;
 
 
 // STARTING PAGE & HOMEPAGE
@@ -65,9 +68,6 @@ Route::post('/LoginSignUp', [LoginController::class, 'login'])->name('login.subm
 
 
 
-Route::get('/butterfly-bouquet', function () {
-    return view('butterflybouquet');
-})->name('butterflybouquet');
 Route::get('/checkout', function () {
     return view('checkout');
 })->name('checkout');
@@ -152,16 +152,36 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/addresses', [AddressController::class, 'store'])->name('addresses.store');
 });
 Route::post('/update-password', [UserController::class, 'updatePassword'])->name('password.update');
+Route::get('/admin/products', [AdminController::class, 'products'])->name('admin.products');
+
 
 Route::resource('products', ProductController::class);
-Route::get('/admin/products', [ProductController::class, 'showAdminProducts'])->name('admin.products');
 Route::put('/products/{id}', [ProductController::class, 'update'])->name('products.update');
 
 Route::post('/place-order', [OrderController::class, 'store'])->name('placeOrder');
 Route::get('/purchases', [PurchaseController::class, 'showPurchases'])->name('purchasepage');
 
+Route::post('/cancel-order/{order}', [OrderController::class, 'cancelOrder'])->name('cancelOrder');
+// Show the Add Product Form
+Route::get('/add-product', [AdminProductController::class, 'create'])->name('products.addProduct');
+
 
 Route::post('/cancel-order', [OrderController::class, 'cancelOrder'])->name('orders.cancel');
 
 //Route::post('/orders/{order}/cancel', [OrderController::class, 'cancel']);
+
+
+// Store the new product
+Route::post('/add-product', [AdminProductController::class, 'store'])->name('products.storeProduct');
+Route::get('/users', [UserController::class, 'index'])->name('users');
+
+
+Route::get('/analytics', [AdminAnalyticsController::class, 'index'])->name('analytics');
+
+Route::post('/orders/{order}/update-status', [OrderController::class, 'updateStatus'])
+    ->name('orders.update-status');
+    Route::get('/orders/orders', function() {
+        $orders = \App\Models\Order::with(['user', 'orderItems.product'])->latest()->get();
+        return view('orders.orders', compact('orders'));
+    })->name('orders.orders');
 

@@ -68,7 +68,7 @@
     <nav class="navbar">
         <a href="#home">Home</a>
         <a href="#products">Products</a>
-        <a href="#contactus">Contact Us</a>
+      <a href="#faqs">FAQs</a>
     </nav>
 
     <div class="header-right"> 
@@ -366,11 +366,12 @@ colorCircles.forEach(circle => {
             image.name = 'image';
             image.value = document.querySelector('input[name="image"]').value;
             tempForm.appendChild(image);
-            
-            // Append form to body and submit
-            document.body.appendChild(tempForm);
-            tempForm.submit();
-        });
+            const form = document.getElementById('productForm');
+        form.action = "{{ route('checkout.direct') }}";
+        form.submit();
+    });
+
+     
     }
 });
 

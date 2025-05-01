@@ -57,7 +57,7 @@ $accountCreationDate = isset($_SESSION["created_at"]) ? $_SESSION["created_at"] 
 <header>
  <a href="#" class="logo">Jowley's Crafts</a>
    <nav class="navbar">
-     <a href="#home">Home</a>
+     <a href="{{ route('homepage') }}">Home</a>
      <a href="#products">Products</a>
      <a href="#faqs">FAQs</a>
    </nav>

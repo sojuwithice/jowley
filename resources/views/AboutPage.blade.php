@@ -1,182 +1,153 @@
-<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jowley's Crafts</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Oleo+Script+Swash+Caps&display=swap');
-        
-    body { 
-        font-family: 'Gabarito', sans-serif; 
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   Jowley’s Crafts
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&amp;family=Gotu&amp;family=Oleo+Script+Swash+Caps:wght@400;700&amp;display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&amp;family=Oleo+Script+Swash+Caps&amp;display=swap" rel="stylesheet">
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+   <style>
+    body {
+      font-family: "Playfair Display", serif;
+    }
+    p {
+      font-family: "Gabarito", serif;
+    }
+    .fade-in {
+      animation: fadeIn 0.5s ease forwards;
+    }
+    .fade-out {
+      animation: fadeOut 0.5s ease forwards;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+    @keyframes fadeOut {
+      from {opacity: 1;}
+      to {opacity: 0;}
+    }
+  </style>
+ </link>
+ </head>
+ <body class="bg-gradient-to-b from-pink-50 to-white min-h-screen">
+ <header class="flex items-center justify-between px-6 py-3 border-b-2 border-pink-600 bg-white">
+  <div class="flex items-center space-x-4">
+    <h1 class="text-pink-600 text-xl font-normal" style="font-family: 'Oleo Script Swash Caps', cursive;">
+      Jowley's Craft
+    </h1>
+    <p class="text-black-600 text-m font-normal">
+      About Us
+    </p>
+  </div>
+    <nav class="flex items-center space-x-6 text-sm text-black" style="font-family: 'gabarito';">
+      <div class="flex items-center space-x-2">
+        <i class="fas fa-bell text-pink-600"></i>
+        <span>Notification</span>
+      </div>
+      <div class="flex items-center space-x-2">
+        <i class="fas fa-user text-pink-600"></i>
+        <span>Shizuku</span>
+      </div>
+    </nav>
+  </header>
+  <div class="max-w-4xl mx-auto p-6">
+   <h1 class="text-center text-6xl mb-4 mt-8" style="color: #E32C89; font-family: 'Oleo Script Swash Caps', cursive;">
+    About Jowley’s Crafts
+   </h1>
+   <p class="text-center text-sm max-w-3xl mx-auto mb-8 px-4 leading-tight mt-9">
+    Jowley’s Crafts began with a humble stall and the power of social media to
+      showcase our one-of-a-kind crochet products and DIY kits. What started as
+      a small passion project has grown into a thriving business, thanks to the
+      support of our growing community of craft lovers. Our social media
+      platforms, including Facebook and TikTok, have allowed us to reach a wider
+      audience and share the love behind every handmade creation.
+   </p>
+   <div class="flex justify-center gap-6 mb-8 px-4" id="image">
+    <img alt="tulip bouquet" class="w-40 h-52 object-cover rounded-lg fade fade-in" src="image/3tulip.jpg"/>
+    <img alt="daisy bracelet" class="w-40 h-52 object-cover rounded-lg fade fade-in" src="image/daisy-bracelet.jpg"/>
+    <img alt="fuzzy flower" class="w-40 h-52 object-cover rounded-lg fade fade-in" src="image/fuzzy-flower.jpg"/>
+   </div>
+  </div>
+  <div class="bg-pink-100 py-8">
+   <div class="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-6 px-6">
+    <img alt="Crochet flower" class="rounded-lg flex-shrink-0 w-48 h-64 object-cover" src="image/110.jpg"/>
+    <p class="text-sm max-w-xl leading-relaxed">
+     We specialize in crafting personalized crochet items and providing DIY
+        kits for those who want to create something special with their own
+        hands. Each product is made with love, attention to detail, and a
+        commitment to quality. Whether you’re searching for a unique gift or
+        something to brighten up your space, our carefully curated products are
+        designed to meet your needs.
+    </p>
+   </div>
+  </div>
+  <div class="max-w-4xl mx-auto p-6">
+   <h1 class="text-center md:text-left text-4xl mb-4 mt-8" style="color: #E32C89; font-family: 'Oleo Script Swash Caps', cursive;">
+    From Passion to Purpose: The Birth of Jowley’s Crafts
+   </h1>
+   <div class="flex flex-col md:flex-row items-center md:items-start gap-6 px-4">
+    <p class="text-sm max-w-full md:max-w-xl leading-tight text-center md:text-left mt-5">
+     The story of Jowley’s Crafts began with the creativity and determination of its founder,
+        Julie Ann Bitancur. A naturally talented and hardworking individual, 
+        Julie discovered her love for arts at an early age through drawing and crafting. 
+        What started as a simple hobby turned into commissioned artworks, and eventually, 
+        a dream to build something more. In 2023, she took a bold step by showcasing her handmade creations at a small stall
+         — a turning point that marked the beginning of her journey as a craft entrepreneur. 
+        With her skillful hands and unwavering passion, she began producing a variety of crochet pieces, including floral bouquets, clothing, earrings, and personalized accessories. Each item carries a part of her story and is crafted with care, creativity,
+        and love. From humble beginnings, Julie transformed her passion into a thriving brand that now connects with a growing community of handmade art lovers.
+    </p>
+    <img alt="logo" class="rounded-lg w-60 h-60 object-cover border-4 border-[#E32C89]" src="image/logo-ni-lowley.jpg"/>
+   </div>
+  </div>
+  <script>
+   const images = [
+      { src: "image/3tulip.jpg", alt: "tulip bouquet" },
+      { src: "image/daisy-bracelet.jpg", alt: "daisy bracelet" },
+      { src: "image/fuzzy-flower.jpg", alt: "fuzzy flower" },
+      { src: "image/lily-keychain.jpg", alt: "lily keychain" },
+      { src: "image/mini-flower2.jpg", alt: "mini flower 2" },
+      { src: "image/single-tulip.jpg", alt: "single tulip" },
+      { src: "image/sunflower.jpg", alt: "sunflower" },
+      { src: "image/baby-mushroom.jpg", alt: "baby mushroom" }
+    ];
+
+    function shuffle(array) {
+      let currentIndex = array.length, randomIndex;
+      while (currentIndex !== 0) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+        [array[currentIndex], array[randomIndex]] = [
+          array[randomIndex], array[currentIndex]
+        ];
+      }
+      return array;
     }
 
-    .hero { 
-        font-family: 'Gotu', sans-serif; 
-        background: linear-gradient(to bottom, #fdecef, white); 
-        padding: 60px 20px; 
-        text-align: center; 
+    function shuffleAlbum() {
+      const albumDiv = document.getElementById("image");
+      const imgElements = albumDiv.querySelectorAll("img");
+      const shuffled = shuffle([...images]).slice(0, imgElements.length);
+
+      imgElements.forEach((img, index) => {
+        img.classList.remove("fade-in");
+        img.classList.add("fade-out");
+
+        setTimeout(() => {
+          img.src = shuffled[index].src;
+          img.alt = shuffled[index].alt;
+          img.classList.remove("fade-out");
+          img.classList.add("fade-in");
+        }, 500);
+      });
     }
 
-    .product-img { 
-        width: 100%; 
-        height: auto; 
-        border-radius: 10px; 
-    }
-    
-    .section-title { 
-        text-align: center; 
-        margin-top: 40px; 
-    }
-    
-    .about-text { 
-        max-width: 800px; 
-        margin: 0 auto; 
-        text-align: center; 
-    }
-    
-    .top-header { 
-        display: flex; 
-        justify-content: space-between; 
-        padding: 10px 20px; 
-        background-color: #f8f9fa;
-    }
-    .top-header .logo { 
-        font-family: 'Oleo Script Swash Caps', cursive; 
-        font-size: 32px; 
-        color: #E32C89; 
-    }
-    .top-header .right a { 
-        margin-left: 15px; 
-        font-weight: 500; 
-    }
-    
-    .navbar { 
-        padding: 15px 30px; 
-        background: white; 
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); 
-    }
-    .navbar a { 
-        margin: 0 15px; 
-        font-weight: 500; 
-    }
-    
-    .header-right { 
-        display: flex; 
-        align-items: center; 
-        justify-content: flex-end; 
-    }
-    
-    .search-bar { 
-        display: flex; 
-    }
-    
-    .search-bar input { 
-        border-radius: 20px; 
-        border: 1px solid #ddd; 
-        padding: 8px 15px; 
-    }
-    .icons { 
-        margin-left: 15px;
-    }
-    
-    .icon { 
-        font-size: 1.3rem; 
-        cursor: pointer; 
-    }
-     
-    .highlight-section {
-        font-family: 'Gabarito'; 
-        background: #fdecef; 
-        padding: 40px 0; 
-    }
-    
-    .bottom { 
-        font-family: 'Gabarito'; 
-        background: white ; 
-        padding: 60px 20px; 
-        text-align: center; 
-    }
-    
-    </style>
-</head>
-<body>
-    <!-- Top Header -->
-    <div class="top-header">
-        <div class="left">
-            <a href="#" class="logo">Jowley's Craft</a>
-        </div>
-
-        <div class="right">
-            <a href="#" class="notification">
-                <i class="fas fa-bell"></i> Notification
-            </a>
-            <a href="#" class="user-profile">
-                <i class="fas fa-user"></i> AkosiMJ#01
-            </a>
-        </div>
-    </div>
-
-    <!-- Header Section -->
-    <header>
-        <nav class="navbar">
-            <a href="#home">Home</a>
-            <a href="#products">Products</a>
-            <a href="#contactus">FAQs</a>
-        </nav>
-
-        <div class="header-right">
-            <div class="search-bar">
-                <input type="text" placeholder="Search...">
-                <button><i class="fas fa-search"></i></button>
-            </div>
-            <div class="icons">
-                <a href="#" class="fas fa-shopping-cart cart-icon-link">
-                    <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
-                </a>
-            </div>
-        </div>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <h1>Jowley’s Crafts</h1>
-        <p>Jowley's Crafts began with a humble stall and the power of social media to showcase our one-of-a-kind crochet products and DIY kits. What started as a small passion project has grown into a thriving business, thanks to the support of our growing community of craft lovers. Our social media platforms, including Facebook and TikTok, have allowed us to reach a wider audience and share the love behind every handmade creation.</p>
-    </section>
-
-    <div class="container mt-5">
-        <div class="row text-center">
-            <div class="col-md-4">
-                <img src="product1.jpg" alt="Product 1" class="product-img">
-            </div>
-            <div class="col-md-4">
-                <img src="product2.jpg" alt="Product 2" class="product-img">
-            </div>
-            <div class="col-md-4">
-                <img src="product3.jpg" alt="Product 3" class="product-img">
-            </div>
-        </div>
-    </div>
-    
-    <section class="highlight-section text-center mt-5">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-6">
-                    <img src="highlight.jpg" alt="Feature" class="product-img">
-                </div>
-                <div class="col-md-6 text-start">
-                    <p>We specialize in crafting personalized crochet items and providing DIY kits for those who want to create something special with their own hands...</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <section class="bottom">
-                    <p>Our DIY kits come with everything you need to get started, offering a fun and creative way to engage with the craft. With a focus on personalization, we give you the opportunity to create something that reflects your own style. At Jowley's Crafts, we believe every piece tells a story—your story!</p>
-    </section>
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+    shuffleAlbum();
+    setInterval(shuffleAlbum, 3000);
+  </script>
+ </body>
 </html>

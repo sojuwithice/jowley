@@ -154,7 +154,6 @@
             <hr>
             <div>
                 <p>Merchandise Subtotal: <span class="float-end">₱{{ number_format($subtotal, 2) }}</span></p>
-                <p>Shipping Subtotal: <span class="float-end">₱0.00</span></p>
                 <p class="fw-bold">Total Payment: <span class="float-end">₱{{ number_format($totalPrice, 2) }}</span></p>
             </div>
         </div>
@@ -164,7 +163,12 @@
     @csrf
 
     <input type="hidden" name="payment_method" id="paymentMethodInput">
-
+    <input type="hidden" name="total_amount" value="{{ $totalPrice }}">
+    
+    @foreach($cartItems as $item)
+        <input type="hidden" name="selected_items[]" value="{{ $item->id }}">
+    @endforeach
+    
     <div class="d-flex justify-content-end mt-3">
         <button type="submit" class="btn btn-pink">Place Order</button>
     </div>
@@ -187,6 +191,62 @@
             </div>
         </div>
 
+    </div>
+<!-- Receipt Confirmation Modal for GCash -->
+<div class="modal fade gcash-modal" id="gcashReceiptModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <img src="/image/gcash.png" alt="GCash Logo">
+                        Complete Your Payment
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                   
+                    <div class="order-info">
+                        <h5 class="mb-3">Order Summary</h5>
+                        <div class="d-flex justify-content-between">
+                            <span>Date:</span>
+                            <strong>{{ now()->format('M d, Y h:i A') }}</strong>
+                        </div>
+                    </div>
+                    
+                    <h6>Products:</h6>
+                    @foreach($cartItems as $item)
+                    <div class="product-item-gcash">
+                        @php
+                            $defaultImage = 'default.jpg';
+                            $rawImages = $item->product->images;
+                            $images = is_string($rawImages) ? json_decode($rawImages, true) : $rawImages;
+                            $imageFilename = $images[0] ?? $defaultImage;
+                            $imageFilename = str_replace('\\', '/', $imageFilename);
+                            $finalPath = \Illuminate\Support\Str::startsWith($imageFilename, 'image/') ? $imageFilename : 'image/' . $imageFilename;
+                        @endphp
+                        <img src="{{ asset($finalPath) }}" alt="{{ $item->product->name }}">
+                        <div class="product-info-gcash">
+                            <strong>{{ $item->product->name }}</strong>
+                            <div class="d-flex justify-content-between">
+                                <small>x{{ $item->quantity }}</small>
+                                <span>₱{{ number_format($item->product->price) }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                    
+                    <div class="amount-display mt-3">
+                        <div class="amount-label">Total Amount to Pay</div>
+                        <div class="amount-value">₱{{ number_format($totalPrice, 2) }}</div>
+                    </div>
+                  
+                  
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-pink" id="confirmGcashPayment">Confirm Payment</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -221,13 +281,18 @@
     });
     document.addEventListener("DOMContentLoaded", function () {
     const paymentButtons = document.querySelectorAll('.payment-method');
+    const form = document.getElementById('placeOrderForm');
+    const paymentMethodInput = document.getElementById('paymentMethodInput');
+    const totalAmountInput = document.getElementById('totalAmountInput');
     let selectedPaymentMethod = null;
 
+    // Select Payment Method
     paymentButtons.forEach(button => {
         button.addEventListener('click', function () {
             paymentButtons.forEach(btn => btn.classList.remove('active'));
             this.classList.add('active');
             selectedPaymentMethod = this.id;
+
         });
     });
 
@@ -239,9 +304,26 @@
             modal.show();
         } else {
             document.getElementById('paymentMethodInput').value = selectedPaymentMethod;
+            paymentMethodInput.value = this.id === 'gcash-method' ? 'GCash' : 'Cash on Delivery';
+        });
+    });
+
+    // Handle Form Submit
+    form.addEventListener('submit', function (e) {
+        if (!selectedPaymentMethod) {
+            e.preventDefault();
+            new bootstrap.Modal(document.getElementById('paymentMethodModal')).show();
+        } else if (selectedPaymentMethod === 'gcash-method') {
+            e.preventDefault();
+            new bootstrap.Modal(document.getElementById('gcashReceiptModal')).show();
         }
     });
-});
+
+    // Handle Confirm GCash Payment
+    document.getElementById('confirmGcashPayment').addEventListener('click', function () {
+        form.submit(); // Now safely submit the form
+    });
+
 
     </script>
 </body>

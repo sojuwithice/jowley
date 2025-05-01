@@ -9,6 +9,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/purchasepage.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
 </head>
 <body>
 <div class="top-header scroll-fade">
@@ -62,6 +64,7 @@
     </div>
 </header>
 
+
 <!-- order status -->
 <div class="order-status-tabs">
     <div class="tab active" data-status="all">
@@ -88,45 +91,22 @@
             <span>To Receive</span>
         </div>
     </div>
-    <div class="tab" data-status="cancelled">
-        <div class="circle-tab">
-            <div class="icon"><i class="fas fa-box-open"></i></div>
-            <span>Cancelled</span>
-        </div>
+  </div>
+  <div class="tab" data-status="cancelled">
+    <div class="circle-tab">
+      <div class="icon"><i class="fas fa-box-open"></i></div>
+      <span>Cancelled</span>
     </div>
 </div>
 
 <!-- order cards -->
 <section class="order-wrapper">
     @foreach($orders as $order)
-    @php
-        // Convert status to match our tab system
-        $status = strtolower(str_replace(' ', '-', $order->status));
-        if ($status == 'to-pay') {
-            $status = 'to-pay';
-        } elseif ($status == 'to-ship') {
-            $status = 'to-ship';
-        } elseif ($status == 'to-receive') {
-            $status = 'to-receive';
-        } elseif ($status == 'completed') {
-            $status = 'completed';
-        } elseif ($status == 'cancelled') {
-            $status = 'cancelled';
-        } else {
-            $status = 'to-pay'; // default
-        }
-    @endphp
-    
-    <div class="order-box" data-status="{{ $status }}" data-order-id="{{ $order->id }}">
+    <div class="order-box" data-order-id="{{ $order->id }}" data-status="{{ str_replace(' ', '-', $order->status) }}">
         <div class="order-status">
-            <span class="status-info">{{ $order->status }}</span>
-            @if($order->status !== 'Cancelled')
-            <span class="status-detail">
-                @if($status == 'to-pay') | To Pay
-                @elseif($status == 'to-ship') | To Ship
-                @elseif($status == 'to-receive') | To Receive
-                @endif
-            </span>
+            <span class="status-info">{{ ucfirst($order->status) }}</span>
+            @if($order->status == 'to pay')
+            <span class="to-pay">| To Pay</span>
             @endif
         </div>
 
@@ -153,8 +133,8 @@
         @endforeach
 
         <div class="order-subinfo">
-            <span>Order Received on {{ $order->created_at->format('m/d/Y') }}</span>
-            <span>Item(s): {{ $order->orderItems->count() }}</span>
+            <span>Order Placed on {{ $order->created_at->format('m/d/Y') }}</span>
+            <span>Item(s): {{ $order->orderItems->sum('quantity') }}</span>
         </div>
 
         <div class="order-footer">
@@ -162,27 +142,24 @@
                 <span>Order Total: <span class="price">₱{{ number_format($order->total_amount, 2) }}</span></span>
             </div>
             <div class="footer-right">
-                @if($status == 'to-pay')
-                <button class="cancel-order btn-action" data-order-id="{{ $order->id }}">Cancel Order</button>
-                @if(preg_match('/gcash/i', $order->payment_method))
-                    <button class="pay-now btn-primary">Pay Now</button>
-                @endif
-                @elseif($status == 'to-ship')
-                    <button class="contact-seller btn-action">Contact Seller</button>
-                @elseif($status == 'to-receive')
-                    <button class="contact-seller btn-action">Contact Seller</button>
-                    <button class="order-received btn-primary">Order Received</button>
-                @elseif($status == 'completed')
-                    <button class="rate-seller btn-action">Rate Seller</button>
-                    <button class="buy-again btn-primary">Buy Again</button>
-                @elseif($status == 'cancelled')
-                    <button class="cancellation-details btn-action">Cancellation Details</button>
-                    <button class="buy-again btn-primary">Buy Again</button>
+                @if($order->status == 'to pay')
+                <form action="{{ route('cancelOrder', $order->id) }}" method="POST" class="cancel-form">
+                    @csrf
+                    <button type="submit" class="cancel-btn">Cancel Order</button>
+                </form>
+                @elseif($order->status == 'to ship' || $order->status == 'to receive')
+                <button class="contact-btn">Contact Seller</button>
+                @elseif($order->status == 'completed')
+                <button class="buy-again-btn">Buy Again</button>
+                @elseif($order->status == 'cancelled')
+                <button class="details-btn">Cancellation Details</button>
+                <button class="buy-again-btn">Buy Again</button>
                 @endif
             </div>
         </div>
     </div>
     @endforeach
+</section>
     
     
 <!-- Cancel Reason Modal -->
@@ -246,7 +223,6 @@
     </div>
   </div>
 </div>
-
 
 
 <div class="purchase-see-more-container">
@@ -317,6 +293,7 @@
     </div>
 </div>
 
+
 <!-- footer section starts-->
 <div class="footer-line"></div>
 
@@ -356,12 +333,11 @@
             <h4>Delivery Services</h4>
             <img src="{{ asset('image/jnt.jpg') }}" alt="J&T Express">
         </div>
-    </div>
-
     <div class="footer-bottom"></div>
 </section>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 
 <script>
 
@@ -370,6 +346,7 @@ document.getElementById('shopMoreBtn').addEventListener('click', function() {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
+
     // Initialize variables
     let currentOrderId = null;
     let cancelReason = null;
@@ -391,23 +368,36 @@ document.addEventListener("DOMContentLoaded", function () {
     );
     scrollElements.forEach((el) => scrollObserver.observe(el));
 
-    // Order Status Tab Handling
+    // Initialize tab functionality
     const tabs = document.querySelectorAll('.order-status-tabs .tab');
+    const orders = document.querySelectorAll('.order-box');
+    
+    // Function to filter orders by status
+    function filterOrders(status) {
+        orders.forEach(order => {
+            const orderStatus = order.getAttribute('data-status');
+            if (status === 'all' || orderStatus === status) {
+                order.style.display = 'block';
+            } else {
+                order.style.display = 'none';
+            }
+        });
+    }
+    
+    // Tab click event
     tabs.forEach(tab => {
         tab.addEventListener('click', () => {
             tabs.forEach(t => t.classList.remove('active'));
             tab.classList.add('active');
+
             
-            const selectedStatus = tab.getAttribute('data-status');
-            document.querySelectorAll('.order-box').forEach(order => {
-                const orderStatus = order.getAttribute('data-status');
-                order.style.display = (selectedStatus === 'all' || selectedStatus === orderStatus) 
-                    ? 'block' 
-                    : 'none';
-            });
+            const status = tab.getAttribute('data-status');
+            filterOrders(status);
         });
     });
-    document.querySelector('.tab[data-status="all"]')?.click();
+    
+    // Initialize with "All" tab selected
+    document.querySelector('.tab[data-status="all"]').click();
 
     // Cancel Order Flow
     document.querySelectorAll('.cancel-order').forEach(button => {
@@ -481,6 +471,101 @@ function hideRatingModal() {
     ratingModal.style.display = 'none';
     document.body.style.overflow = ''; // Re-enable scrolling
 }
+            
+    // Handle cancel order
+    document.querySelectorAll('.cancel-form').forEach(form => {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const orderBox = this.closest('.order-box');
+            const orderId = orderBox.dataset.orderId;
+            
+            if (confirm('Are you sure you want to cancel this order?')) {
+                fetch(this.action, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ _method: 'POST' })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Update the order status in the UI
+                        orderBox.setAttribute('data-status', 'cancelled');
+                        orderBox.querySelector('.status-info').textContent = 'Cancelled';
+                        
+                        // Remove the "To Pay" text if it exists
+                        const toPaySpan = orderBox.querySelector('.to-pay');
+                        if (toPaySpan) toPaySpan.remove();
+                        
+                        // Update the buttons
+                        const footerRight = orderBox.querySelector('.footer-right');
+                        footerRight.innerHTML = `
+                            <button class="details-btn">Cancellation Details</button>
+                            <button class="buy-again-btn">Buy Again</button>
+                        `;
+                        
+                        // Re-filter to show the order in the correct tab
+                        const currentTab = document.querySelector('.order-status-tabs .tab.active');
+                        const currentStatus = currentTab.getAttribute('data-status');
+                        filterOrders(currentStatus);
+                    } else {
+                        alert('Failed to cancel order: ' + (data.message || 'Unknown error'));
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while cancelling the order');
+                });
+            }
+        });
+    });
+    
+    // Simulate status change for demo purposes (remove in production)
+    // This would normally happen via admin action or webhook
+    function simulateStatusChange(orderId, newStatus) {
+        const orderBox = document.querySelector(`.order-box[data-order-id="${orderId}"]`);
+        if (orderBox) {
+            orderBox.setAttribute('data-status', newStatus);
+            orderBox.querySelector('.status-info').textContent = newStatus.split('-').map(word => 
+                word.charAt(0).toUpperCase() + word.slice(1)
+            ).join(' ');
+            
+            // Update buttons based on new status
+            const footerRight = orderBox.querySelector('.footer-right');
+            if (newStatus === 'to-ship') {
+                footerRight.innerHTML = '<button class="contact-btn">Contact Seller</button>';
+                // Remove "To Pay" text if it exists
+                const toPaySpan = orderBox.querySelector('.to-pay');
+                if (toPaySpan) toPaySpan.remove();
+            }
+            
+            // Re-filter to show the order in the correct tab
+            const currentTab = document.querySelector('.order-status-tabs .tab.active');
+            const currentStatus = currentTab.getAttribute('data-status');
+            filterOrders(currentStatus);
+        }
+    }
+    
+
+document.getElementById('profileMenuTrigger').addEventListener('click', function (event) {
+        event.preventDefault();
+        const profileMenu = document.getElementById('profileMenu');
+        profileMenu.style.display = (profileMenu.style.display === 'block') ? 'none' : 'block';
+    });
+
+    window.addEventListener('click', function (event) {
+        const profileMenu = document.getElementById('profileMenu');
+        if (!event.target.closest('#profileMenuTrigger') && !event.target.closest('#profileMenu')) {
+            profileMenu.style.display = 'none';
+        }
+    });
+    document.getElementById('notificationButton').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('notificationModal').style.display = 'block';
+        });
 
 // Event listeners for closing the modal
 closeModalBtn.addEventListener('click', hideRatingModal);
@@ -508,6 +593,5 @@ document.querySelector('.rating-confirm').addEventListener('click', function() {
     hideRatingModal();
 });
 </script>
-
 </body>
 </html>

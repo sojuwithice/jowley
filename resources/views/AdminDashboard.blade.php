@@ -32,7 +32,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="{{ route('analytics') }}">
                         <span class="icon">
                             <ion-icon name="home-outline"></ion-icon>
                         </span>
@@ -40,7 +40,7 @@
                     </a>
                 </li>
                 <li>
-                <a href="{{ route('admin.products') }}">
+                <a href="{{ route('products.addProduct') }}">
                 <span class="icon">
              <ion-icon name="cube-outline"></ion-icon>
         </span>
@@ -48,7 +48,7 @@
     </a>
     </li>
         <li>
-                 <a href="#">
+                 <a href="{{ route('admin.products') }}">
                    <span class="icon">
                     <ion-icon name="help-outline"></ion-icon>
                     </span>
@@ -66,7 +66,7 @@
                 </li>
 
                 <li>
-                    <a href="#">
+                    <a href="{{ route('logout') }}">
                         <span class="icon">
                             <ion-icon name="log-out-outline"></ion-icon>
                         </span>
@@ -95,7 +95,8 @@
             </div>
                 <span style="margin-left: 30px; margin-top:30px; font-size: 26px;">Overview</span>
 <div class="cardBox">
-    <!-- Replaced Daily Views with Users -->
+
+    <a href="{{ route('users') }}">
     <div class="card">
         <div>
         <div class="numbers">{{ $nonAdminUserCount }}</div>
@@ -105,9 +106,10 @@
             <ion-icon name="person-outline"></ion-icon>
         </div>
     </div>
+    </a>
     <div class="card">
     <div>
-         <div class="numbers">80</div>
+         <div class="numbers">{{ $totalSales }}</div>
             <div class="cardName">Sales</div> </div>
 
                     <div class="iconBx">
@@ -115,20 +117,21 @@
                     </div>
                 </div>
 
-                <!-- Replaced Comments with Orders -->
+                <a href="{{ route('orders.orders') }}">
     <div class="card">
         <div>
-            <div class="numbers">284</div>
+            <div class="numbers">{{ $orderCount }}</div>
             <div class="cardName">Orders</div>
         </div>
         <div class="iconBx">
             <ion-icon name="receipt-outline"></ion-icon>
         </div>
     </div>
+</a>
                 <div class="card">
                     <div>
-                        <div class="numbers">$7,842</div>
-                        <div class="cardName">Earning</div>
+                        <div class="numbers">₱{{ number_format($earnings, 2) }}</div>
+                        <div class="cardName">Earnings</div>
                     </div>
 
                     <div class="iconBx">
@@ -157,156 +160,138 @@
                             </tr>
                         </thead>
 
-                        <tbody>
-                            <tr>
-                                <td>Product ID</td>
-                                <td>Product Image</td>
-                                <td>Star Refrigerator</td>
-                                <td>$1200</td>
-                                <td>Paid</td>
-                                <td><span class="status delivered">Delivered</span></td>
-                            </tr>
 
-                            <tr>
-                                <td>Product ID</td>
-                                <td>Product Image</td>
-                                <td>Dell Laptop</td>
-                                <td>$110</td>
-                                <td>Due</td>
-                                <td><span class="status pending">Pending</span></td>
-                            </tr>
+<tbody>
+    @foreach($recentOrders as $item)
+        <tr>
+            <td>{{ $item->product->id ?? 'N/A' }}</td>
+            <td>
+            @php
+                            $defaultImage = 'default.jpg';
+                            $rawImages = $item->product->images;
 
-                            <tr>
-                                <td>Product ID</td>
-                                <td>Product Image</td>
-                                <td>Apple Watch</td>
-                                <td>$1200</td>
-                                <td>Paid</td>
-                                <td><span class="status return">Return</span></td>
-                            </tr>
+                            $images = is_string($rawImages) ? json_decode($rawImages, true) : $rawImages;
 
-                            <tr>
-                                <td>Product ID</td>
-                                <td>Product Image</td>
-                                <td>Addidas Shoes</td>
-                                <td>$620</td>
-                                <td>Due</td>
-                                <td><span class="status inProgress">In Progress</span></td>
-                            </tr>
+                            $imageFilename = $images[0] ?? $defaultImage;
 
-                            <tr>
-                                <td>Product ID</td>
-                                <td>Product Image</td>
-                                <td>Star Refrigerator</td>
-                                <td>$1200</td>
-                                <td>Paid</td>
-                                <td><span class="status delivered">Delivered</span></td>
-                            </tr>
+                            $imageFilename = str_replace('\\', '/', $imageFilename);
 
-                            <tr>
-                                <td>Product ID</td>
-                                <td>Product Image</td>
-                                <td>Dell Laptop</td>
-                                <td>$110</td>
-                                <td>Due</td>
-                                <td><span class="status pending">Pending</span></td>
-                            </tr>
+                            $finalPath = \Illuminate\Support\Str::startsWith($imageFilename, 'image/') ? $imageFilename : 'image/' . $imageFilename;
 
-                            <tr>
-                                <td>Product ID</td>
-                                <td>Product Image</td>
-                                <td>Apple Watch</td>
-                                <td>$1200</td>
-                                <td>Paid</td>
-                                <td><span class="status return">Return</span></td>
-                            </tr>
+                        @endphp
 
-                            <tr>
-                                <td>Addidas Shoes</td>
-                                <td>$620</td>
-                                <td>Due</td>
-                                <td><span class="status inProgress">In Progress</span></td>
-                            </tr>
-                        </tbody>
+                        <img src="{{ asset($finalPath) }}" alt="{{ $item->product->name }}" width="100">
+            </td>
+            <td>{{ $item->product->name ?? 'N/A' }}</td>
+            <td>₱{{ number_format($item->price, 2) }}</td>
+            <td>{{ $item->order->payment_method ?? 'N/A' }}</td>
+            <td>
+                <span class="status {{ strtolower($item->order->status ?? 'pending') }}">
+                    {{ ucfirst($item->order->status ?? 'Pending') }}
+                </span>
+            </td>
+        </tr>
+    @endforeach
+</tbody>
+
                     </table>
                 </div>
 
                 <!-- ================= New Customers ================ -->
                 <div class="recentCustomers">
                     <div class="cardHeader">
-                        <h2>Recent Customers</h2>
+                        <h2>Monthly Sales</h2>
                     </div>
 
                     <table>
-                        <tr>
+                    <tr>
                             <td width="60px">
-                                <div class="imgBx"><img src="assets/imgs/customer02.jpg" alt=""></div>
+                                <div class="imgBx"><img src="{{ asset('image/fuzzy-flower.jpg') }}" alt=""></div>
+                        
                             </td>
                             <td>
-                                <h4>David <br> <span>Italy</span></h4>
+                                <h4>Mini Fuzzy <br> <span>Monthly Sales 110                                                                                                                                                 m</span></h4>
                             </td>
                         </tr>
-
                         <tr>
                             <td width="60px">
-                                <div class="imgBx"><img src="assets/imgs/customer01.jpg" alt=""></div>
+                                <div class="imgBx"><img src="{{ asset('image/fuzzy1.jpg') }}" alt=""></div>
+                        
                             </td>
                             <td>
-                                <h4>Amit <br> <span>India</span></h4>
+                                <h4>Mini Fuzzy <br> <span>Monthly Sales 110                                                                                                                                                 m</span></h4>
                             </td>
                         </tr>
-
                         <tr>
                             <td width="60px">
-                                <div class="imgBx"><img src="assets/imgs/customer02.jpg" alt=""></div>
+                                <div class="imgBx"><img src="{{ asset('image/fuzzy-flower.jpg') }}" alt=""></div>
+                        
                             </td>
                             <td>
-                                <h4>David <br> <span>Italy</span></h4>
+                                <h4>Mini Fuzzy <br> <span>Monthly Sales 110                                                                                                                                                 m</span></h4>
                             </td>
                         </tr>
-
                         <tr>
                             <td width="60px">
-                                <div class="imgBx"><img src="assets/imgs/customer01.jpg" alt=""></div>
+                                <div class="imgBx"><img src="{{ asset('image/fuzzy-flower.jpg') }}" alt=""></div>
+                        
                             </td>
                             <td>
-                                <h4>Amit <br> <span>India</span></h4>
+                                <h4>Mini Fuzzy <br> <span>Monthly Sales 110                                                                                                                                                 m</span></h4>
                             </td>
                         </tr>
-
                         <tr>
                             <td width="60px">
-                                <div class="imgBx"><img src="assets/imgs/customer02.jpg" alt=""></div>
+                                <div class="imgBx"><img src="{{ asset('image/fuzzy-flower.jpg') }}" alt=""></div>
+                        
                             </td>
                             <td>
-                                <h4>David <br> <span>Italy</span></h4>
+                                <h4>Mini Fuzzy <br> <span>Monthly Sales 110                                                                                                                                                 m</span></h4>
                             </td>
                         </tr>
-
                         <tr>
                             <td width="60px">
-                                <div class="imgBx"><img src="assets/imgs/customer01.jpg" alt=""></div>
+                                <div class="imgBx"><img src="{{ asset('image/fuzzy-flower.jpg') }}" alt=""></div>
+                        
                             </td>
                             <td>
-                                <h4>Amit <br> <span>India</span></h4>
+                                <h4>Mini Fuzzy <br> <span>Monthly Sales 110                                                                                                                                                 m</span></h4>
                             </td>
                         </tr>
-
                         <tr>
                             <td width="60px">
-                                <div class="imgBx"><img src="assets/imgs/customer01.jpg" alt=""></div>
+                                <div class="imgBx"><img src="{{ asset('image/fuzzy-flower.jpg') }}" alt=""></div>
+                        
                             </td>
                             <td>
-                                <h4>David <br> <span>Italy</span></h4>
+                                <h4>Mini Fuzzy <br> <span>Monthly Sales 110                                                                                                                                                 m</span></h4>
                             </td>
                         </tr>
-
                         <tr>
                             <td width="60px">
-                                <div class="imgBx"><img src="assets/imgs/customer02.jpg" alt=""></div>
+                                <div class="imgBx"><img src="{{ asset('image/fuzzy-flower.jpg') }}" alt=""></div>
+                        
                             </td>
                             <td>
-                                <h4>Amit <br> <span>India</span></h4>
+                                <h4>Mini Fuzzy <br> <span>Monthly Sales 110                                                                                                                                                 m</span></h4>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="60px">
+                                <div class="imgBx"><img src="{{ asset('image/fuzzy-flower.jpg') }}" alt=""></div>
+                        
+                            </td>
+                            <td>
+                                <h4>Mini Fuzzy <br> <span>Monthly Sales 110                                                                                                                                                 m</span></h4>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="60px">
+                                <div class="imgBx"><img src="{{ asset('image/fuzzy-flower.jpg') }}" alt=""></div>
+                        
+                            </td>
+                            <td>
+                                <h4>Mini Fuzzy <br> <span>Monthly Sales 110                                                                                                                                                 m</span></h4>
                             </td>
                         </tr>
                     </table>

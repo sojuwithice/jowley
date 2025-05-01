@@ -43,7 +43,7 @@
 
         <div id="profileMenu" class="profile-menu">
             <ul>
-                <li><a href="#">My Profile</a></li>
+                <li><a href="{{ route('usersprofile') }}">My Profile</a></li>
                 <li><a href="{{ route('purchasepage') }}">My Purchases</a></li>
                 <li><a href="{{ route('logout') }}">Logout</a></li>
 
@@ -59,7 +59,8 @@
 <header class="scroll-fade">
     <nav class="navbar">
         <a href="{{ route('homepage') }}">Home</a>
-        <a href="#products">Products</a>
+        <a href="{{ route('searchpage') }}">Products</a>
+        <a href="#faqs">FAQs</a>
     </nav>
 
     
@@ -244,7 +245,7 @@
             </div>
 
             <div class="col">
-                <a href="{{ route('butterflybouquet') }}" class="product-link">
+            <a href="{{ route('product.show', ['slug' => 'butterflybouquet']) }}" class="product-link">
                     <div class="product-card">
                         <img src="{{ asset('image/butterfly-bouquet.jpg') }}" alt="Butterfly Bouquet" class="product-img">
                         <p class="top-rank">Top <span>4</span></p>

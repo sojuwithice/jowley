@@ -1,0 +1,42 @@
+/* About Page Styles */
+.about-hero {
+    padding: 5rem 0;
+    position: relative;
+    z-index: 1;
+}
+
+.section-title {
+    font-family: 'Oleo Script Swash Caps', cursive;
+    font-size: 3.5rem;
+    margin-bottom: 2rem;
+    color: #2c3e50;
+}
+
+.about-content {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.mission-section, .story-section, .values-section {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 10px;
+}
+
+.values-section ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.values-section li {
+    padding: 0.5rem 0;
+    font-size: 1.1rem;
+}
+
+.values-section li:before {
+    content: "🧶";
+    margin-right: 0.8rem;
+}
