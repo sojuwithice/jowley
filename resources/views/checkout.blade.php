@@ -161,7 +161,6 @@
         <!-- Place Order Button -->
         <form id="placeOrderForm" method="POST" action="{{ route('placeOrder') }}">
     @csrf
-
     <input type="hidden" name="payment_method" id="paymentMethodInput">
     <input type="hidden" name="total_amount" value="{{ $totalPrice }}">
     
@@ -292,18 +291,6 @@
             paymentButtons.forEach(btn => btn.classList.remove('active'));
             this.classList.add('active');
             selectedPaymentMethod = this.id;
-
-        });
-    });
-
-    // Form submit handler
-    document.getElementById('placeOrderForm').addEventListener('submit', function (event) {
-        if (!selectedPaymentMethod) {
-            event.preventDefault();
-            const modal = new bootstrap.Modal(document.getElementById('paymentMethodModal'));
-            modal.show();
-        } else {
-            document.getElementById('paymentMethodInput').value = selectedPaymentMethod;
             paymentMethodInput.value = this.id === 'gcash-method' ? 'GCash' : 'Cash on Delivery';
         });
     });
@@ -323,7 +310,7 @@
     document.getElementById('confirmGcashPayment').addEventListener('click', function () {
         form.submit(); // Now safely submit the form
     });
-
+});
 
     </script>
 </body>

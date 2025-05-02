@@ -65,22 +65,6 @@ class OrderController extends Controller
 
         return redirect()->route('purchasepage')->with('success', 'Order placed successfully!');
     }
-
-
-    public function cancelOrder(Request $request)
-{
-    $order = Order::find($request->order_id);
-
-    if (!$order) {
-        return response()->json(['message' => 'Order not found'], 404);
-    }
-
-    $order->status = 'Cancelled';
-    $order->save();
-
-    return response()->json(['message' => 'Order cancelled successfully']);
-}
-
     public function updateStatus(Request $request, $orderId)
 {
     $order = Order::findOrFail($orderId);
@@ -89,5 +73,29 @@ class OrderController extends Controller
 
     return response()->json(['success' => true]);
 }
+
+    
+
+
+public function cancel(Request $request, $orderId)
+{
+    $request->validate([
+        'reason' => 'required|string|max:255',
+    ]);
+
+    $order = Order::findOrFail($orderId);
+    $order->status = 'cancelled';
+    $order->cancellation_reason = $request->reason;
+    $order->save();
+
+    return response()->json([
+        'success' => true,
+        'message' => 'Order cancelled successfully.',
+        'order' => $order
+    ]);
+}
+
+
+
 
 }

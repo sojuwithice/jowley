@@ -23,13 +23,23 @@ class AdminController extends Controller
         // Fetch recent orders with product and order data
         $recentOrders = OrderItem::with(['order', 'product'])
             ->latest()
-            ->take(8)
+            ->take(😎
             ->get();
 
         // Fetch recent customers (excluding admins)
         $recentCustomers = User::where('is_admin', 0)
             ->latest()
-            ->take(8)
+            ->take(😎
+            ->get();
+
+        // Get monthly sales data (top 10 selling products this month)
+        $monthlySales = Product::select('products.*')
+            ->join('order_items', 'products.id', '=', 'order_items.product_id')
+            ->join('orders', 'order_items.order_id', '=', 'orders.id')
+            ->selectRaw('products.*, SUM(order_items.quantity) as total_quantity')
+            ->groupBy('products.id')
+            ->orderByDesc('total_quantity')
+            ->limit(10)
             ->get();
 
         // Pass all variables to the view
@@ -39,13 +49,14 @@ class AdminController extends Controller
             'earnings',
             'totalSales',
             'recentOrders',
-            'recentCustomers'
+            'recentCustomers',
+            'monthlySales'  // Add this new variable
         ));
     }
 
     public function products()
     {
-        $products = Product::all(); // You may apply pagination or filters if needed
+        $products = Product::all();
         return view('AdminProducts', compact('products'));
     }
 }

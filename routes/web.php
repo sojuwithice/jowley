@@ -166,8 +166,7 @@ Route::post('/cancel-order/{order}', [OrderController::class, 'cancelOrder'])->n
 Route::get('/add-product', [AdminProductController::class, 'create'])->name('products.addProduct');
 
 
-Route::post('/cancel-order', [OrderController::class, 'cancelOrder'])->name('orders.cancel');
-
+Route::post('/orders/{order}/cancel', [OrderController::class, 'cancel'])->name('orders.cancel');
 //Route::post('/orders/{order}/cancel', [OrderController::class, 'cancel']);
 
 

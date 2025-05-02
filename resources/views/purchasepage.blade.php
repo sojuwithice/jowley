@@ -91,11 +91,11 @@
             <span>To Receive</span>
         </div>
     </div>
-  </div>
-  <div class="tab" data-status="cancelled">
-    <div class="circle-tab">
-      <div class="icon"><i class="fas fa-box-open"></i></div>
-      <span>Cancelled</span>
+    <div class="tab" data-status="cancelled">
+        <div class="circle-tab">
+            <div class="icon"><i class="fas fa-box-open"></i></div>
+            <span>Cancelled</span>
+        </div>
     </div>
 </div>
 
@@ -340,13 +340,11 @@
 
 
 <script>
-
 document.getElementById('shopMoreBtn').addEventListener('click', function() {
     window.location.href = '{{ route("shop.index") }}';
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-
     // Initialize variables
     let currentOrderId = null;
     let cancelReason = null;
@@ -389,8 +387,6 @@ document.addEventListener("DOMContentLoaded", function () {
         tab.addEventListener('click', () => {
             tabs.forEach(t => t.classList.remove('active'));
             tab.classList.add('active');
-
-            
             const status = tab.getAttribute('data-status');
             filterOrders(status);
         });
@@ -399,9 +395,10 @@ document.addEventListener("DOMContentLoaded", function () {
     // Initialize with "All" tab selected
     document.querySelector('.tab[data-status="all"]').click();
 
-    // Cancel Order Flow
-    document.querySelectorAll('.cancel-order').forEach(button => {
-        button.addEventListener('click', function() {
+    // Cancel Order Flow - Fixed this section
+    document.querySelectorAll('.cancel-btn').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
             const orderBox = this.closest('.order-box');
             currentOrderId = orderBox.getAttribute('data-order-id');
             cancelReasonModal.show();
@@ -409,7 +406,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
     
     // Proceed to confirmation after selecting reason
-    document.getElementById('proceedToConfirm')?.addEventListener('click', function() {
+    document.getElementById('proceedToConfirm').addEventListener('click', function() {
         const selectedReason = document.querySelector('input[name="cancel_reason"]:checked');
         if (selectedReason) {
             cancelReason = selectedReason.value;
@@ -421,136 +418,75 @@ document.addEventListener("DOMContentLoaded", function () {
     });
     
     // Handle final confirmation
-    document.getElementById('confirmCancelBtn')?.addEventListener('click', function() {
-        if (!currentOrderId || !cancelReason) return;
-        
-        fetch("{{ route('orders.cancel') }}", {
+    document.getElementById('confirmCancelBtn').addEventListener('click', async function() {
+    if (!currentOrderId || !cancelReason) return;
+
+    const confirmBtn = this;
+    confirmBtn.disabled = true;
+    confirmBtn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Cancelling...';
+
+    try {
+        const response = await fetch(`/orders/${currentOrderId}/cancel`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
                 'Accept': 'application/json'
             },
             body: JSON.stringify({ 
-                order_id: currentOrderId,
-                reason: cancelReason 
+                reason: cancelReason,
+                _token: document.querySelector('meta[name="csrf-token"]').content
             })
-        })
-        .then(response => response.json())
-        .then(data => {
-            confirmCancelModal.hide();
-            cancelSuccessModal.show();
-            
-            // Auto-close the success modal after 2 seconds
-            setTimeout(() => {
-                cancelSuccessModal.hide();
-                location.reload();
-            }, 2000);
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            confirmCancelModal.hide();
-            alert('Failed to cancel order. Please try again.');
         });
-    });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.message || 'Failed to cancel order');
+        }
+
+        confirmCancelModal.hide();
+        cancelSuccessModal.show();
+
+        // Update UI
+        const orderBox = document.querySelector(`.order-box[data-order-id="${currentOrderId}"]`);
+        if (orderBox) {
+            orderBox.setAttribute('data-status', 'cancelled');
+            const statusInfo = orderBox.querySelector('.status-info');
+            if (statusInfo) statusInfo.textContent = 'Cancelled';
+        }
+
+        setTimeout(() => {
+            cancelSuccessModal.hide();
+            location.reload();
+        }, 2000);
+    } catch (error) {
+        console.error('Cancel failed:', error);
+        alert(error.message || 'Failed to cancel order. Please try again.');
+    } finally {
+        confirmBtn.disabled = false;
+        confirmBtn.textContent = 'Yes';
+    }
 });
 
-// Rating Modal Handling
-const ratingModal = document.getElementById('ratingModal');
-const closeModalBtn = document.getElementById('closeModal');
-const ratingCancelBtn = document.querySelector('.rating-cancel');
 
-// Function to show rating modal
-function showRatingModal() {
-    ratingModal.style.display = 'block';
-    document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
-}
+    // Rating Modal Handling
+    const ratingModal = document.getElementById('ratingModal');
+    const closeModalBtn = document.getElementById('closeModal');
+    const ratingCancelBtn = document.querySelector('.rating-cancel');
 
-// Function to hide rating modal
-function hideRatingModal() {
-    ratingModal.style.display = 'none';
-    document.body.style.overflow = ''; // Re-enable scrolling
-}
-            
-    // Handle cancel order
-    document.querySelectorAll('.cancel-form').forEach(form => {
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const orderBox = this.closest('.order-box');
-            const orderId = orderBox.dataset.orderId;
-            
-            if (confirm('Are you sure you want to cancel this order?')) {
-                fetch(this.action, {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ _method: 'POST' })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        // Update the order status in the UI
-                        orderBox.setAttribute('data-status', 'cancelled');
-                        orderBox.querySelector('.status-info').textContent = 'Cancelled';
-                        
-                        // Remove the "To Pay" text if it exists
-                        const toPaySpan = orderBox.querySelector('.to-pay');
-                        if (toPaySpan) toPaySpan.remove();
-                        
-                        // Update the buttons
-                        const footerRight = orderBox.querySelector('.footer-right');
-                        footerRight.innerHTML = `
-                            <button class="details-btn">Cancellation Details</button>
-                            <button class="buy-again-btn">Buy Again</button>
-                        `;
-                        
-                        // Re-filter to show the order in the correct tab
-                        const currentTab = document.querySelector('.order-status-tabs .tab.active');
-                        const currentStatus = currentTab.getAttribute('data-status');
-                        filterOrders(currentStatus);
-                    } else {
-                        alert('Failed to cancel order: ' + (data.message || 'Unknown error'));
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('An error occurred while cancelling the order');
-                });
-            }
-        });
-    });
-    
-    // Simulate status change for demo purposes (remove in production)
-    // This would normally happen via admin action or webhook
-    function simulateStatusChange(orderId, newStatus) {
-        const orderBox = document.querySelector(`.order-box[data-order-id="${orderId}"]`);
-        if (orderBox) {
-            orderBox.setAttribute('data-status', newStatus);
-            orderBox.querySelector('.status-info').textContent = newStatus.split('-').map(word => 
-                word.charAt(0).toUpperCase() + word.slice(1)
-            ).join(' ');
-            
-            // Update buttons based on new status
-            const footerRight = orderBox.querySelector('.footer-right');
-            if (newStatus === 'to-ship') {
-                footerRight.innerHTML = '<button class="contact-btn">Contact Seller</button>';
-                // Remove "To Pay" text if it exists
-                const toPaySpan = orderBox.querySelector('.to-pay');
-                if (toPaySpan) toPaySpan.remove();
-            }
-            
-            // Re-filter to show the order in the correct tab
-            const currentTab = document.querySelector('.order-status-tabs .tab.active');
-            const currentStatus = currentTab.getAttribute('data-status');
-            filterOrders(currentStatus);
-        }
+    function showRatingModal() {
+        ratingModal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
     }
-    
 
-document.getElementById('profileMenuTrigger').addEventListener('click', function (event) {
+    function hideRatingModal() {
+        ratingModal.style.display = 'none';
+        document.body.style.overflow = '';
+    }
+            
+    // Profile menu toggle
+    document.getElementById('profileMenuTrigger')?.addEventListener('click', function (event) {
         event.preventDefault();
         const profileMenu = document.getElementById('profileMenu');
         profileMenu.style.display = (profileMenu.style.display === 'block') ? 'none' : 'block';
@@ -562,35 +498,30 @@ document.getElementById('profileMenuTrigger').addEventListener('click', function
             profileMenu.style.display = 'none';
         }
     });
-    document.getElementById('notificationButton').addEventListener('click', function(e) {
-            e.preventDefault();
-            document.getElementById('notificationModal').style.display = 'block';
-        });
 
-// Event listeners for closing the modal
-closeModalBtn.addEventListener('click', hideRatingModal);
-ratingCancelBtn.addEventListener('click', hideRatingModal);
+    // Event listeners for closing the modal
+    closeModalBtn.addEventListener('click', hideRatingModal);
+    ratingCancelBtn.addEventListener('click', hideRatingModal);
 
-// Close modal when clicking outside the modal content
-ratingModal.addEventListener('click', function(e) {
-    if (e.target === ratingModal) {
-        hideRatingModal();
-    }
-});
-
-// Connect "Rate Seller" buttons to the modal
-document.querySelectorAll('.rate-seller').forEach(button => {
-    button.addEventListener('click', function() {
-        // Here you could add logic to populate the modal with order-specific data
-        showRatingModal();
+    // Close modal when clicking outside the modal content
+    ratingModal.addEventListener('click', function(e) {
+        if (e.target === ratingModal) {
+            hideRatingModal();
+        }
     });
-});
 
-// Confirm button functionality (you can add your submission logic here)
-document.querySelector('.rating-confirm').addEventListener('click', function() {
-    // Add your rating submission logic here
-    alert('Rating submitted!'); // Placeholder - replace with actual submission code
-    hideRatingModal();
+    // Connect "Rate Seller" buttons to the modal
+    document.querySelectorAll('.rate-seller').forEach(button => {
+        button.addEventListener('click', function() {
+            showRatingModal();
+        });
+    });
+
+    // Confirm button functionality
+    document.querySelector('.rating-confirm').addEventListener('click', function() {
+        alert('Rating submitted!');
+        hideRatingModal();
+    });
 });
 </script>
 </body>
