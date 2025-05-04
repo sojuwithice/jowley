@@ -184,3 +184,6 @@ Route::post('/orders/{order}/update-status', [OrderController::class, 'updateSta
         return view('orders.orders', compact('orders'));
     })->name('orders.orders');
 
+    Route::get('/faqs', function () {
+        return view('faqs');
+    })->name('faqs');

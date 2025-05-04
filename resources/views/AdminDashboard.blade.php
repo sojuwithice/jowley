@@ -34,7 +34,7 @@
                 <li>
                     <a href="{{ route('analytics') }}">
                         <span class="icon">
-                            <ion-icon name="home-outline"></ion-icon>
+                        <ion-icon name="analytics-outline"></ion-icon>
                         </span>
                         <span class="title">Analytics</span>
                     </a>
@@ -198,9 +198,9 @@
                 </div>
 
                 <!-- ================= New Customers ================ -->
-                <div class="recentCustomers">
+                <div class="Topproducts">
                     <div class="cardHeader">
-                        <h2>Monthly Sales</h2>
+                        <h2>Top products</h2>
                     </div>
 
                     <table>
@@ -210,7 +210,7 @@
                         
                             </td>
                             <td>
-                                <h4>Mini Fuzzy <br> <span>Monthly Sales 110                                                                                                                                                 m</span></h4>
+                                <h4>Mini Fuzzy <br> <span>Monthly Sales 110</span></h4>
                             </td>
                         </tr>
                         <tr>
@@ -219,7 +219,7 @@
                         
                             </td>
                             <td>
-                                <h4>Mini Fuzzy <br> <span>Monthly Sales 110                                                                                                                                                 m</span></h4>
+                                <h4>Mini Fuzzy <br> <span>Monthly Sales 110 </span></h4>
                             </td>
                         </tr>
                         <tr>
@@ -228,7 +228,7 @@
                         
                             </td>
                             <td>
-                                <h4>Mini Fuzzy <br> <span>Monthly Sales 110                                                                                                                                                 m</span></h4>
+                                <h4>Mini Fuzzy <br> <span>Monthly Sales 110 </span></h4>
                             </td>
                         </tr>
                         <tr>
@@ -237,7 +237,7 @@
                         
                             </td>
                             <td>
-                                <h4>Mini Fuzzy <br> <span>Monthly Sales 110                                                                                                                                                 m</span></h4>
+                                <h4>Mini Fuzzy <br> <span>Monthly Sales 110 </span></h4>
                             </td>
                         </tr>
                         <tr>
@@ -246,7 +246,7 @@
                         
                             </td>
                             <td>
-                                <h4>Mini Fuzzy <br> <span>Monthly Sales 110                                                                                                                                                 m</span></h4>
+                                <h4>Mini Fuzzy <br> <span>Monthly Sales 110</span></h4>
                             </td>
                         </tr>
                         <tr>
@@ -255,7 +255,7 @@
                         
                             </td>
                             <td>
-                                <h4>Mini Fuzzy <br> <span>Monthly Sales 110                                                                                                                                                 m</span></h4>
+                                <h4>Mini Fuzzy <br> <span>Monthly Sales 110 </span></h4>
                             </td>
                         </tr>
                         <tr>
@@ -264,7 +264,7 @@
                         
                             </td>
                             <td>
-                                <h4>Mini Fuzzy <br> <span>Monthly Sales 110                                                                                                                                                 m</span></h4>
+                                <h4>Mini Fuzzy <br> <span>Monthly Sales 110 </span></h4>
                             </td>
                         </tr>
                         <tr>
@@ -273,7 +273,7 @@
                         
                             </td>
                             <td>
-                                <h4>Mini Fuzzy <br> <span>Monthly Sales 110                                                                                                                                                 m</span></h4>
+                                <h4>Mini Fuzzy <br> <span>Monthly Sales 110 </span></h4>
                             </td>
                         </tr>
                         <tr>
@@ -282,7 +282,7 @@
                         
                             </td>
                             <td>
-                                <h4>Mini Fuzzy <br> <span>Monthly Sales 110                                                                                                                                                 m</span></h4>
+                                <h4>Mini Fuzzy <br> <span>Monthly Sales 110   </span></h4>
                             </td>
                         </tr>
                         <tr>
@@ -291,7 +291,7 @@
                         
                             </td>
                             <td>
-                                <h4>Mini Fuzzy <br> <span>Monthly Sales 110                                                                                                                                                 m</span></h4>
+                                <h4>Mini Fuzzy <br> <span>Monthly Sales 110 </span></h4>
                             </td>
                         </tr>
                     </table>
