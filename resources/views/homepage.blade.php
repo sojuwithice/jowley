@@ -59,8 +59,8 @@
 <header class="scroll-fade">
     <nav class="navbar">
         <a href="{{ route('homepage') }}">Home</a>
-        <a href="{{ route('searchpage') }}">Products</a>
-        <a href="#faqs">FAQs</a>
+        <a href="{{ route('shop.index') }}">Products</a>
+        <a href="{{ route('faqs') }}">FAQs</a>
     </nav>
 
     
@@ -106,10 +106,10 @@
 
     <div class="img-wrapper">
     <div style="background-image: url('{{ asset('image/tulip-flower.jpg') }}');"></div>
-    <div style="background-image: url('{{ asset('image/keychain.jpg') }}');"></div>
+    <div style="background-image: url('{{ asset('image/lily-keychain.jpg') }}');"></div>
     <div style="background-image: url('{{ asset('image/fuzzy-flower.jpg') }}');"></div>
     <div style="background-image: url('{{ asset('image/butterfly-bouquet.jpg') }}');"></div>
-    <div style="background-image: url('{{ asset('image/bracelet.jpg') }}');"></div>
+    <div style="background-image: url('{{ asset('image/glower.jpg') }}');"></div>
     </div>
 
 </section>
@@ -210,9 +210,8 @@
     <div class="container my-5 text-center scroll-fade">
         <h2 class="text-center mb-4">Our Featured Products</h2>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-5">
-        <div class="col">
-                <!-- Clickable image to redirect to the product page -->
-                <a href="{{ route('product.show', ['slug' => 'minifuzzy']) }}">
+            <div class="col">
+            <a href="{{ route('product.show', ['slug' => 'minifuzzy']) }}">
                     <div class="product-card">
                         <img src="{{ asset('image/mini-flower.jpg') }}" alt="Mini Fuzzy Flower" class="product-img">
                         <p class="top-rank">Top <span>1</span></p>
@@ -223,7 +222,7 @@
             </div>
 
             <div class="col">
-            <a href="{{ route('product.show', ['slug' => 'fuzzy-lily']) }}" class="product-link">
+            <a href="{{ route('product.show', ['slug' => 'fuzzy-lily']) }}">
                     <div class="product-card">
                         <img src="{{ asset('image/fuzzy-flower.jpg') }}" alt="Fuzzy Lily Flower Bouquet" class="product-img">
                         <p class="top-rank">Top <span>2</span></p>
@@ -234,7 +233,7 @@
             </div>
 
             <div class="col">
-            <a href="{{ route('product.show', ['slug' => 'single-tulip']) }}" class="product-link">
+            <a href="{{ route('product.show', ['slug' => 'single-tulip']) }}">
                     <div class="product-card">
                         <img src="{{ asset('image/single-tulip.jpg') }}" alt="Single Tulip Crochet Bouquet" class="product-img">
                         <p class="top-rank">Top <span>3</span></p>
@@ -245,7 +244,7 @@
             </div>
 
             <div class="col">
-            <a href="{{ route('product.show', ['slug' => 'butterflybouquet']) }}" class="product-link">
+            <a href="{{ route('product.show', ['slug' => 'butterfly-bouquet']) }}">
                     <div class="product-card">
                         <img src="{{ asset('image/butterfly-bouquet.jpg') }}" alt="Butterfly Bouquet" class="product-img">
                         <p class="top-rank">Top <span>4</span></p>
@@ -257,12 +256,12 @@
         </div>
     </div>
 
-    <div class="see-more-container text-right mt-3 scroll-fade">
-        <a href="#" class="see-more-btn">
-            <span>See all</span>
-            <i class="fa fa-arrow-circle-right"></i>
-        </a>
-    </div>
+</section>
+
+
+
+</section>
+
 
 
 

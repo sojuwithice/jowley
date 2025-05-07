@@ -586,6 +586,8 @@ h2.text-center {
 }
 
 
+/* daily discoveries css*/
+
 .daily-container{
     position: relative;
     top: -140px;
@@ -613,6 +615,18 @@ h2.text-center {
 }
 
 
+.product-text {
+    position: absolute;
+    bottom: 65px;
+    left: 13px;
+    font-size: 12px;
+    color: white;
+    padding: 5px 14px;
+    border-radius: 25px;
+    background-color: #E32C89;
+}
+
+
 .product-name-daily {
     position: absolute;
     bottom: 20px; 
@@ -620,30 +634,24 @@ h2.text-center {
     width: 91%;
     margin-left: 10px;
     padding: 25px 10px; 
-    background-color: rgba(230, 0, 126, 0.5);
+    background-color: rgba(0, 0, 0, 0.6);
     text-align: left;
     box-sizing: border-box;
     max-width: 100%;
     overflow: hidden;
 }
 
-.product-text {
-    position: relative; 
-    top: -20px; 
-    font-size: 14px;
-    color: white;
-    font-weight: 500;
-}
+
 
 .heart-rating {
     position: absolute;
-    bottom: 41px; 
+    bottom: 30px; 
     left: 10px; 
 }
 
 .heart-rating .fa-heart {
     font-size: 1rem;
-    color: #FFD700 !important; 
+    color: #E6007E !important; 
 }
 
 .product-details {
@@ -720,6 +728,7 @@ h2.text-center {
     max-width: 400px; 
     transition: background-color 0.3s ease;
     text-align: center; 
+    text-decoration: none;
 }
 
 

@@ -61,7 +61,8 @@
 
     <nav class="navbar">
     <a href="{{ route('homepage') }}">Home</a>
-            <a href="#products">Products</a>
+        <a href="{{ route('shop.index') }}">Products</a>
+        <a href="{{ route('faqs') }}">FAQs</a>
         
     </nav>
 

@@ -18,6 +18,10 @@ use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\AdminProductController;
 use App\Http\Controllers\AdminAnalyticsController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\RatingController;
+use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\NotificationController;
+
 
 
 // STARTING PAGE & HOMEPAGE
@@ -183,4 +187,43 @@ Route::post('/orders/{order}/update-status', [OrderController::class, 'updateSta
         $orders = \App\Models\Order::with(['user', 'orderItems.product'])->latest()->get();
         return view('orders.orders', compact('orders'));
     })->name('orders.orders');
+
+
+Route::middleware('auth')->post('/submit-rating', [RatingController::class, 'store']);
+  
+Route::middleware('auth')->post('/submit-rating', [RatingController::class, 'store'])->name('submit.rating');
+
+
+
+//admin
+
+Route::get('/settings', [SettingsController::class, 'index'])->name('settings');
+
+
+
+Route::get('/faqs', function () {
+    return view('faqs');
+})->name('faqs');
+
+
+Route::get('/products/{product}/reviews', [ProductController::class, 'reviews'])->name('products.reviews');
+
+
+// routes/web.php
+
+
+Route::middleware(['auth'])->group(function () {
+    // Notification routes
+    Route::prefix('notifications')->group(function() {
+        Route::get('/', [NotificationController::class, 'index'])->name('notifications.all');
+        Route::post('/{notification}/read', [NotificationController::class, 'markAsRead'])->name('notifications.read');
+        Route::post('/mark-all-read', [NotificationController::class, 'markAllAsRead'])->name('notifications.mark-all-read');
+        Route::post('/clear-all', [NotificationController::class, 'clearAll'])->name('notifications.clear-all');
+    });
+});
+
+
+Route::put('/orders/{orderId}/status', [OrderController::class, 'updateOrderStatus'])->name('orders.updateStatus');
+
+Route::get('/top-selling-products', [ProductController::class, 'allTopSelling'])->name('products.top-selling');
 

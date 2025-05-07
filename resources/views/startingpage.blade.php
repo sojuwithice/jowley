@@ -42,9 +42,9 @@
 
 
     <nav class="navbar">
-        <a href="{{ route('startingpage') }}">Home</a>
-        <a href="#products">Products</a>
-        <a href="#contactus">FAQs</a>
+    <a href="{{ route('startingpage') }}">Home</a>
+        <a href="{{ route('shop.index') }}">Products</a>
+        <a href="{{ route('faqs') }}">FAQs</a>
     </nav>
 
     <div class="header-right"> 
@@ -189,15 +189,6 @@
         </div>
     </div>
 
-    <div class="see-more-container text-right mt-3 scroll-fade">
-        <a href="#" class="see-more-btn">
-            <span>See all</span>
-            <i class="fa fa-arrow-circle-right"></i>
-        </a>
-    </div>
-
-
-
 </section>
 
 <!-- Daily Discoveries Section -->
@@ -213,31 +204,8 @@
         <div class="col">
             <div class="product-card">
                 <img src="{{ asset('image/mini-flower.jpg') }}" alt="Mini Fuzzy Flower" class="product-img">
-                <div class="product-name-daily">
                     <p class="product-text">Mini Fuzzy Flower</p>
-                    <div class="heart-rating">
-                        <i class="fa-solid fa-heart text-warning fs-5" data-value="1"></i>
-                        <i class="fa-solid fa-heart text-warning fs-5" data-value="2"></i>
-                        <i class="fa-solid fa-heart text-warning fs-5" data-value="3"></i>
-                        <i class="fa-regular fa-heart text-warning fs-5" data-value="4"></i>
-                        <i class="fa-regular fa-heart text-warning fs-5" data-value="5"></i>
-                    </div>
-                </div>
-
-                <div class="product-details">
-                    <span class="price">₱55</span>
-                    <span class="sold-count">20 sold</span>
-                </div>
-                <button class="btn-details">View Details</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="col">
-            <div class="product-card">
-                <img src="{{ asset('image/baby-mushroom.jpg') }}" alt="Mini Fuzzy Flower" class="product-img">
                 <div class="product-name-daily">
-                    <p class="product-text">Cute Baby Mushroom</p>
                     <div class="heart-rating">
                         <i class="fa-solid fa-heart text-warning fs-5" data-value="1"></i>
                         <i class="fa-solid fa-heart text-warning fs-5" data-value="2"></i>
@@ -253,7 +221,36 @@
                 </div>
 
                 <div class="view-details">
-                <button class="btn-details">View Details</button>
+                <a href="{{ route('product.show', ['slug' => 'minifuzzy']) }}" class="btn-details">
+        View Details
+    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="product-card">
+                <img src="{{ asset('image/baby-mushroom.jpg') }}" alt="Baby Mushroom" class="product-img">
+                <p class="product-text">Cute Baby Mushroom</p>
+                <div class="product-name-daily">
+                    <div class="heart-rating">
+                        <i class="fa-solid fa-heart text-warning fs-5" data-value="1"></i>
+                        <i class="fa-solid fa-heart text-warning fs-5" data-value="2"></i>
+                        <i class="fa-solid fa-heart text-warning fs-5" data-value="3"></i>
+                        <i class="fa-regular fa-heart text-warning fs-5" data-value="4"></i>
+                        <i class="fa-regular fa-heart text-warning fs-5" data-value="5"></i>
+                    </div>
+                </div>
+
+                <div class="product-details">
+                    <span class="price">₱55</span>
+                    <span class="sold-count">20 sold</span>
+                </div>
+
+                <div class="view-details">
+                <a href="{{ route('product.show', ['slug' => 'baby-mushroom']) }}" class="btn-details">
+        View Details
+    </a>
                 </div>
             </div>
         </div>
@@ -261,8 +258,8 @@
         <div class="col">
             <div class="product-card">
                 <img src="{{ asset('image/crochet-top.jpg') }}" alt="Mini Fuzzy Flower" class="product-img">
+                <p class="product-text">Handmade Crochet Top</p>
                 <div class="product-name-daily">
-                    <p class="product-text">Handmade Crochet Top</p>
                     <div class="heart-rating">
                         <i class="fa-solid fa-heart text-warning fs-5" data-value="1"></i>
                         <i class="fa-solid fa-heart text-warning fs-5" data-value="2"></i>
@@ -278,8 +275,9 @@
                 </div>
 
                 <div class="view-details">
-                <div class="view-details">
-                <button class="btn-details">View Details</button>
+                <a href="{{ route('product.show', ['slug' => 'crochet-top']) }}" class="btn-details">
+        View Details
+    </a>
                 </div>
             </div>
         </div>
@@ -287,8 +285,8 @@
         <div class="col">
             <div class="product-card">
                 <img src="{{ asset('image/single-tulip.jpg') }}" alt="Mini Fuzzy Flower" class="product-img">
+                <p class="product-text">Single Tulip Crochet Bouquet</p>
                 <div class="product-name-daily">
-                    <p class="product-text">Single Tulip Crochet Bouquet</p>
                     <div class="heart-rating">
                         <i class="fa-solid fa-heart text-warning fs-5" data-value="1"></i>
                         <i class="fa-solid fa-heart text-warning fs-5" data-value="2"></i>
@@ -304,16 +302,17 @@
                 </div>
 
                 <div class="view-details">
-                <div class="view-details">
-                <button class="btn-details">View Details</button>
+                <a href="{{ route('product.show', ['slug' => 'single-tulip']) }}" class="btn-details">
+        View Details
+    </a>
                 </div>
             </div>
         </div>
         <div class="col">
             <div class="product-card">
                 <img src="{{ asset('image/sunflower.jpg') }}" alt="Mini Fuzzy Flower" class="product-img">
+                <p class="product-text">Crochet Sunflower Bouquet</p>
                 <div class="product-name-daily">
-                    <p class="product-text">Crochet Sunflower Bouquet</p>
                     <div class="heart-rating">
                         <i class="fa-solid fa-heart text-warning fs-5" data-value="1"></i>
                         <i class="fa-solid fa-heart text-warning fs-5" data-value="2"></i>
@@ -329,8 +328,9 @@
                 </div>
 
                 <div class="view-details">
-                <div class="view-details">
-                <button class="btn-details">View Details</button>
+                <a href="{{ route('product.show', ['slug' => 'sunflower']) }}" class="btn-details">
+        View Details
+    </a>
                 </div>
             </div>
         </div>
@@ -338,8 +338,8 @@
         <div class="col">
             <div class="product-card">
                 <img src="{{ asset('image/earrings.jpg') }}" alt="Mini Fuzzy Flower" class="product-img">
+                <p class="product-text">Tulip Earrings</p>
                 <div class="product-name-daily">
-                    <p class="product-text">Tulip Earrings</p>
                     <div class="heart-rating">
                         <i class="fa-solid fa-heart text-warning fs-5" data-value="1"></i>
                         <i class="fa-solid fa-heart text-warning fs-5" data-value="2"></i>
@@ -355,8 +355,9 @@
                 </div>
 
                 <div class="view-details">
-                <div class="view-details">
-                <button class="btn-details">View Details</button>
+                <a href="{{ route('product.show', ['slug' => 'earrings']) }}" class="btn-details">
+        View Details
+    </a>
                 </div>
             </div>
         </div>
@@ -364,8 +365,8 @@
         <div class="col">
             <div class="product-card">
                 <img src="{{ asset('image/headband.jpg') }}" alt="Mini Fuzzy Flower" class="product-img">
+                <p class="product-text">Tulip Headband</p>
                 <div class="product-name-daily">
-                    <p class="product-text">Tulip Headband</p>
                     <div class="heart-rating">
                         <i class="fa-solid fa-heart text-warning fs-5" data-value="1"></i>
                         <i class="fa-solid fa-heart text-warning fs-5" data-value="2"></i>
@@ -381,7 +382,9 @@
                 </div>
 
                 <div class="view-details">
-                    <button class="btn-details">View Details</button>
+                <a href="{{ route('product.show', ['slug' => 'headband']) }}" class="btn-details">
+        View Details
+    </a>
                 </div>
             </div>
         </div>
@@ -389,8 +392,8 @@
         <div class="col">
             <div class="product-card">
                 <img src="{{ asset('image/daisy-bracelet.jpg') }}" alt="Mini Fuzzy Flower" class="product-img">
+                <p class="product-text">Daisy Bracelet</p>
                 <div class="product-name-daily">
-                    <p class="product-text">Daisy Bracelet</p>
                     <div class="heart-rating">
                         <i class="fa-solid fa-heart text-warning fs-5" data-value="1"></i>
                         <i class="fa-solid fa-heart text-warning fs-5" data-value="2"></i>
@@ -406,15 +409,20 @@
                 </div>
 
                 <div class="view-details">
-                    <button class="btn-details">View Details</button>
+                <a href="{{ route('product.show', ['slug' => 'daisybracelet']) }}" class="btn-details">
+        View Details
+    </a>
                 </div>
             </div>
+        </div>
         </div>
     </div>
 
     <div class="daily-see-more-container scroll-fade">
-            <button class="daily-see-more-btn" id="seeMoreBtn">Login to see more</button>
-        </div>
+    <button class="daily-see-more-btn" id="seeMoreBtn" onclick="window.location.href='{{ route('LoginSignUp') }}'">
+        Login to see more
+    </button>
+</div>
     </section>
 
 <!-- footer section starts-->

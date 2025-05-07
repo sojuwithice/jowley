@@ -68,62 +68,31 @@
     </div>
 </header>
 
-<div class="notification-content-wrapper">
-    <div class="container">
-        <div class="header">
-            <h1>Your Notifications</h1>
-            <div class="action-buttons">
-                <form action="{{ route('notifications.mark-all-read') }}" method="POST">
-                    @csrf
-                    <button type="submit" class="btn-mark-all-read">
-                        <i class="fas fa-check-circle me-1"></i> Mark All as Read
-                    </button>
-                </form>
-                <form action="{{ route('notifications.clear-all') }}" method="POST">
-                    @csrf
-                    <button type="submit" class="btn-clear-all">
-                        <i class="fas fa-trash-alt me-1"></i> Clear All
-                    </button>
-                </form>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-body">
-                @forelse($notifications as $notification)
-                    <div class="notification-item {{ $notification->unread() ? 'unread' : '' }}">
-                        <div class="notification-content">
-                            <div class="icon">
-                                <i class="fas fa-bell text-primary fs-4"></i>
-                            </div>
-                            <div class="details">
-                                <h5>{{ $notification->data['title'] ?? 'Notification' }}</h5>
-                                <p>{{ $notification->data['message'] ?? '' }}</p>
-                                <small>{{ $notification->created_at->diffForHumans() }}</small>
-                            </div>
-                        </div>
+<div class="container my-5">
+    <h2 class="mb-4 text-center">Top 10 Best-Selling Products</h2>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        @foreach ($topSelling as $index => $product)
+            <div class="col">
+                <a href="{{ route('product.show', ['slug' => $product->slug]) }}">
+                    <div class="product-card">
+                        <img src="{{ asset('image/' . $product->image) }}" alt="{{ $product->name }}" class="product-img">
+                        <p class="top-rank">Top <span>{{ $index + 1 }}</span></p>
+                        <p class="product-name fw-bold">{{ $product->name }}</p>
+                        <div class="sales-info">Monthly Sales {{ $product->monthly_sales }}</div>
                     </div>
-                @empty
-                    <div class="no-notifications">
-                        <i class="fas fa-bell-slash text-muted fs-1 mb-3"></i>
-                        <p>No notifications yet</p>
-                    </div>
-                @endforelse
+                </a>
             </div>
-        </div>
+        @endforeach
     </div>
 </div>
+@endsection
 
 
-        <!-- Only show pagination if using paginate() -->
-        @if(method_exists($notifications, 'links'))
-        <div class="mt-3 d-flex justify-content-center">
-            {{ $notifications->links() }}
-        </div>
-        @endif
-    </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {

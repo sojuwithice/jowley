@@ -33,7 +33,7 @@
 
         <div id="profileMenu" class="profile-menu">
             <ul>
-                <li><a href="{{ route('usersprofile') }}">My Profile</a></li>
+            <li><a href="{{ route('usersprofile') }}">My Profile</a></li>
                 <li><a href="{{ route('purchasepage') }}">My Purchases</a></li>
                 <li><a href="{{ route('logout') }}">Logout</a></li>
             </ul>
@@ -106,7 +106,7 @@
         <div class="order-status">
             <span class="status-info">{{ ucfirst($order->status) }}</span>
             @if($order->status == 'to pay')
-            <span class="to-pay">| To Pay</span>
+            <span class="to-pay"></span>
             @endif
         </div>
 
@@ -150,6 +150,13 @@
                 @elseif($order->status == 'to ship' || $order->status == 'to receive')
                 <button class="contact-btn">Contact Seller</button>
                 @elseif($order->status == 'completed')
+                <button class="rate-product-btn buy-again-btn" 
+                data-product-id="{{ $orderItem->product->id }}"
+                data-product-name="{{ $orderItem->product->name }}"
+                data-product-desc="{{ $orderItem->product->description }}"
+                data-product-variation="{{ $orderItem->variation }}"
+                data-order-item-id="{{ $orderItem->id }}">Rate Product
+                </button>
                 <button class="buy-again-btn">Buy Again</button>
                 @elseif($order->status == 'cancelled')
                 <button class="details-btn">Cancellation Details</button>
@@ -230,67 +237,142 @@
 </div>
 
 
+
 <!-- Rating Modal -->
-<div class="rating-modal" id="ratingModal">
-    <div class="rating-modal-content">
-        <button class="close-modal" id="closeModal">&times;</button>
-        <div class="rating-modal-header">
-            <h2>Rate Product</h2>
+<div class="modal fade" id="ratingModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">Rate Product</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Product Info Section with Image -->
+        <div class="product-info-section mb-4 d-flex align-items-start gap-3">
+          <div>
+            <h4 id="ratingProductName">Product Name</h4>
+            <p id="ratingProductDesc" class="text-muted">Product Description</p>
+            <p class="variation" id="ratingProductVariation">Variation: </p>
+          </div>
         </div>
-        
-        <div class="rating-product-info">
-            <h3>Mini Fuzzy Flower</h3>
-            <p>Adorable mini fuzzy flowers, perfect for adding a soft, handmade touch to your space!</p>
-            <p class="variation">Variation: Pink</p>
-        </div>
-        
-        <hr class="rating-divider">
-        
-        <div class="rating-section">
-            <h4>Product Quality</h4>
-            <table class="rating-table">
-                <tr>
-                    <th>Appearance:</th>
-                    <td><textarea placeholder="Write about this Aspect"></textarea></td>
-                </tr>
-                <tr>
-                    <th>Material Quality:</th>
-                    <td><textarea placeholder="Write about this Aspect"></textarea></td>
-                </tr>
-            </table>
-            
-            <div class="rating-options">
-                <label>
-                    <input type="checkbox"> Show username on your review
-                </label>
-                <label>
-                    <input type="checkbox"> Add Photo
-                </label>
-                <label>
-                    <input type="checkbox"> Add Video
-                </label>
+
+        <hr>
+
+        <!-- Heart Rating Section -->
+        <div class="heart-rating mb-4">
+          <h5>Product Quality</h5>
+          <div class="d-flex align-items-center">
+            <div class="hearts" id="productRating">
+              <i class="bi bi-heart heart" data-value="1"></i>
+              <i class="bi bi-heart heart" data-value="2"></i>
+              <i class="bi bi-heart heart" data-value="3"></i>
+              <i class="bi bi-heart heart" data-value="4"></i>
+              <i class="bi bi-heart heart" data-value="5"></i>
             </div>
+            <span class="ms-2 rating-text">0/5</span>
+          </div>
+          <input type="hidden" id="ratingValue" name="rating" value="0">
         </div>
-        
-        <hr class="rating-divider">
-        
-        <div class="rating-section">
-            <h4>About Service</h4>
-            <div class="rating-options">
-                <label>
-                    <input type="checkbox"> Seller Service
-                </label>
-                <label>
-                    <input type="checkbox"> Delivery Service
-                </label>
-            </div>
-        </div>
-        
-        <div class="rating-modal-footer">
-            <button class="rating-cancel">Cancel</button>
-            <button class="rating-confirm">Confirm</button>
-        </div>
+
+        <!-- Product Quality Section -->
+<div class="review-box">
+  <div class="table-responsive">
+    <table class="table table-borderless mb-0">
+      <tr>
+        <td class="w-25">Appearance:</td>
+        <td><textarea class="form-control" placeholder="Write about this Aspect" name="appearance_review"></textarea></td>
+      </tr>
+      <tr>
+        <td class="w-25">Material Quality:</td>
+        <td><textarea class="form-control" placeholder="Write about this Aspect" name="material_review" style="margin-bottom: 2rem;"></textarea></td>
+      </tr>
+    </table>
+  </div>
+
+  
+  <div class="d-flex align-items-center mb-4">
+    <!-- Show Username -->
+    <div class="form-check mb-0 me-4">
+        <input class="form-check-input" type="checkbox" id="showUsername" name="show_username">
+        <label class="form-check-label" for="showUsername">Show username on your review</label>
     </div>
+
+
+    <!-- Media Upload Section -->
+    <div class="d-flex flex-wrap gap-2">
+      <!-- Photo Upload -->
+      <div class="image-upload-container">
+      <label class="upload-label d-flex flex-column align-items-center p-2 rounded text-center">
+        <input type="file" id="productImage" accept="image/*" class="d-none">
+          <span class="fs-6">Add Photo</span>
+        </label>
+        <div class="image-preview mt-2 d-flex gap-2" id="imagePreview"></div>
+      </div>
+
+      <!-- Video Upload -->
+      <div class="video-upload-container">
+      <label class="upload-label d-flex flex-column align-items-center p-2 rounded text-center"> 
+        <input type="file" id="productVideo" accept="video/*" class="d-none">
+          <span class="fs-6">Add Video</span>
+        </label>
+        <div class="video-preview mt-2 d-flex gap-2" id="videoPreview"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+        <!-- Service Rating Section -->
+        <div class="service-rating mb-4">
+          <h5>About Service</h5>
+          <div class="service-item mb-3">
+            <p class="mb-1">Seller Service</p>
+            <div class="hearts" id="sellerRating">
+              <i class="bi bi-heart heart" data-value="1"></i>
+              <i class="bi bi-heart heart" data-value="2"></i>
+              <i class="bi bi-heart heart" data-value="3"></i>
+              <i class="bi bi-heart heart" data-value="4"></i>
+              <i class="bi bi-heart heart" data-value="5"></i>
+            </div>
+            <input type="hidden" id="sellerRatingValue" name="seller_rating" value="0">
+          </div>
+          <div class="service-item">
+            <p class="mb-1">Delivery Service</p>
+            <div class="hearts" id="deliveryRating">
+              <i class="bi bi-heart heart" data-value="1"></i>
+              <i class="bi bi-heart heart" data-value="2"></i>
+              <i class="bi bi-heart heart" data-value="3"></i>
+              <i class="bi bi-heart heart" data-value="4"></i>
+              <i class="bi bi-heart heart" data-value="5"></i>
+            </div>
+            <input type="hidden" id="deliveryRatingValue" name="delivery_rating" value="0">
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+  <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+  <button type="button" class="btn custom-pink" id="submitRating">Submit Review</button>
+</div>
+
+    
+    </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Rating Success Modal -->
+<div class="modal fade" id="ratingSuccessModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content custom-modal text-center p-4">
+      <div class="checkmark-wrapper mx-auto mb-3">
+        <i class="bi bi-check-lg check-icon"></i>
+      </div>
+      <p class="modal-text">Your review has been submitted successfully.</p>
+    </div>
+  </div>
 </div>
 
 
@@ -338,23 +420,23 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-
 <script>
 document.getElementById('shopMoreBtn').addEventListener('click', function() {
     window.location.href = '{{ route("shop.index") }}';
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-    // Initialize variables
     let currentOrderId = null;
     let cancelReason = null;
-    
-    // Initialize modals
+    let currentProductId = null;
+    let currentOrderItemId = null;
+
     const cancelReasonModal = new bootstrap.Modal(document.getElementById('cancelReasonModal'));
     const confirmCancelModal = new bootstrap.Modal(document.getElementById('confirmCancelModal'));
     const cancelSuccessModal = new bootstrap.Modal(document.getElementById('cancelSuccessModal'));
-    
-    // Scroll Fade Animation
+    const ratingModal = new bootstrap.Modal(document.getElementById('ratingModal'));
+    const ratingSuccessModal = new bootstrap.Modal(document.getElementById('ratingSuccessModal'));
+
     const scrollElements = document.querySelectorAll(".scroll-fade");
     const scrollObserver = new IntersectionObserver(
         (entries) => {
@@ -366,11 +448,9 @@ document.addEventListener("DOMContentLoaded", function () {
     );
     scrollElements.forEach((el) => scrollObserver.observe(el));
 
-    // Initialize tab functionality
     const tabs = document.querySelectorAll('.order-status-tabs .tab');
     const orders = document.querySelectorAll('.order-box');
-    
-    // Function to filter orders by status
+
     function filterOrders(status) {
         orders.forEach(order => {
             const orderStatus = order.getAttribute('data-status');
@@ -381,8 +461,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     }
-    
-    // Tab click event
+
     tabs.forEach(tab => {
         tab.addEventListener('click', () => {
             tabs.forEach(t => t.classList.remove('active'));
@@ -391,11 +470,9 @@ document.addEventListener("DOMContentLoaded", function () {
             filterOrders(status);
         });
     });
-    
-    // Initialize with "All" tab selected
+
     document.querySelector('.tab[data-status="all"]').click();
 
-    // Cancel Order Flow - Fixed this section
     document.querySelectorAll('.cancel-btn').forEach(button => {
         button.addEventListener('click', function(e) {
             e.preventDefault();
@@ -404,8 +481,7 @@ document.addEventListener("DOMContentLoaded", function () {
             cancelReasonModal.show();
         });
     });
-    
-    // Proceed to confirmation after selecting reason
+
     document.getElementById('proceedToConfirm').addEventListener('click', function() {
         const selectedReason = document.querySelector('input[name="cancel_reason"]:checked');
         if (selectedReason) {
@@ -416,76 +492,237 @@ document.addEventListener("DOMContentLoaded", function () {
             alert('Please select a reason for cancellation.');
         }
     });
-    
-    // Handle final confirmation
+
     document.getElementById('confirmCancelBtn').addEventListener('click', async function() {
-    if (!currentOrderId || !cancelReason) return;
+        if (!currentOrderId || !cancelReason) return;
 
-    const confirmBtn = this;
-    confirmBtn.disabled = true;
-    confirmBtn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Cancelling...';
+        const confirmBtn = this;
+        confirmBtn.disabled = true;
+        confirmBtn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Cancelling...';
 
-    try {
-        const response = await fetch(`/orders/${currentOrderId}/cancel`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify({ 
-                reason: cancelReason,
-                _token: document.querySelector('meta[name="csrf-token"]').content
-            })
+        try {
+            const response = await fetch(`/orders/${currentOrderId}/cancel`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({ 
+                    reason: cancelReason,
+                    _token: document.querySelector('meta[name="csrf-token"]').content
+                })
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.message || 'Failed to cancel order');
+            }
+
+            confirmCancelModal.hide();
+            cancelSuccessModal.show();
+
+            const orderBox = document.querySelector(`.order-box[data-order-id="${currentOrderId}"]`);
+            if (orderBox) {
+                orderBox.setAttribute('data-status', 'cancelled');
+                const statusInfo = orderBox.querySelector('.status-info');
+                if (statusInfo) statusInfo.textContent = 'Cancelled';
+            }
+
+            setTimeout(() => {
+                cancelSuccessModal.hide();
+                location.reload();
+            }, 2000);
+        } catch (error) {
+            console.error('Cancel failed:', error);
+            alert(error.message || 'Failed to cancel order. Please try again.');
+        } finally {
+            confirmBtn.disabled = false;
+            confirmBtn.textContent = 'Yes';
+        }
+    });
+
+    function setupHeartRating(containerId, valueInputId, textElement = null) {
+        const hearts = document.querySelectorAll(`#${containerId} .heart`);
+        const valueInput = document.getElementById(valueInputId);
+        
+        hearts.forEach(heart => {
+            heart.addEventListener('click', function() {
+                const value = parseInt(this.getAttribute('data-value'));
+                valueInput.value = value;
+                
+                hearts.forEach((h, index) => {
+                    if (index < value) {
+                        h.classList.add('bi-heart-fill', 'text-danger');
+                        h.classList.remove('bi-heart');
+                    } else {
+                        h.classList.remove('bi-heart-fill', 'text-danger');
+                        h.classList.add('bi-heart');
+                    }
+                });
+                
+                if (textElement) {
+                    textElement.textContent = `${value}/5`;
+                }
+            });
+        });
+    }
+
+    setupHeartRating('productRating', 'ratingValue', document.querySelector('.rating-text'));
+    setupHeartRating('sellerRating', 'sellerRatingValue');
+    setupHeartRating('deliveryRating', 'deliveryRatingValue');
+
+    function handleMediaUpload(inputId, previewId) {
+        const input = document.getElementById(inputId);
+        const preview = document.getElementById(previewId);
+        
+        input.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            preview.innerHTML = '';
+            
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    let mediaHTML = '';
+                    const isImage = file.type.startsWith('image/');
+                    
+                    if (isImage) {
+                        mediaHTML = `<img src="${e.target.result}" class="img-thumbnail" style="max-height:150px;">`;
+                    } else if (file.type.startsWith('video/')) {
+                        mediaHTML = `<video controls class="img-thumbnail" style="max-height:150px;"><source src="${e.target.result}" type="${file.type}"></video>`;
+                    }
+                    
+                    preview.innerHTML = `
+                        <div class="position-relative">
+                            ${mediaHTML}
+                            <button type="button" class="btn-close position-absolute top-0 end-0 m-1 bg-white rounded-circle" 
+                                    aria-label="Remove ${isImage ? 'image' : 'video'}"></button>
+                        </div>
+                    `;
+                    
+                    preview.querySelector('.btn-close').addEventListener('click', function() {
+                        preview.innerHTML = '';
+                        input.value = '';
+                    });
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    }
+
+    handleMediaUpload('productImage', 'imagePreview');
+    handleMediaUpload('productVideo', 'videoPreview');
+
+    document.querySelectorAll('.rate-product-btn').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            currentProductId = this.dataset.productId;
+            currentOrderItemId = this.dataset.orderItemId;
+            
+            document.getElementById('ratingProductName').textContent = this.dataset.productName;
+            document.getElementById('ratingProductDesc').textContent = this.dataset.productDesc;
+            document.getElementById('ratingProductVariation').textContent = 'Variation: ' + (this.dataset.productVariation || 'Standard');
+
+            resetRatingForm();
+            ratingModal.show();
+        });
+    });
+
+    function resetRatingForm() {
+        ['ratingValue', 'sellerRatingValue', 'deliveryRatingValue'].forEach(id => {
+            document.getElementById(id).value = 0;
         });
 
-        const data = await response.json();
+        document.querySelectorAll('.heart').forEach(heart => {
+            heart.classList.remove('bi-heart-fill', 'text-danger');
+            heart.classList.add('bi-heart');
+        });
 
-        if (!response.ok) {
-            throw new Error(data.message || 'Failed to cancel order');
-        }
+        document.querySelector('.rating-text').textContent = '0/5';
 
-        confirmCancelModal.hide();
-        cancelSuccessModal.show();
+        document.querySelector('[name="appearance_review"]').value = '';
+        document.querySelector('[name="material_review"]').value = '';
+        document.getElementById('showUsername').checked = false;
 
-        // Update UI
-        const orderBox = document.querySelector(`.order-box[data-order-id="${currentOrderId}"]`);
-        if (orderBox) {
-            orderBox.setAttribute('data-status', 'cancelled');
-            const statusInfo = orderBox.querySelector('.status-info');
-            if (statusInfo) statusInfo.textContent = 'Cancelled';
-        }
+        document.getElementById('imagePreview').innerHTML = '';
+        document.getElementById('videoPreview').innerHTML = '';
 
-        setTimeout(() => {
-            cancelSuccessModal.hide();
-            location.reload();
-        }, 2000);
-    } catch (error) {
-        console.error('Cancel failed:', error);
-        alert(error.message || 'Failed to cancel order. Please try again.');
-    } finally {
-        confirmBtn.disabled = false;
-        confirmBtn.textContent = 'Yes';
-    }
-});
-
-
-    // Rating Modal Handling
-    const ratingModal = document.getElementById('ratingModal');
-    const closeModalBtn = document.getElementById('closeModal');
-    const ratingCancelBtn = document.querySelector('.rating-cancel');
-
-    function showRatingModal() {
-        ratingModal.style.display = 'block';
-        document.body.style.overflow = 'hidden';
+        document.getElementById('productImage').value = '';
+        document.getElementById('productVideo').value = '';
     }
 
-    function hideRatingModal() {
-        ratingModal.style.display = 'none';
-        document.body.style.overflow = '';
-    }
+    document.getElementById('submitRating').addEventListener('click', async function() {
+        const submitBtn = this;
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Submitting...';
+
+        try {
+            const ratingValue = document.getElementById('ratingValue').value;
+            if (!ratingValue || ratingValue < 1) {
+                throw new Error('Please provide at least a 1-star rating');
+            }
+
+            const formData = new FormData();
+
+            const showUsernameChecked = document.getElementById('showUsername').checked;
+
+            formData.append('product_id', currentProductId);
+            formData.append('order_item_id', currentOrderItemId);
+            formData.append('rating', ratingValue);
+            formData.append('seller_rating', document.getElementById('sellerRatingValue').value);
+            formData.append('delivery_rating', document.getElementById('deliveryRatingValue').value);
+            formData.append('appearance_review', document.querySelector('[name="appearance_review"]').value);
+            formData.append('material_review', document.querySelector('[name="material_review"]').value);
+            formData.append('show_username', showUsername ? 1 : 0);
+            formData.append('_token', document.querySelector('meta[name="csrf-token"]').content);
+
             
-    // Profile menu toggle
+            
+            const imageFile = document.getElementById('productImage').files[0];
+            if (imageFile) formData.append('image', imageFile);
+            
+            const videoFile = document.getElementById('productVideo').files[0];
+            if (videoFile) formData.append('video', videoFile);
+
+            const response = await fetch('{{ route("submit.rating") }}', {
+                method: 'POST',
+                body: formData
+            });
+
+            const result = await response.json();
+
+            if (!response.ok || !result.success) {
+                throw new Error(result.message || 'Rating submission failed');
+            }
+
+            ratingModal.hide();
+            ratingSuccessModal.show();
+
+            document.querySelectorAll('.rate-product-btn').forEach(btn => {
+                if (btn.dataset.orderItemId == currentOrderItemId) {
+                    btn.innerHTML = '<i class="bi bi-check-circle-fill text-success"></i> Rated';
+                    btn.classList.add('disabled');
+                    btn.style.pointerEvents = 'none';
+                }
+            });
+
+            setTimeout(() => ratingSuccessModal.hide(), 2000);
+
+        } catch (error) {
+            console.error('Rating submission error:', error);
+            alert(error.message || 'Failed to submit rating. Please try again.');
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Submit Review';
+        }
+    });
+
+    document.querySelector('#ratingSuccessModal .btn-primary').addEventListener('click', function() {
+        ratingSuccessModal.hide();
+    });
+
     document.getElementById('profileMenuTrigger')?.addEventListener('click', function (event) {
         event.preventDefault();
         const profileMenu = document.getElementById('profileMenu');
@@ -498,31 +735,9 @@ document.addEventListener("DOMContentLoaded", function () {
             profileMenu.style.display = 'none';
         }
     });
-
-    // Event listeners for closing the modal
-    closeModalBtn.addEventListener('click', hideRatingModal);
-    ratingCancelBtn.addEventListener('click', hideRatingModal);
-
-    // Close modal when clicking outside the modal content
-    ratingModal.addEventListener('click', function(e) {
-        if (e.target === ratingModal) {
-            hideRatingModal();
-        }
-    });
-
-    // Connect "Rate Seller" buttons to the modal
-    document.querySelectorAll('.rate-seller').forEach(button => {
-        button.addEventListener('click', function() {
-            showRatingModal();
-        });
-    });
-
-    // Confirm button functionality
-    document.querySelector('.rating-confirm').addEventListener('click', function() {
-        alert('Rating submitted!');
-        hideRatingModal();
-    });
 });
 </script>
+
+
 </body>
 </html>

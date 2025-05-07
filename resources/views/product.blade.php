@@ -41,8 +41,8 @@
     <div id="profileMenu" class="profile-menu">
         <ul>
         <li><a href="{{ route('usersprofile') }}">My Profile</a></li>
-            <li><a href="#">My Purchases</a></li>
-            <li><a href="{{ route('logout') }}">Logout</a></li>
+                <li><a href="{{ route('purchasepage') }}">My Purchases</a></li>
+                <li><a href="{{ route('logout') }}">Logout</a></li>
         </ul>
     </div>
 @else
@@ -66,10 +66,11 @@
 
 
     <nav class="navbar">
-        <a href="#home">Home</a>
-        <a href="#products">Products</a>
-      <a href="#faqs">FAQs</a>
+        <a href="{{ route('homepage') }}">Home</a>
+        <a href="{{ route('shop.index') }}">Products</a>
+        <a href="{{ route('faqs') }}">FAQs</a>
     </nav>
+
 
     <div class="header-right"> 
         <div class="search-bar">
@@ -162,6 +163,8 @@
 </div>
 </form>
 
+
+
         <!-- Success Modal -->
         <div class="modal fade" id="cartSuccessModal" tabindex="-1" aria-labelledby="cartSuccessModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -189,24 +192,76 @@
         
 
 
-<div class="container my-5">
-    <h2 class="fw-bold">Product Ratings</h2>
-    <p class="text-warning fw-bold">⭐ 4.9 out of 5</p>
+<div class="list-group">
+<h2 class="fw-bold">Product Ratings</h2>
+    @foreach($product->ratings as $rating)
+        <div class="list-group-item">
+            <div class="d-flex align-items-center gap-3 mb-2">
+                <p class="fw-bold mb-0">
+                    @if($rating->show_username)
+                        {{ $rating->user->username ?? 'Anonymous' }}
+                    @else
+                        Anonymous
+                    @endif
+                    <i class="bi bi-heart-fill text-danger"></i>
+    {{ number_format($rating->services['overall_rating'] ?? 0, 1) }}
+                </p>
+            </div>
 
-    <div class="list-group">
-        <div class="list-group-item bg-light p-3 rounded mb-2">
-            <p class="fw-bold mb-1">Aike Barin ⭐ 5.0</p>
-            <small class="text-muted">2021-09-25 21:21 | Variation: Blue</small>
-            <p>Excellent quality 👍</p>
-        </div>
+            <small class="text-muted d-block mb-2">
+                {{ $rating->created_at->format('Y-m-d H:i') }}
+                @if(isset($rating->variation))
+                    | Variation: {{ $rating->variation }}
+                @endif
+            </small>
 
-        <div class="list-group-item bg-light p-3 rounded">
-            <p class="fw-bold mb-1">RebeccaJ ⭐ 5.0</p>
-            <small class="text-muted">2021-09-25 21:21 | Variation: Pink</small>
-            <p>Excellent quality 👍</p>
+            <!-- Appearance Review -->
+            <div class="mt-2">
+                <strong>Appearance Review:</strong>
+                <p class="mb-1">{{ $rating->appearance_review ?: 'No comment.' }}</p>
+            </div>
+
+            <!-- Material Quality Review -->
+            <div class="mt-2">
+                <strong>Material Quality Review:</strong>
+                <p class="mb-1">{{ $rating->material_quality_review ?: 'No comment.' }}</p>
+            </div>
+
+            <!-- Uploaded Photo -->
+            @if($rating->image_path)
+                <div class="mt-3">
+                    <strong>Uploaded Photo:</strong>
+                    <div class="image-preview mt-2">
+                        <img src="{{ asset('storage/' . $rating->image_path) }}" alt="Review Image" class="img-fluid">
+                    </div>
+                </div>
+            @endif
+
+            <!-- Uploaded Video -->
+            @if($rating->video_path)
+                <div class="mt-3">
+                    <strong>Uploaded Video:</strong>
+                    <div class="video-preview mt-2">
+                        <video controls>
+                            <source src="{{ asset('storage/' . $rating->video_path) }}" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                </div>
+            @endif
         </div>
-    </div>
+    @endforeach
+
+    @if($product->ratings->count() > 3)
+        <div class="text-center mt-3">
+            <a href="{{ route('products.reviews', $product->id) }}" class="btn btn-outline-primary">
+                See All Reviews
+            </a>
+        </div>
+    @endif
 </div>
+
+
 
 
 

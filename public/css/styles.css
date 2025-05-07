@@ -163,7 +163,7 @@ header .search-bar button {
     cursor: pointer;
     font-size: 1.8rem;
     color: #E32C89;
-}
+}         
 
 
 /*home page css*/
@@ -559,6 +559,15 @@ header .search-bar button {
     
 }
 
+.product-card .product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    border-radius: 15px;
+    overflow: hidden;
+    
+}
+
 h2.text-center {
     font-size: 30px; 
     font-family: Gabarito;
@@ -585,10 +594,8 @@ h2.text-center {
     background-color: #E32C89;
 }
 
-.top-rank span {
-    font-size: 20px;
-    font-weight: bold;
-}
+
+
 
 .product-name {
     position: absolute;
@@ -676,6 +683,24 @@ h2.text-center {
     transform: translateX(4px); /* Arrow slides right */
 }
 
+
+.see-all-btn {
+    background-color: #ff69b4; /* hot pink */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.see-all-btn:hover {
+    background-color: #ff4da6; /* darker pink on hover */
+}
 /* daily discoveries css*/
 
 .daily-container{
@@ -998,6 +1023,156 @@ h2.text-center {
         min-height: 50vh;
     }
 }
+
+
+
+
+.notification-content-wrapper {
+    position: relative; 
+    top: 150px; 
+    left: 0;
+    width: 100%;
+    padding: 10px;
+    background: #f4f4f4;
+   
+    z-index: 999; 
+}
+
+.notification-item {
+    border-left: 5px solid #ff69b4; 
+    background-color: #ffe6f2; 
+    padding: 15px;
+    transition: background-color 0.3s;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.header h1 {
+    font-size: 2rem;
+    margin: 0;
+    color:#E6007E;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-mark-all-read, .btn-clear-all {
+    padding: 8px 12px;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-mark-all-read {
+    background-color: transparent;
+    border: 1px solid #e6007e;
+    color: #e6007e;
+    border-radius: 20px;
+}
+
+.btn-mark-all-read:hover {
+    background-color: #e6007e;
+    color: #fff;
+}
+
+.btn-clear-all {
+    background-color: transparent;
+    border: 1px solid #e6007e;
+    color: #e6007e;
+    border-radius: 20px;
+}
+
+.btn-clear-all:hover {
+    background-color: #e6007e;
+    color: #fff;
+}
+
+/* Notification Card */
+.card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.notification-item {
+    border-left: 5px solid #ff69b4;
+    background-color: #ffe6f2;
+    padding: 15px;
+    transition: background-color 0.3s;
+}
+
+.notification-item.unread {
+    background-color: #ffccf2;
+}
+
+.notification-item:hover {
+    background-color: #ffb3d9;
+}
+
+.notification-content {
+    display: flex;
+    gap: 20px;
+}
+
+.icon {
+    flex-shrink: 0;
+}
+
+.details {
+    flex-grow: 1;
+}
+
+.details h5 {
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.details p {
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+}
+
+.details small {
+    color: #888;
+}
+
+/* Empty state for no notifications */
+.no-notifications {
+    text-align: center;
+    padding: 40px;
+}
+
+.no-notifications .fas {
+    font-size: 3rem;
+    color: #ccc;
+}
+
+.no-notifications p {
+    font-size: 1.2rem;
+    color: #666;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 @media (max-width: 768px) {

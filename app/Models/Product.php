@@ -23,4 +23,17 @@ public function carts()
     return $this->hasMany(Cart::class);
 }
 
+// Add to your Product model
+public function ratings()
+{
+    return $this->hasMany(Rating::class);
+}
+
+public function updateAverageRating()
+{
+    $this->average_rating = $this->ratings()->avg(
+        \DB::raw("JSON_EXTRACT(services, '$.overall_rating')")
+    );
+    $this->save();
+}
 }

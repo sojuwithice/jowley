@@ -23,13 +23,13 @@ class AdminController extends Controller
         // Fetch recent orders with product and order data
         $recentOrders = OrderItem::with(['order', 'product'])
             ->latest()
-            ->take(😎
+            ->take(8)
             ->get();
 
         // Fetch recent customers (excluding admins)
         $recentCustomers = User::where('is_admin', 0)
             ->latest()
-            ->take(😎
+            ->take(8)
             ->get();
 
         // Get monthly sales data (top 10 selling products this month)

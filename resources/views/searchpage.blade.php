@@ -44,7 +44,7 @@
 
         <div id="profileMenu" class="profile-menu">
             <ul>
-                <li><a href="#">My Profile</a></li>
+            <li><a href="{{ route('usersprofile') }}">My Profile</a></li>
                 <li><a href="{{ route('purchasepage') }}">My Purchases</a></li>
                 <li><a href="{{ route('logout') }}">Logout</a></li>
 
@@ -59,8 +59,11 @@
     <!-- Navigation Section -->
     <header class="scroll-fade">
         <nav class="navbar">
+        <nav class="navbar">
         <a href="{{ route('homepage') }}">Home</a>
-            <a href="#products">Products</a>
+        <a href="{{ route('shop.index') }}">Products</a>
+        <a href="{{ route('faqs') }}">FAQs</a>
+    </nav>
         </nav>
 
         <div class="header-right">

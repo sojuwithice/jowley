@@ -274,12 +274,16 @@ h3 {
     background-color: #d70042;
 }
 
+
+
 /* Product Ratings */
 .list-group-item {
     border: none;
     border-radius: 10px;
     padding: 15px;
-    background-color: #ffe6ec;
+    background-color: #fde4ea; 
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .fw-bold {
@@ -288,8 +292,56 @@ h3 {
 
 .text-muted {
     font-size: 14px;
-    color: gray;
+    color: #6c757d;
 }
+
+
+.image-preview img {
+    border-radius: 8px;
+    max-width: 100%;
+    max-height: 200px;
+    object-fit: cover;
+}
+
+.video-preview video {
+    border-radius: 8px;
+    max-width: 100%;
+    max-height: 300px;
+    object-fit: cover;
+}
+
+.list-group .list-group-item p {
+    margin: 0;
+}
+
+.list-group .list-group-item strong {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.list-group .list-group-item .mt-2 {
+    margin-top: 10px;
+}
+
+.list-group .list-group-item .mt-3 {
+    margin-top: 15px;
+}
+
+.bi-heart-fill {
+    margin-left: 4px;
+    margin-right: 2px;
+    color: #dc3545;
+}
+
+
+
+
+
+
+
+
+
 .color-options {
     display: flex;
     gap: 10px;

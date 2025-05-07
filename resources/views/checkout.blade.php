@@ -52,9 +52,9 @@
         <label for="toggler" class="fas fa-bars"></label>
         <a href="#" class="logo">Jowley's Crafts</a>
         <nav class="navbar">
-            <a href="#home">Home</a>
-            <a href="#products">Products</a>
-            <a href="#contactus">Contact Us</a>
+        <a href="{{ route('homepage') }}">Home</a>
+        <a href="{{ route('shop.index') }}">Products</a>
+        <a href="{{ route('faqs') }}">FAQs</a>
         </nav>
         <div class="header-right">
             <div class="search-bar">

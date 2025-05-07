@@ -95,7 +95,7 @@ $accountCreationDate = isset($_SESSION["created_at"]) ? $_SESSION["created_at"] 
          <span>My Purchase</span></button>
        </div>
        <div class="menu-item">
-         <button class="menu-button" onclick="toggleDropdown('notification-dropdown')">
+         <button class="menu-button" onclick="window.location.href='{{ route('notifications.all') }}'">
          <img src="image/notification.png" class="notification-i" width="25" height="25">
          <span>Notification</span></button>
        </div>

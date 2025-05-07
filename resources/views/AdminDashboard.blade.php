@@ -57,12 +57,13 @@
                 </li>
 
                 <li>
-                    <a href="#">
-                        <span class="icon">
-                            <ion-icon name="settings-outline"></ion-icon>
-                        </span>
-                        <span class="title">Settings</span>
-                    </a>
+                <a href="{{ route('settings') }}">
+                    <span class="icon">
+                        <ion-icon name="settings-outline"></ion-icon>
+                    </span>
+                    <span class="title">Settings</span>
+                </a>
+
                 </li>
 
                 <li>
