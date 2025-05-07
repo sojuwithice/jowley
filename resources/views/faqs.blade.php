@@ -31,6 +31,7 @@
         <h1 class="text-pink-600 text-2xl select-none" style="font-family: 'Oleo Script Swash Caps', cursive;">Jowley's Craft</h1>
       </div>
       <div class="flex items-center space-x-6 text-black text-sm">
+
         
 
       </div>
@@ -39,6 +40,24 @@
       <a href="{{route('homepage')}}" class="text-black text-base hover:underline">Home</a>
       <a href="{{route('shop.index')}}" class="text-black text-base hover:underline">Products</a>
       <a href="{{route('faqs')}}" class="text-black text-base hover:underline">FAQs</a>
+
+   
+      <form class="ml-10 flex items-center border border-pink-600 rounded-full px-3 py-1 max-w-xs w-full" action="#" method="GET" role="search">
+        <input
+          type="search"
+          name="search"
+          placeholder="Search..."
+          class="outline-none text-sm text-black placeholder-pink-600 bg-transparent flex-grow"
+          aria-label="Search"
+        />
+        <button type="submit" class="text-pink-600 ml-2">
+          <i class="fas fa-search"></i>
+        </button>
+      </form>
+      <button class="ml-6 text-pink-600 text-xl" aria-label="Cart">
+        <i class="fas fa-shopping-cart"></i>
+      </button>
+
     </nav>
   </header>
 
@@ -317,6 +336,7 @@
             profileMenu.style.display = 'none';
         }
     });
+
   </script>
 </body>
 </html>

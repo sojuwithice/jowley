@@ -189,6 +189,7 @@ Route::post('/orders/{order}/update-status', [OrderController::class, 'updateSta
     })->name('orders.orders');
 
 
+
 Route::middleware('auth')->post('/submit-rating', [RatingController::class, 'store']);
   
 Route::middleware('auth')->post('/submit-rating', [RatingController::class, 'store'])->name('submit.rating');
